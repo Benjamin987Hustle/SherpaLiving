@@ -5,16 +5,17 @@ const founders = [
   {
     name: 'Mauricio Carrillo',
     role: 'Co-Founder',
-    imageUrl: 'Public/Images/Mauricio.png',
+    imageUrl: `${import.meta.env.BASE_URL}Images/Mauricio.png`,
     bio: 'After studying in Ireland, France, Australia and Germany, I understood: I\'m a traveler. Meeting people, going on adventures, and learning from different cultures have become my passion.\n\nFor the last 5 years, I\'ve helped thousands of international students from all around the world find a home in Mexico. Kindness goes a long way.'
   },
   {
     name: 'Benjamin Egretaud',
     role: 'Co-Founder',
-    imageUrl: '/Images/benjamin.jpg',
+    imageUrl: `${import.meta.env.BASE_URL}Images/benjamin.jpg`,
     bio: 'Having experienced coming to Monterrey as an international student, I understood first hand a service like Sherpa Living was needed. The risk of falling victim to a scam can potentially ruin your entire semester when you are on a tight budget.\n\nHaving someone you can rely on, who understands your situation makes all the difference in the world, and that is what we want to be for upcoming students. Not just a housing service but a community who can welcome you and help you have the best semester of your life.'
   }
 ];
+
 
 const About = () => {
   return (
@@ -110,7 +111,7 @@ const About = () => {
   <ul className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
     
     <li className="flex items-center bg-white p-6 rounded-lg shadow-md">
-      <img src="/Images/Hand.png" alt="Safety" className="w-20 h-20 mr-6 self-center" />
+      <img src={`${import.meta.env.BASE_URL}Images/Hand.png`} alt="Safety" className="w-20 h-20 mr-6 self-center" />
       <div>
         <h3 className="font-bold text-lg text-gray-800">Safety:</h3>
         <p className="text-gray-600">
@@ -120,7 +121,7 @@ const About = () => {
     </li>
 
     <li className="flex items-center bg-white p-6 rounded-lg shadow-md">
-      <img src="/Images/Personnalized1.png" alt="Personalized Attention" className="w-20 h-20 mr-6 self-center" />
+      <img src={`${import.meta.env.BASE_URL}Images/Personnalized1.png`} alt="Personalized Attention" className="w-20 h-20 mr-6 self-center" />
       <div>
         <h3 className="font-bold text-lg text-gray-800">Personalized Attention:</h3>
         <p className="text-gray-600">
@@ -130,7 +131,7 @@ const About = () => {
     </li>
 
     <li className="flex items-center bg-white p-6 rounded-lg shadow-md">
-      <img src="/Images/Integrity1.png" alt="Integrity" className="w-32 h-32 mr-6 self-center" />
+      <img src={`${import.meta.env.BASE_URL}Images/Integrity1.png`} alt="Integrity" className="w-32 h-32 mr-6 self-center" />
       <div>
         <h3 className="font-bold text-lg text-gray-800">Integrity:</h3>
         <p className="text-gray-600">
@@ -140,7 +141,7 @@ const About = () => {
     </li>
 
     <li className="flex items-center bg-white p-6 rounded-lg shadow-md">
-      <img src="/Images/Excellence1.png" alt="Excellence" className="w-32 h-32 mr-6 self-center" />
+      <img src={`${import.meta.env.BASE_URL}Images/Excellence1.png`} alt="Excellence" className="w-32 h-32 mr-6 self-center" />
       <div>
         <h3 className="font-bold text-lg text-gray-800">Excellence:</h3>
         <p className="text-gray-600">
@@ -151,6 +152,7 @@ const About = () => {
 
   </ul>
 </section>
+
 
 
       {/* Founders Section */}

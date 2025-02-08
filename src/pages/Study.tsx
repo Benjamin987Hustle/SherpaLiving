@@ -108,8 +108,8 @@ const Study = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
           <div className="overflow-hidden rounded-lg shadow-lg transition-transform transform hover:scale-105">
             <img
-              src="/Images/GermanUni1.jpeg"
-              alt="Mapa del Campus de htw saar"
+               src={`${import.meta.env.BASE_URL}Images/GermanUni1.jpeg`} alt="Campus"  
+              
               className="w-full h-48 object-cover"
             />
             <div className="p-6">
@@ -123,8 +123,8 @@ const Study = () => {
           </div>
           <div className="overflow-hidden rounded-lg shadow-lg transition-transform transform hover:scale-105">
             <img
-              src="/Images/germanUni.jpeg"
-              alt="Vista de la Ciudad de Saarbrücken"
+              src={`${import.meta.env.BASE_URL}Images/germanUni.jpeg`} 
+              alt="Vista de la Ciudad de Saarbrücken"  
               className="w-full h-48 object-cover"
             />
             <div className="p-6">
@@ -137,7 +137,8 @@ const Study = () => {
           </div>
           <div className="overflow-hidden rounded-lg shadow-lg transition-transform transform hover:scale-105">
             <img
-              src="/Images/river.jpeg"
+              
+              src={`${import.meta.env.BASE_URL}Images/river.jpeg`}
               alt="Río Saar en Saarbrücken"
               className="w-full h-48 object-cover"
             />
