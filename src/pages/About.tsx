@@ -6,6 +6,7 @@ const founders = [
     name: 'Mauricio Carrillo',
     role: 'Co-Founder',
     imageUrl: '/Images/Mauricio.png',
+    <img src='/Images/Mauricio.png' /img>
     bio: 'After studying in Ireland, France, Australia and Germany, I understood: I\'m a traveler. Meeting people, going on adventures, and learning from different cultures have become my passion.\n\nFor the last 5 years, I\'ve helped thousands of international students from all around the world find a home in Mexico. Kindness goes a long way.'
   },
   {
