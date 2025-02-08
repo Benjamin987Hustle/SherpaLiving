@@ -123,7 +123,7 @@ const Study = () => {
           </div>
           <div className="overflow-hidden rounded-lg shadow-lg transition-transform transform hover:scale-105">
             <img
-              src="/Images/Uni.jpeg"
+              src="/Images/germanUni.jpeg"
               alt="Vista de la Ciudad de Saarbrücken"
               className="w-full h-48 object-cover"
             />
