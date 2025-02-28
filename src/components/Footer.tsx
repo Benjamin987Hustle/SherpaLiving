@@ -15,11 +15,11 @@ const Footer = () => {
               </div>
               <div className="flex items-center">
                 <Phone className="h-5 w-5 mr-2" />
-                <span>+1 (555) 123-4567</span>
+                <span>+49 (174) 8168174 </span>
               </div>
               <div className="flex items-center">
                 <MapPin className="h-5 w-5 mr-2" />
-                <span>123 Sherpa Street, Mountain View, CA</span>
+                <span>Monterrey Nuevo Leon, Mexico</span>
               </div>
             </div>
           </div>

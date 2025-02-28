@@ -89,8 +89,13 @@ const Study = () => {
         title="Estudia en Alemania con Prep-For-Study"
         subtitle="¡Tu puerta de entrada a una educación de alta calidad en Alemania!"
         imageUrl="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&q=80"
-        ctaText="Inscríbete Ahora"
       />
+     
+  
+   
+  
+       
+   
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="text-center mb-16">
@@ -175,10 +180,17 @@ const Study = () => {
             decisivo y únete a una comunidad de estudiantes internacionales 
             que están transformando su futuro.
           </p>
-          <button className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-8 rounded-lg transition duration-200">
+          <a
+          href='https://creatorapp.zohopublic.ca/sherpaliving/landlords-appartemnt/form-perma/Sherpa_Study/z0pTMgBkm3XVrpu4UfQKCnq8b9jks1WTnUR06C3R35QWBf3W4kZwe3sJGp1YDK8hEmkXqpkKB7EnhJnSQJWAT74Fbxb7a6qjvj9t'
+          target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg transition duration-200"
+          >
             Inscríbete Ahora
-          </button>
+          </a>
         </div>
+       
+
       </div>
     </div>
   );
