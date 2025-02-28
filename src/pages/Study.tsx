@@ -7,8 +7,8 @@ interface AccordionItemProps {
   icon: string;
   content: string;
 }
-
-// 2. On l’utilise dans la fonction AccordionItem
+// Commentaires dans le but de forcer le déploiemnt
+// 2. On l’utilise dans la fonction AccordionItem 
 function AccordionItem({ title, icon, content }: AccordionItemProps) {
   const [isOpen, setIsOpen] = useState(false);
 
