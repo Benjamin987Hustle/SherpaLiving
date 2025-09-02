@@ -51,26 +51,6 @@ const WorkWithUs = () => {
           </div>
         </div>
         
-        {/* Sección de Estadísticas */}
-        <div className="bg-blue-600 text-white rounded-lg p-8 mb-16">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-            <div>
-              <div className="text-4xl font-bold mb-2">95%</div>
-              <p>Tasa de ocupación</p>
-            </div>
-            
-            <div>
-              <div className="text-4xl font-bold mb-2">1000+</div>
-              <p>Propietarios satisfechos</p>
-            </div>
-            
-            <div>
-              <div className="text-4xl font-bold mb-2">48h</div>
-              <p>Vacante cubierta en promedio</p>
-            </div>
-          </div>
-        </div>
-        
         {/* Sección de Llamado a la Acción */}
         <div className="max-w-2xl mx-auto text-center">
           <h2 className="text-3xl font-bold text-center mb-8">Publica tu propiedad</h2>
