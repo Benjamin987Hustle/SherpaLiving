@@ -1,5 +1,5 @@
 import React from 'react';
-import { Shield, Users, ClipboardCheck, Search } from 'lucide-react';
+import { Shield, Users, ClipboardCheck, Search, Sparkles, UtensilsCrossed, Plane, Languages } from 'lucide-react';
 import Hero from '../components/Hero';
 
 const Living = () => {
@@ -68,6 +68,50 @@ const Living = () => {
               <h3 className="text-xl font-bold mb-2">Roommate Finder</h3>
               <p className="text-gray-600">Connect with compatible roommates in your area.</p>
             </div>
+
+            <div className="bg-white p-6 rounded-lg shadow-lg">
+              <img 
+                src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&q=80"
+                alt="Cleaning Services" 
+                className="w-full h-40 object-cover rounded-lg mb-4" 
+              />
+              <Sparkles className="h-6 w-6 text-blue-600 mb-2" />
+              <h3 className="text-xl font-bold mb-2">Cleaning Services</h3>
+              <p className="text-gray-600">Professional cleaning services to keep your living space spotless.</p>
+            </div>
+
+            <div className="bg-white p-6 rounded-lg shadow-lg">
+              <img 
+                src="https://images.unsplash.com/photo-1547573854-74d2a71d0826?auto=format&fit=crop&q=80"
+                alt="Meal Plans" 
+                className="w-full h-40 object-cover rounded-lg mb-4" 
+              />
+              <UtensilsCrossed className="h-6 w-6 text-blue-600 mb-2" />
+              <h3 className="text-xl font-bold mb-2">Meal Plans</h3>
+              <p className="text-gray-600">Flexible meal plans with local and international cuisine options.</p>
+            </div>
+
+            <div className="bg-white p-6 rounded-lg shadow-lg">
+              <img 
+                src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&q=80"
+                alt="Airport Pick-up" 
+                className="w-full h-40 object-cover rounded-lg mb-4" 
+              />
+              <Plane className="h-6 w-6 text-blue-600 mb-2" />
+              <h3 className="text-xl font-bold mb-2">Airport Pick-up</h3>
+              <p className="text-gray-600">Reliable transportation service from the airport to your new home.</p>
+            </div>
+
+            <div className="bg-white p-6 rounded-lg shadow-lg">
+              <img 
+                src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&q=80"
+                alt="Translation and Mediation" 
+                className="w-full h-40 object-cover rounded-lg mb-4" 
+              />
+              <Languages className="h-6 w-6 text-blue-600 mb-2" />
+              <h3 className="text-xl font-bold mb-2">Translation & Mediation</h3>
+              <p className="text-gray-600">Professional translation and mediation services to help you navigate.</p>
+            </div>
           </div>
         </div>
         
@@ -77,24 +121,24 @@ const Living = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="text-center">
               <img 
-                src="https://images.unsplash.com/photo-1560520031-3a4dc4e9de0c?auto=format&fit=crop&q=80"
-                alt="Browse Listings"
+                src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&q=80"
+                alt="Fill in the form"
                 className="w-full h-48 object-cover rounded-lg mb-4"
               />
               <div className="bg-blue-600 text-white w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">1</div>
-              <h3 className="text-xl font-bold mb-2">Browse Listings</h3>
-              <p className="text-gray-600">Explore our verified properties and find your perfect match.</p>
+              <h3 className="text-xl font-bold mb-2">Fill in the Form</h3>
+              <p className="text-gray-600">Tell us your preferences and requirements for your ideal home.</p>
             </div>
             
             <div className="text-center">
               <img 
-                src="https://images.unsplash.com/photo-1577962917302-cd874c4e31d2?auto=format&fit=crop&q=80"
-                alt="Book a Viewing"
+                src="https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?auto=format&fit=crop&q=80"
+                alt="Live Video Tour"
                 className="w-full h-48 object-cover rounded-lg mb-4"
               />
               <div className="bg-blue-600 text-white w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">2</div>
-              <h3 className="text-xl font-bold mb-2">Book a Viewing</h3>
-              <p className="text-gray-600">Schedule virtual or in-person viewings at your convenience.</p>
+              <h3 className="text-xl font-bold mb-2">Live Video Property Tour</h3>
+              <p className="text-gray-600">Take a real-time virtual tour of your selected properties.</p>
             </div>
             
             <div className="text-center">
@@ -105,7 +149,7 @@ const Living = () => {
               />
               <div className="bg-blue-600 text-white w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">3</div>
               <h3 className="text-xl font-bold mb-2">Secure Your Home</h3>
-              <p className="text-gray-600">We'll guide you through the entire rental process.</p>
+              <p className="text-gray-600">We'll handle all the paperwork and make your move-in smooth.</p>
             </div>
           </div>
         </div>
