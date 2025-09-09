@@ -4,19 +4,28 @@ interface HeroProps {
   title: string;
   subtitle: string;
   imageUrl: string;
+  imageAlt?: string;  // Nouvelle prop
   ctaText?: string;
   onCtaClick?: () => void;
   children?: ReactNode;
 }
 
-const Hero = ({ title, subtitle, imageUrl, ctaText, onCtaClick, children }: HeroProps) => {
+const Hero = ({ 
+  title, 
+  subtitle, 
+  imageUrl, 
+  imageAlt = "Hero background",  // Valeur par défaut
+  ctaText, 
+  onCtaClick, 
+  children 
+}: HeroProps) => {
   return (
     <div className="relative h-[600px] flex items-center justify-center">
       {/* Background Image */}
       <div className="absolute inset-0">
         <img
           src={imageUrl}
-          alt="Hero background"
+          alt={imageAlt}
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-black opacity-50"></div>
