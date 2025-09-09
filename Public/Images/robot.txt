@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://sherpaliving.mx/sitemap.xml
