@@ -121,7 +121,7 @@ const Living = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="text-center">
               <img 
-                src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&q=80"
+                src="/Images/fill_forms.png"
                 alt="Fill in the form"
                 className="w-full h-48 object-cover rounded-lg mb-4"
               />
@@ -132,9 +132,9 @@ const Living = () => {
             
             <div className="text-center">
               <img 
-                src="https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?auto=format&fit=crop&q=80"
+                src="/Images/Live_video_tour.png"
                 alt="Live Video Tour"
-                className="w-full h-48 object-cover rounded-lg mb-4"
+                className="w-full h-48 object-cover rounded-lg mb-4 object-[center_30%]" // Retrait de scale-110
               />
               <div className="bg-blue-600 text-white w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">2</div>
               <h3 className="text-xl font-bold mb-2">Live Video Property Tour</h3>
@@ -143,7 +143,7 @@ const Living = () => {
             
             <div className="text-center">
               <img 
-                src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&q=80"
+                src="/Images/secure_home.png"  // Le chemin doit correspondre exactement à la structure des dossiers
                 alt="Secure Your Home"
                 className="w-full h-48 object-cover rounded-lg mb-4"
               />
