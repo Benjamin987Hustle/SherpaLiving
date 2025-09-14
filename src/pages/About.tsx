@@ -1,176 +1,186 @@
 import React from 'react';
-import FounderBio from '../components/FounderBio';
 
+// --- Founder Bio Inner Component ---
+// To keep the main code clean, we create a specific component for the founder cards.
+const FounderBio = ({ name, role, imageUrl, bio }) => (
+  <div className="bg-white rounded-xl shadow-lg overflow-hidden max-w-sm mx-auto transform hover:scale-105 transition-transform duration-300">
+    <img 
+      className={`w-full h-64 object-cover ${
+        name === 'Benjamin Egretaud' 
+          ? 'object-[center_20%]' // CORRECTION: Une valeur < 50% remonte le cadrage pour voir le visage
+          : 'object-center'      // Position par défaut pour les autres
+      }`} 
+      src={imageUrl} 
+      alt={`Portrait of ${name}`} 
+    />
+    <div className="p-6">
+      <h3 className="text-2xl font-bold font-serif text-gray-800">{name}</h3>
+      <p className="text-blue-600 font-semibold">{role}</p>
+      {/* The 'whitespace-pre-wrap' class respects line breaks (\n) in your text */}
+      <p className="mt-4 text-gray-600 whitespace-pre-wrap">{bio}</p>
+    </div>
+  </div>
+);
+
+// --- Founders Data ---
+// Nothing changes here, it's already very good.
 const founders = [
   {
     name: 'Mauricio Carrillo',
     role: 'Co-Founder',
-    imageUrl: `${import.meta.env.BASE_URL}Images/Mauricio.png`,
+    imageUrl: '/Images/Mauricio.png', // Changed to use local image
     bio: 'After studying in Ireland, France, Australia and Germany, I understood: I\'m a traveler. Meeting people, going on adventures, and learning from different cultures have become my passion.\n\nFor the last 5 years, I\'ve helped thousands of international students from all around the world find a home in Mexico. Kindness goes a long way.'
   },
   {
     name: 'Benjamin Egretaud',
     role: 'Co-Founder',
-    imageUrl: `${import.meta.env.BASE_URL}Images/benjamin.jpg`,
+    imageUrl: '/Images/benjamin.jpg', // Changed to use local image
     bio: 'Having experienced coming to Monterrey as an international student, I understood first hand a service like Sherpa Living was needed. The risk of falling victim to a scam can potentially ruin your entire semester when you are on a tight budget.\n\nHaving someone you can rely on, who understands your situation makes all the difference in the world, and that is what we want to be for upcoming students. Not just a housing service but a community who can welcome you and help you have the best semester of your life.'
   }
 ];
 
-
-const About = () => {
+// --- Main About Page Component ---
+const AboutPage = () => {
   return (
     <>
       {/* Hero Section */}
-      <section className="relative bg-blue-100 py-24 text-center">
-        <div
-          className="absolute inset-0 bg-cover bg-center"
-          style={{
-            backgroundImage:
-              'url(https://images.unsplash.com/photo-1510563800743-aed236490d08?auto=format&fit=crop&w=1920&q=80&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDB8fG1haXNvbnxlbnwwfHwwfHx8MA%3D%3D)',
-          }}
-        ></div>
-        <div className="relative max-w-4xl mx-auto px-4 bg-white bg-opacity-80 rounded-lg shadow-lg p-8">
-          <h1 className="text-6xl font-extrabold font-serif text-gray-800">
+      <section className="relative text-center overflow-hidden">
+        {/* IMPROVEMENT: The image is now in an <img> tag for better SEO and accessibility */}
+        <img
+          src="https://images.unsplash.com/photo-1510563800743-aed236490d08?auto=format&fit=crop&w=1920&q=80"
+          alt="Warm interior of a welcoming home"
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+        {/* IMPROVEMENT: Added a dark overlay to improve text readability */}
+        <div className="absolute inset-0 bg-black opacity-50"></div>
+
+        <div className="relative py-32 md:py-48 max-w-4xl mx-auto px-4">
+          <h1 className="text-5xl md:text-7xl font-extrabold font-serif text-white">
             Your Home Away From Home
           </h1>
-          <p className="mt-6 text-2xl text-gray-600">
+          <p className="mt-6 text-xl md:text-2xl text-gray-200">
             Welcome to Sherpa Living, your trusted partner in finding safe and secure housing for international students in Mexico.
           </p>
         </div>
       </section>
 
       {/* Mission Section */}
-      <section className="py-16 px-8 bg-gradient-to-r from-gray-50 to-white">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+      <section className="py-20 px-6 md:px-8 bg-white">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div className="text-gray-700">
-            <h2 className="text-4xl font-bold text-blue-800 mb-4 font-serif">Our Mission</h2>
-            <p>
-              After five years of helping thousands of international students from all around the world successfully transition to their new life in Mexico, our deep understanding of the difficulties faced by students—including language barriers, potential scams, and misleading advertisements—gave us the required insights and experience to offer an integral service catering to international students’ particular needs.
+            <h2 className="text-4xl font-bold text-blue-800 mb-6 font-serif">Our Mission</h2>
+            <p className="mb-4 text-lg">
+              After five years of helping thousands of students, our understanding of the unique challenges (language barriers, scam risks) has given us the experience to offer an integral service, tailored to your needs.
             </p>
-            <p className="mt-4">
-              At Sherpa Living, we understand the unique challenges and risks involved in renting a place in a new country. Our mission is to provide peace of mind by offering reliable and easy-to-navigate housing solutions, ensuring that your transition to life in Mexico is as smooth and stress-free as possible.
+            <p className="text-lg">
+              At Sherpa Living, we want to offer you peace of mind with reliable housing solutions, so that your transition to Mexico is as smooth and stress-free as possible.
             </p>
           </div>
           <div>
+            {/* IMPROVEMENT: Replace the stock image with an authentic photo of your team or students */}
             <img
-              src="https://images.unsplash.com/photo-1531346964807-212929d6126a?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8RG9zc2llcnxlbnwwfHwwfHx8MA%3D%3D"
-              alt="Mission"
-              className="w-full h-64 object-cover rounded-lg shadow-lg"
+              src="/Images/happy_stud.png" // MISE À JOUR: Utilisation d'une image locale
+              alt="Group of smiling international students"
+              className="w-full h-auto object-cover rounded-lg shadow-2xl"
             />
           </div>
         </div>
       </section>
 
       {/* Journey Section */}
-      <section className="py-16 px-8 bg-gray-100">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-          <div>
-            <img
-              src="https://images.unsplash.com/reserve/O7A9fAvYSXC7NTdz8gLQ_IMGP1039.jpg?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8Y2hlbWlufGVufDB8fDB8fHww"
-              alt="Journey"
-              className="w-full h-64 object-cover rounded-lg shadow-lg"
+      <section className="py-20 px-6 md:px-8 bg-gray-50">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+          {/* The order is reversed to vary the layout */}
+          <div className="order-last md:order-first">
+             <img
+              src="/Images/journey.png" // MISE À JOUR: Utilisation d'une image locale
+              alt="Map of Mexico with pins symbolizing travel"
+              className="w-full h-auto object-cover rounded-lg shadow-2xl"
             />
           </div>
-          <div className="text-gray-700">
-            <h2 className="text-4xl font-bold text-blue-800 mb-4 font-serif">Our Journey</h2>
-            <p>
-              If there is something travelers like us can agree on, it’s how hard it is to say goodbye. How your heart will never be truly complete anymore, but at the same time, is bigger than ever, holding cherished memories and unforgettable bonds.
+          <div className="text-gray-700 order-first md:order-last">
+            <h2 className="text-4xl font-bold text-blue-800 mb-6 font-serif">Our Journey</h2>
+            <p className="mb-4 text-lg">
+              As travelers, we know that every departure is difficult, but the heart grows with every memory. Studying abroad is a transformative experience, but it comes with its share of challenges.
             </p>
-            <p className="mt-4">
-              Studying abroad is a transformative experience, one of the best of your life, but it doesn’t come without complications: language barriers, cultural shock, a million requirements, and risks. It is also a significant financial investment and requires commitment. There will be times when you might feel lost, lonely, or confused, and we know this firsthand.
-            </p>
-            <p className="mt-4">
-              We created an organization dedicated to helping international students through this transition. We’ve helped them with all sorts of things, from airport pickups, buddy programs, hospital visits, abusive landlords, personal emergencies, insurance claims, recommendations, and more.
+            <p className="text-lg">
+              Feeling lost, lonely, or confused... we know this firsthand. That's why we created an organization dedicated to helping you through this transition, going far beyond just housing.
             </p>
           </div>
-        </div>
-      </section>
-
-      {/* Vision Section */}
-      <section className="relative py-24 text-center bg-gray-100">
-        <div
-          className="absolute inset-0 bg-cover bg-center"
-          style={{
-            backgroundImage:
-              'url(https://images.unsplash.com/photo-1529156069898-49953e39b3ac?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)',
-          }}
-        ></div>
-        <div className="relative max-w-4xl mx-auto px-4 bg-white bg-opacity-80 rounded-lg shadow-lg p-8">
-          <h2 className="text-5xl font-bold text-blue-800 mb-4 font-serif">Our Vision</h2>
-          <p className="text-gray-700">
-            Our vision is to create a global network of support for anyone transitioning to a new country. We aim to be the leading provider of housing and relocation services for international students and expatriates, known for our commitment to safety, personalized attention, and comprehensive support. By expanding our reach and continuously improving our services, we strive to make the world a more accessible and welcoming place for everyone pursuing opportunities abroad.
-          </p>
         </div>
       </section>
 
       {/* Values Section */}
-<section className="py-16 px-8 bg-gradient-to-r from-gray-50 to-gray-200">
-  <h2 className="text-4xl font-extrabold text-center mb-12 font-serif text-gray-800">
-    Our Values
-  </h2>
-  <ul className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
-    
-    <li className="flex items-center bg-white p-6 rounded-lg shadow-md">
-      <img src={`${import.meta.env.BASE_URL}Images/Hand.png`} alt="Safety" className="w-20 h-20 mr-6 self-center" />
-      <div>
-        <h3 className="font-bold text-lg text-gray-800">Safety:</h3>
-        <p className="text-gray-600">
-          We prioritize the safety and security of our clients by thoroughly vetting all housing options and providing reliable information to ensure peace of mind.
-        </p>
-      </div>
-    </li>
+      <section className="py-20 px-6 md:px-8 bg-white">
+        <div className="max-w-6xl mx-auto">
+            <h2 className="text-4xl font-extrabold text-center mb-16 font-serif text-gray-800">
+              Our Core Values
+            </h2>
+            {/* IMPROVEMENT: Using flexbox for better alignment and spacing */}
+            <div className="flex flex-wrap justify-center gap-10">
+              
+              {/* Value 1: Safety */}
+              <div className="flex flex-col items-center text-center max-w-xs p-6">
+                 {/* IMPROVEMENT: Using SVG for sharp and consistent icons */}
+                <svg className="w-16 h-16 mb-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                <h3 className="font-bold text-2xl text-gray-800 mb-2">Safety</h3>
+                <p className="text-gray-600">
+                  We prioritize your safety by rigorously vetting all properties to ensure your complete peace of mind.
+                </p>
+              </div>
 
-    <li className="flex items-center bg-white p-6 rounded-lg shadow-md">
-      <img src={`${import.meta.env.BASE_URL}Images/Personnalized1.png`} alt="Personalized Attention" className="w-20 h-20 mr-6 self-center" />
-      <div>
-        <h3 className="font-bold text-lg text-gray-800">Personalized Attention:</h3>
-        <p className="text-gray-600">
-          We believe in offering tailored support to meet the unique needs of each individual. Our team is dedicated to providing personalized care and constant updates throughout the entire process. No bots, no answering machines.
-        </p>
-      </div>
-    </li>
+              {/* Value 2: Personalized Attention */}
+              <div className="flex flex-col items-center text-center max-w-xs p-6">
+                <svg className="w-16 h-16 mb-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a2 2 0 01-2-2V7a2 2 0 012-2h4M5 8h2m4 0h2" /></svg>
+                <h3 className="font-bold text-2xl text-gray-800 mb-2">Personalized Attention</h3>
+                <p className="text-gray-600">
+                  No bots, no answering machines. Our team offers you tailored support and constant updates.
+                </p>
+              </div>
 
-    <li className="flex items-center bg-white p-6 rounded-lg shadow-md">
-      <img src={`${import.meta.env.BASE_URL}Images/Integrity1.png`} alt="Integrity" className="w-32 h-32 mr-6 self-center" />
-      <div>
-        <h3 className="font-bold text-lg text-gray-800">Integrity:</h3>
-        <p className="text-gray-600">
-          We operate with honesty and transparency, ensuring that our clients have accurate information and can trust us to act in their best interests.
-        </p>
-      </div>
-    </li>
+              {/* Value 3: Integrity */}
+              <div className="flex flex-col items-center text-center max-w-xs p-6">
+                <svg className="w-16 h-16 mb-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
+                <h3 className="font-bold text-2xl text-gray-800 mb-2">Integrity</h3>
+                <p className="text-gray-600">
+                  We operate with honesty and transparency, ensuring you have accurate information to trust us.
+                </p>
+              </div>
 
-    <li className="flex items-center bg-white p-6 rounded-lg shadow-md">
-      <img src={`${import.meta.env.BASE_URL}Images/Excellence1.png`} alt="Excellence" className="w-32 h-32 mr-6 self-center" />
-      <div>
-        <h3 className="font-bold text-lg text-gray-800">Excellence:</h3>
-        <p className="text-gray-600">
-          We are committed to maintaining high standards in everything we do, from the quality of our housing options to the level of support we provide.
-        </p>
-      </div>
-    </li>
-
-  </ul>
-</section>
-
-
+            </div>
+        </div>
+      </section>
 
       {/* Founders Section */}
-<section className="py-16 px-8 bg-white">
-  <h2 className="text-3xl font-bold text-center mb-12 font-serif">Our Founders</h2>
-  
-  {/* Center the founders' cards */}
-  <div className="flex flex-wrap justify-center gap-8">
-    {founders.map((founder, index) => (
-      <div key={index} className="w-full sm:w-1/2 md:w-1/3 flex justify-center">
-        <FounderBio {...founder} />
-      </div>
-    ))}
-  </div>
-</section>
+      <section className="py-20 px-6 md:px-8 bg-gray-50">
+        <h2 className="text-4xl font-bold text-center mb-16 font-serif text-gray-800">Our Founders</h2>
+        <div className="max-w-5xl mx-auto flex flex-wrap justify-center gap-12">
+          {founders.map((founder, index) => (
+            // The component manages its own width and style
+            <FounderBio key={index} {...founder} />
+          ))}
+        </div>
+      </section>
 
+      {/* ADDITION: A clear "Call to Action" section to guide the user */}
+      <section className="bg-blue-700 text-white text-center py-20 px-6">
+        <div className="max-w-3xl mx-auto">
+          <h2 className="text-4xl font-extrabold font-serif mb-4">Ready to find your home?</h2>
+          <p className="text-xl text-blue-100 mb-8">
+            Let us help you start the best semester of your life. Discover our verified listings and join the Sherpa Living community.
+          </p>
+          <a
+            href="/logements" // Put the link to your listings page here
+            className="inline-block bg-white text-blue-700 font-bold text-lg py-4 px-10 rounded-full shadow-lg hover:bg-gray-100 transform hover:scale-105 transition-all duration-300"
+          >
+            Discover Listings
+          </a>
+        </div>
+      </section>
     </>
   );
 };
 
-export default About;
+export default AboutPage;
+
+
