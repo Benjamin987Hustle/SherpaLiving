@@ -61,7 +61,7 @@ const Study = () => {
       title: 'Cursos',
       icon: '📚',
       content:
-        'Alemán, Matemáticas, Física, Informática. Recibirás formación especializada y orientación académica, preparándote para carreras relacionadas con tecnología, ciencias exactas y más.',
+        'Alemán, Matemáticas, Física, Informática. Recibirás formación especializada y orientación académica, preparándote para carreras relacionadas con tecnología, sciences exactas y más.',
     },
     {
       title: 'Certificación',
@@ -93,7 +93,7 @@ const Study = () => {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="text-center mb-16">
-          <h2 className="text-3xl font-bold mb-6">¿Por qué elegir Prep-For-Study?</h2>
+          <h2 className="text-3xl font-bold mb-6">¿Qué es Prep for Study?</h2>
           <p className="text-gray-600 max-w-2xl mx-auto">
             Prep-For-Study es un programa integral diseñado para brindarte 
             las herramientas necesarias para que cumplas tu sueño de estudiar 
@@ -107,12 +107,12 @@ const Study = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
           <div className="overflow-hidden rounded-lg shadow-lg transition-transform transform hover:scale-105">
             <img
-               src={`${import.meta.env.BASE_URL}Images/GermanUni1.jpeg`} alt="Campus"  
-              
+              src={`${import.meta.env.BASE_URL}Images/staar_classroom.jpg`}
+              alt="Vista de la Ciudad de Saarbrücken"
               className="w-full h-48 object-cover"
             />
             <div className="p-6">
-              <h3 className="text-xl font-bold mb-2">Campus de htw saar</h3>
+              <h3 className="text-xl font-bold mb-2">Campus de HTW SAAR</h3>
               <p className="text-gray-600">
                 Descubre instalaciones de última generación, laboratorios 
                 equipados y espacios de convivencia que te inspirarán 
@@ -122,8 +122,8 @@ const Study = () => {
           </div>
           <div className="overflow-hidden rounded-lg shadow-lg transition-transform transform hover:scale-105">
             <img
-              src={`${import.meta.env.BASE_URL}Images/germanUni.jpeg`} 
-              alt="Vista de la Ciudad de Saarbrücken"  
+              src={`${import.meta.env.BASE_URL}Images/GermanUni1.jpeg`}
+              alt="Campus"
               className="w-full h-48 object-cover"
             />
             <div className="p-6">
@@ -137,7 +137,7 @@ const Study = () => {
           <div className="overflow-hidden rounded-lg shadow-lg transition-transform transform hover:scale-105">
             <img
               
-              src={`${import.meta.env.BASE_URL}Images/river.jpeg`}
+              src={`${import.meta.env.BASE_URL}Images/river2.jpg`}
               alt="Río Saar en Saarbrücken"
               className="w-full h-48 object-cover"
             />
