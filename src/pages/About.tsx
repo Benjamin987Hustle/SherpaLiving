@@ -156,25 +156,8 @@ const AboutPage = () => {
         <h2 className="text-4xl font-bold text-center mb-16 font-serif text-gray-800">Our Founders</h2>
         <div className="max-w-5xl mx-auto flex flex-wrap justify-center gap-12">
           {founders.map((founder, index) => (
-            // The component manages its own width and style
             <FounderBio key={index} {...founder} />
           ))}
-        </div>
-      </section>
-
-      {/* ADDITION: A clear "Call to Action" section to guide the user */}
-      <section className="bg-blue-700 text-white text-center py-20 px-6">
-        <div className="max-w-3xl mx-auto">
-          <h2 className="text-4xl font-extrabold font-serif mb-4">Ready to find your home?</h2>
-          <p className="text-xl text-blue-100 mb-8">
-            Let us help you start the best semester of your life. Discover our verified listings and join the Sherpa Living community.
-          </p>
-          <a
-            href="/logements" // Put the link to your listings page here
-            className="inline-block bg-white text-blue-700 font-bold text-lg py-4 px-10 rounded-full shadow-lg hover:bg-gray-100 transform hover:scale-105 transition-all duration-300"
-          >
-            Discover Listings
-          </a>
         </div>
       </section>
     </>
