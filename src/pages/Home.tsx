@@ -1,5 +1,5 @@
 import React from 'react';
-// SUPPRESSION : L'importation de 'Link' n'est plus nécessaire car nous utilisons des balises <a> standard.
+import { Link } from 'react-router-dom';  // Ajouter cette importation
 import { Building2, BookOpen, Users, Info } from 'lucide-react';
 
 // AJOUT : Le composant Hero est maintenant défini ici pour résoudre l'erreur d'importation.
@@ -33,8 +33,8 @@ const Home = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           
-          {/* MODIFICATION : Remplacement de <Link> par <a> pour corriger l'erreur de contexte du routeur. */}
-          <a href="/living" className="group">
+          {/* Remplacer tous les <a> par <Link> */}
+          <Link to="/living" className="group">
             <div className="bg-white rounded-lg shadow-lg p-8 transition duration-200 hover:shadow-xl h-full">
               <Building2 className="h-12 w-12 text-blue-600 mb-4" />
               <h3 className="text-2xl font-bold mb-4 group-hover:text-blue-600">Sherpa Living</h3>
@@ -42,9 +42,9 @@ const Home = () => {
                 Find your perfect home with our verified listings and comprehensive support services.
               </p>
             </div>
-          </a>
+          </Link>
           
-          <a href="/study" className="group">
+          <Link to="/study" className="group">
             <div className="bg-white rounded-lg shadow-lg p-8 transition duration-200 hover:shadow-xl h-full">
               <BookOpen className="h-12 w-12 text-blue-600 mb-4" />
               <h3 className="text-2xl font-bold mb-4 group-hover:text-blue-600">Sherpa Study</h3>
@@ -52,9 +52,9 @@ const Home = () => {
                 Explore global study opportunities with our exclusive educational programs.
               </p>
             </div>
-          </a>
+          </Link>
           
-          <a href="/work-with-us" className="group">
+          <Link to="/work-with-us" className="group">
             <div className="bg-white rounded-lg shadow-lg p-8 transition duration-200 hover:shadow-xl h-full">
               <Users className="h-12 w-12 text-blue-600 mb-4" />
               <h3 className="text-2xl font-bold mb-4 group-hover:text-blue-600">Work With Us</h3>
@@ -62,9 +62,9 @@ const Home = () => {
                 Partner with us to connect your property with trusted tenants worldwide.
               </p>
             </div>
-          </a>
+          </Link>
 
-          <a href="/about" className="group">
+          <Link to="/about" className="group">
             <div className="bg-white rounded-lg shadow-lg p-8 transition duration-200 hover:shadow-xl h-full">
               <Info className="h-12 w-12 text-blue-600 mb-4" />
               <h3 className="text-2xl font-bold mb-4 group-hover:text-blue-600">About Us</h3>
@@ -72,7 +72,7 @@ const Home = () => {
                 Learn more about our mission, our values, and the team dedicated to helping you succeed.
               </p>
             </div>
-          </a>
+          </Link>
 
         </div>
       </div>
