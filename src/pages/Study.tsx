@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 
 // --- Hero Component ---
-// El componente Hero se ha movido a este archivo para resolver el error de importación.
-// Crea el gran banner con imagen en la parte superior de la página.
+// MODIFICACIÓN: Se ha ajustado el estilo del título y subtítulo para un look más minimalista.
 const Hero = ({ title, subtitle, imageUrl }) => (
   <section className="relative text-center overflow-hidden bg-gray-800">
     <img
@@ -11,10 +10,11 @@ const Hero = ({ title, subtitle, imageUrl }) => (
       className="absolute inset-0 w-full h-full object-cover opacity-50"
     />
     <div className="relative py-32 md:py-48 max-w-4xl mx-auto px-4">
-      <h1 className="text-4xl md:text-6xl font-extrabold font-serif text-white shadow-lg">
+      {/* Titre: réduction de 10% de la taille et police plus fine */}
+      <h1 className="text-3xl md:text-[2.8rem] font-semibold text-white shadow-lg">
         {title}
       </h1>
-      <p className="mt-4 text-xl md:text-2xl text-gray-200">
+      <p className="mt-6 text-xl md:text-2xl text-gray-200">
         {subtitle}
       </p>
     </div>
@@ -24,16 +24,16 @@ const Hero = ({ title, subtitle, imageUrl }) => (
 
 // --- Reusable Inner Components ---
 
-// BenefitCard Component: Para mostrar las ventajas clave del programa.
 const BenefitCard = ({ icon, title, children }) => (
   <div className="bg-white p-6 rounded-lg shadow-lg text-center transform hover:scale-105 transition-transform duration-300">
-    <div className="text-4xl text-blue-600 mb-4">{icon}</div>
+    <div className="flex items-center justify-center h-12 w-12 rounded-full bg-blue-100 text-blue-600 mx-auto mb-4">
+      {icon}
+    </div>
     <h3 className="text-xl font-bold text-gray-800 mb-2">{title}</h3>
     <p className="text-gray-600">{children}</p>
   </div>
 );
 
-// AccordionItem Component: Se mantuvo tu componente original, que está bien hecho.
 const AccordionItem = ({ title, icon, content }) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
@@ -51,9 +51,10 @@ const AccordionItem = ({ title, icon, content }) => {
         </span>
       </button>
       {isOpen && (
-        <div className="bg-white px-4 py-5 text-gray-700 leading-relaxed border-t border-gray-200">
-          {content}
-        </div>
+        <div 
+          className="bg-white px-4 py-5 text-gray-700 leading-relaxed border-t border-gray-200"
+          dangerouslySetInnerHTML={{ __html: content }}
+        />
       )}
     </div>
   );
@@ -63,42 +64,41 @@ const AccordionItem = ({ title, icon, content }) => {
 // --- Main Study Page Component ---
 
 const StudyPage = () => {
-  // Datos del acordeón, ahora en español y con el costo explicado.
   const programDetails = [
     {
       title: 'Duración',
       icon: '📅',
-      content: '2 semestres intensivos (Octubre - Julio). Sumérgete en un plan de estudios riguroso que combina teoría y práctica, dándote la base sólida que necesitas para destacar.',
+      content: '2 semestres (Octubre - Julio). Un plan de estudios completo que combina teoría y práctica para darte la base sólida ',
     },
     {
       title: 'Ubicación',
       icon: '📍',
-      content: 'htw saar, Saarbrücken, Alemania. Situada en el corazón de Europa, esta universidad te ofrece un ambiente multicultural y seguro, lleno de oportunidades para crecer personal y académicamente.',
+      content: 'Ubicacion: HTW Saar, Saarbrücken, Alemania. Situada en el corazón de Europa, esta universidad te ofrece un ambiente multicultural y seguro.',
     },
     {
       title: 'Cursos',
       icon: '📚',
-      content: 'Alemán, Matemáticas, Física, Informática. Recibirás formación especializada y orientación académica, preparándote para carreras en tecnología, ciencias exactas y más.',
+      content: 'Alemán, Matemáticas, Física e Informática. Recibirás formación especializada y orientación académica para prepararte para tu carrera de ingeniería.',
     },
     {
       title: 'Certificación',
       icon: '📜',
-      content: 'Una certificación oficial reconocida a nivel nacional que te abrirá las puertas de las mejores universidades alemanas, impulsando tu perfil internacional.',
+      content: 'El programa Prep-for-Study está acreditado por <a href="https://www.asiin.de/en/" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">ASIIN</a>, una agencia de renombre mundial que certifica más de 6500 programas de estudio en 401 instituciones a través de 68 países. Para saber más, visita el sitio web de ASIIN.',
     },
     {
-      title: 'Costo del Programa',
-      icon: '💰',
-      content: 'El programa preparatorio de un año cuesta 7.800 €. Esta única cuota es tu llave para acceder a las tarifas de matrícula locales alemanas, que pueden ser tan bajas como 350 € al año, ahorrándote decenas de miles en tasas para estudiantes internacionales.',
+      title: 'Costo e Inclusión',
+      icon: '💶',
+      content: 'El programa tiene un costo de 7.800 €. Este costo comprende los dos semestres de cursos, las visitas, apoyo para encontrar alojamiento y con trámites migratorios.',
     },
     {
       title: 'Requisitos de Admisión',
       icon: '📑',
-      content: 'Un título de acceso a la universidad (Bachillerato) y un nivel B1 de alemán. Si aún no cumples con el requisito del idioma, ofrecemos un programa de refuerzo lingüístico para que alcances el nivel necesario.',
+      content: 'Certificado de preparatoria terminada y un nivel B1 de alemán. Si aún no cumples con el requisito del idioma, ofrecemos un programa de refuerzo lingüístico.',
     },
   ];
 
   return (
-    <div>
+    <div className="bg-gray-50">
       <Hero
         title="Estudia en Alemania con Prep-for-Study"
         subtitle="Tu Puerta de Entrada a una Carrera de Ingeniería de Clase Mundial"
@@ -108,64 +108,72 @@ const StudyPage = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
 
         {/* --- Sección de Introducción --- */}
-        <div className="text-center mb-20">
-          <h2 className="text-4xl md:text-5xl font-extrabold text-gray-800 mb-6 font-serif">
-            🌟 ¿Qué es Prep-for-Study? 🌟
+        <div className="text-center mb-24">
+          {/* MODIFICACIÓN: Título más pequeño y minimalista */}
+          <h2 className="text-3xl md:text-4xl font-extrabold text-gray-800 mb-6">
+            ¿Qué es Prep-for-Study?
           </h2>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto mb-6">
-            ¿Sueñas con ser ingeniero/a? Imagínate graduándote de una de las mejores universidades de Alemania, en el epicentro de la innovación global y la excelencia en ingeniería. Prep-for-Study convierte esa visión en realidad, en solo un año.
+            ¿Sueñas con ser ingeniero/a? Imagínate graduándote de una de las mejores universidades de Alemania. Prep-for-Study convierte esa visión en realidad, en solo un año.
           </p>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            Después de completar nuestro programa, tendrás acceso directo a la HTW Saar o estarás totalmente preparado para postular a cientos de universidades alemanas, lanzando tu carrera internacional con confianza, credibilidad y una ventaja competitiva.
+            Después de completar nuestro programa, tendrás acceso directo a la HTW Saar o estarás totalmente preparado para postular a cientos de universidades alemanas, lanzando tu carrera internacional con confianza.
           </p>
         </div>
 
         {/* --- Sección de Beneficios Clave --- */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mb-20">
-            <BenefitCard icon="💰" title="Paga Matrícula Local">
-                Paga tan poco como 350 € al año, en lugar de las tasas internacionales que pueden ascender a decenas de miles.
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mb-24">
+            <BenefitCard 
+              icon={<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="h-6 w-6"><path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182.553-.44 1.28-.659 2.003-.659 1.5 0 2.848.888 3.541 2.082" /></svg>} 
+              title="Acceso a Matrícula Local"
+            >
+              Invierte en tu preparación y accede a tarifas de matrícula alemanas, que son significativamente más bajas que las tasas internacionales.
             </BenefitCard>
-            <BenefitCard icon="🚀" title="Acelera Tu Futuro">
-                Con una carrera de 3 años en Alemania, te graduarás más rápido que en la mayoría de las universidades mexicanas, incluso contando el año de preparación.
+            <BenefitCard 
+              icon={<svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>} 
+              title="Acelera Tu Futuro"
+            >
+              Con una carrera de 3 años en Alemania, te graduarás más rápido que en la mayoría de las universidades, incluso contando el año de preparación.
             </BenefitCard>
-            <BenefitCard icon="💼" title="Gana Mientras Aprendes">
-                Accede a prácticas profesionales pagadas que te ayudarán a cubrir tus gastos, convirtiendo tu educación en un proyecto autosostenible.
+            <BenefitCard 
+              icon={<svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>} 
+              title="Gana Mientras Aprendes"
+            >
+              Accede a prácticas profesionales pagadas que te ayudarán a cubrir tus gastos, convirtiendo tu educación en un proyecto autosostenible.
             </BenefitCard>
         </div>
 
-        {/* --- Sección de Universidad y Vida en la Ciudad --- */}
+        {/* --- Sección "Descubre Oportunidades Únicas" --- */}
         <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-gray-800">Vive la Experiencia en Saarbrücken</h2>
+            <h2 className="text-3xl font-bold text-gray-800">Descubre Oportunidades Únicas</h2>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
-          {/* Tarjeta 1 */}
-          <div className="overflow-hidden rounded-lg shadow-lg">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-24">
+          <div className="overflow-hidden rounded-lg shadow-lg bg-white">
             <img src="/Images/staar_classroom.jpg" alt="Aula del campus de HTW Saar" className="w-full h-48 object-cover"/>
-            <div className="p-6 bg-white">
-              <h3 className="text-xl font-bold mb-2">Campus de Vanguardia</h3>
-              <p className="text-gray-600">Descubre instalaciones modernas, laboratorios equipados y espacios colaborativos que te inspirarán.</p>
+            <div className="p-6">
+              <h3 className="text-xl font-bold mb-2">Campus de Vanguardia en HTW Saar</h3>
+              <p className="text-gray-600 mb-4">Estudia en instalaciones modernas con tecnología de punta. La HTW Saar es reconocida por su excelencia en ingeniería y su enfoque práctico.</p>
+              <a href="https://www.htwsaar.de/en" target="_blank" rel="noopener noreferrer" className="font-bold text-blue-600 hover:underline">Visita la universidad →</a>
             </div>
           </div>
-          {/* Tarjeta 2 */}
-          <div className="overflow-hidden rounded-lg shadow-lg">
-            <img src="/Images/GermanUni1.jpeg" alt="Vibrante ciudad de Saarbrücken" className="w-full h-48 object-cover"/>
-            <div className="p-6 bg-white">
-              <h3 className="text-xl font-bold mb-2">Vida Urbana Vibrante</h3>
-              <p className="text-gray-600">Experimenta la mezcla perfecta de tradición y modernidad en una ciudad llena de cultura y eventos.</p>
+          <div className="overflow-hidden rounded-lg shadow-lg bg-white">
+            <img src="/Images/GermanUni1.jpeg" alt="Estudiantes trabajando en un proyecto de ingeniería" className="w-full h-48 object-cover"/>
+            <div className="p-6">
+              <h3 className="text-xl font-bold mb-2">Opciones de Doble Titulación</h3>
+              <p className="text-gray-600">Explora programas de doble titulación con instituciones asociadas en todo el mundo, obteniendo dos diplomas reconocidos globalmente.</p>
             </div>
           </div>
-          {/* Tarjeta 3 */}
-          <div className="overflow-hidden rounded-lg shadow-lg">
-            <img src="/Images/river2.jpg" alt="Pintoresco río Sarre en Saarbrücken" className="w-full h-48 object-cover"/>
-            <div className="p-6 bg-white">
-              <h3 className="text-xl font-bold mb-2">Paisajes Escénicos</h3>
-              <p className="text-gray-600">Disfruta de la tranquilidad y la belleza natural a lo largo del río Sarre, un lugar perfecto para relajarse y estudiar.</p>
+          <div className="overflow-hidden rounded-lg shadow-lg bg-white">
+            <img src="/Images/river2.jpg" alt="Joven profesional trabajando en una laptop" className="w-full h-48 object-cover"/>
+            <div className="p-6">
+              <h3 className="text-xl font-bold mb-2">Tu Futuro Profesional Comienza Aquí</h3>
+              <p className="text-gray-600">Alemania ofrece increíbles oportunidades de carrera post-graduación. Una educación aquí es una inversión directa en tu futuro profesional.</p>
             </div>
           </div>
         </div>
 
         {/* --- Acordeón de Detalles del Programa --- */}
-        <div className="max-w-4xl mx-auto mb-20">
+        <div className="max-w-4xl mx-auto mb-24">
             <h2 className="text-3xl font-bold mb-8 text-center text-gray-800">Detalles del Programa</h2>
             {programDetails.map((item, index) => (
                 <AccordionItem key={index} {...item} />
@@ -173,12 +181,12 @@ const StudyPage = () => {
         </div>
 
         {/* --- Sección Final de CTA --- */}
-        <div className="text-center bg-gray-50 p-10 rounded-lg">
+        <div className="text-center bg-white p-10 rounded-lg shadow-inner">
           <h2 className="text-3xl font-bold mb-4 text-gray-800">
             ¿Listo para comenzar tu aventura en Alemania?
           </h2>
-          <p className="text-gray-600 max-w-2xl mx-auto mb-6">
-            Prep-for-Study no es solo un puente a Alemania, es tu plataforma de lanzamiento hacia una carrera global en ingeniería más inteligente, rápida y asequible.
+          <p className="text-gray-600 max-w-2xl mx-auto mb-8">
+            Prep-for-Study es tu plataforma de lanzamiento hacia una carrera global en ingeniería más inteligente, rápida y asequible.
           </p>
           <a
             href='https://creatorapp.zohopublic.ca/sherpaliving/landlords-appartemnt/form-perma/Sherpa_Study/z0pTMgBkm3XVrpu4UfQKCnq8b9jks1WTnUR06C3R35QWBf3W4kZwe3sJGp1YDK8hEmkXqpkKB7EnhJnSQJWAT74Fbxb7a6qjvj9t'
