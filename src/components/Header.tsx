@@ -1,68 +1,94 @@
-import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { Home, BookOpen, Building2, Users, Info } from 'lucide-react';
+import React, { useState } from 'react';
+import { Link, NavLink, useLocation } from 'react-router-dom';
+// MODIFIÉ : L'icône 'Home' n'est plus importée
+import { BookOpen, Building2, Users, Info } from 'lucide-react';
 
 const Header = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
+ 
+  const isActive = (path) => location.pathname === path;
   
-  const isActive = (path: string) => location.pathname === path;
-  
+  // On définit les liens une seule fois pour la clarté
+  const navLinks = [
+    { to: "/living", text: "Living", icon: <Building2 className="h-5 w-5" /> },
+    { to: "/study", text: "Study", icon: <BookOpen className="h-5 w-5" /> },
+    { to: "/work-with-us", text: "Work With Us", icon: <Users className="h-5 w-5" /> },
+    { to: "/about", text: "About", icon: <Info className="h-5 w-5" /> },
+  ];
+
   return (
-    <header className="bg-white shadow-sm fixed w-full top-0 z-50">
+    <header className="bg-white shadow-sm sticky w-full top-0 z-50">
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16">
-          <div className="flex items-center">
+        <div className="flex justify-between items-center h-16">
+          {/* MODIFIÉ : Taille du logo et du texte augmentée */}
+          <div className="flex-shrink-0">
             <Link to="/" className="flex items-center">
-              <Home className="h-8 w-8 text-blue-600" />
-              <span className="ml-2 text-xl font-bold text-gray-900">Sherpa Living</span>
+              <img 
+                src="/Images/Logo1.png" 
+                alt="Sherpa Living Logo" 
+                className="h-10 w-auto" // Hauteur augmentée de h-8 à h-10
+              />
+              <span className="ml-3 text-2xl font-bold text-gray-900">Sherpa Living</span>
             </Link>
           </div>
           
-          <div className="flex items-center space-x-8">
-            <Link
-              to="/living"
-              className={`flex items-center space-x-1 ${
-                isActive('/living') ? 'text-blue-600' : 'text-gray-600 hover:text-blue-600'
-              }`}
-            >
-              <Building2 className="h-5 w-5" />
-              <span>Living</span>
-            </Link>
-            
-            <Link
-              to="/study"
-              className={`flex items-center space-x-1 ${
-                isActive('/study') ? 'text-blue-600' : 'text-gray-600 hover:text-blue-600'
-              }`}
-            >
-              <BookOpen className="h-5 w-5" />
-              <span>Study</span>
-            </Link>
-            
-            <Link
-              to="/work-with-us"
-              className={`flex items-center space-x-1 ${
-                isActive('/work-with-us') ? 'text-blue-600' : 'text-gray-600 hover:text-blue-600'
-              }`}
-            >
-              <Users className="h-5 w-5" />
-              <span>Work With Us</span>
-            </Link>
+          {/* Menu pour ordinateur (Desktop) */}
+          <div className="hidden md:flex items-center space-x-8">
+            {navLinks.map((link) => (
+              <NavLink
+                key={link.to}
+                to={link.to}
+                className={({ isActive }) =>
+                  `flex items-center space-x-1 transition-colors ${isActive ? 'text-blue-600' : 'text-gray-600 hover:text-blue-600'}`
+                }
+              >
+                {link.icon}
+                <span>{link.text}</span>
+              </NavLink>
+            ))}
+          </div>
 
-            <Link
-              to="/about"
-              className={`flex items-center space-x-1 ${
-                isActive('/about') ? 'text-blue-600' : 'text-gray-600 hover:text-blue-600'
-              }`}
+          {/* Bouton pour le menu mobile */}
+          <div className="md:hidden flex items-center">
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-blue-600 focus:outline-none"
             >
-              <Info className="h-5 w-5" />
-              <span>About</span>
-            </Link>
+              <span className="sr-only">Ouvrir le menu principal</span>
+              <svg className="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                {isMenuOpen ? (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                ) : (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+                )}
+              </svg>
+            </button>
           </div>
         </div>
       </nav>
+
+      {/* Menu mobile dépliant */}
+      <div className={`md:hidden ${isMenuOpen ? 'block' : 'hidden'}`}>
+        <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+          {navLinks.map((link) => (
+            <NavLink
+              key={link.to}
+              to={link.to}
+              className={({ isActive }) =>
+                `flex items-center space-x-2 px-3 py-2 rounded-md text-base font-medium ${isActive ? 'bg-blue-50 text-blue-700' : 'text-gray-700 hover:bg-gray-100'}`
+              }
+              onClick={() => setIsMenuOpen(false)} // Ferme le menu après un clic
+            >
+              {link.icon}
+              <span>{link.text}</span>
+            </NavLink>
+          ))}
+        </div>
+      </div>
     </header>
   );
 };
 
 export default Header;
+
