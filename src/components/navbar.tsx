@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+// MODIFICATION : react-router-dom n'est plus nécessaire dans ce composant isolé.
+// import { Link, NavLink } from 'react-router-dom';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -12,29 +13,34 @@ const Navbar = () => {
     { to: "/about", text: "About" },
   ];
 
+  // CORRECTION : Les composants Link et NavLink ont été remplacés par des balises <a> standard
+  // pour résoudre l'erreur de contexte du routeur.
   return (
     <nav className="bg-white shadow-md sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          {/* Logo */}
+          {/* MODIFIÉ : Logo et texte sont maintenant ensemble */}
           <div className="flex-shrink-0">
-            <Link to="/" className="text-2xl font-bold text-blue-600 hover:text-blue-800 transition-colors">
-              Sherpa Living
-            </Link>
+            <a href="/" className="flex items-center">
+              <img 
+                src="/Images/Logo1.png" 
+                alt="Sherpa Living Logo" 
+                className="h-8 w-auto" // Vous pouvez ajuster la hauteur ici
+              />
+              <span className="ml-3 text-xl font-bold text-gray-800">Sherpa Living</span>
+            </a>
           </div>
 
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-8">
             {navLinks.map((link) => (
-              <NavLink
+              <a
                 key={link.to}
-                to={link.to}
-                className={({ isActive }) =>
-                  `text-gray-700 hover:text-blue-600 transition-colors font-medium ${isActive ? 'text-blue-600 border-b-2 border-blue-600' : ''}`
-                }
+                href={link.to}
+                className="text-gray-700 hover:text-blue-600 transition-colors font-medium"
               >
                 {link.text}
-              </NavLink>
+              </a>
             ))}
           </div>
 
@@ -46,7 +52,6 @@ const Navbar = () => {
               aria-expanded={isMenuOpen}
             >
               <span className="sr-only">Open main menu</span>
-              {/* Remplacer le SVG existant par celui-ci */}
               <svg 
                 className="block h-8 w-8" 
                 xmlns="http://www.w3.org/2000/svg" 
@@ -75,22 +80,20 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* AMÉLIORATION : Le menu mobile a une meilleure animation et un meilleur style */}
+      {/* Mobile Menu */}
       <div
         className={`md:hidden overflow-hidden transition-all duration-500 ease-in-out ${isMenuOpen ? 'max-h-screen' : 'max-h-0'}`}
       >
         <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 border-t border-gray-200">
           {navLinks.map((link) => (
-            <NavLink
+            <a
               key={link.to}
-              to={link.to}
-              className={({ isActive }) =>
-                `block px-3 py-3 rounded-md text-base font-medium text-center ${isActive ? 'bg-blue-50 text-blue-700' : 'text-gray-700 hover:bg-gray-50 hover:text-blue-600'}`
-              }
-              onClick={() => setIsMenuOpen(false)} // Ferme le menu au clic
+              href={link.to}
+              className="block px-3 py-3 rounded-md text-base font-medium text-center text-gray-700 hover:bg-gray-50 hover:text-blue-600"
+              onClick={() => setIsMenuOpen(false)}
             >
               {link.text}
-            </NavLink>
+            </a>
           ))}
         </div>
       </div>
@@ -99,3 +102,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+

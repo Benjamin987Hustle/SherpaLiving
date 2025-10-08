@@ -114,10 +114,17 @@ const StudyPage = () => {
             ¿Qué es Prep-for-Study?
           </h2>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto mb-6">
-            ¿Sueñas con ser ingeniero/a? Imagínate graduándote de una de las mejores universidades de Alemania. Prep-for-Study convierte esa visión en realidad, en solo un año.
+            ¿Sueñas con formarte en ingeniería en una de las mejores universidades del mundo?
+            Alemania, líder global en innovación e ingeniería, te abre sus puertas.
+          </p>
+          <p className="text-lg text-gray-600 max-w-3xl mx-auto mb-6">
+            Con Prep-for-Study, tu camino hacia una educación de élite en Alemania comienza hoy. En solo un año de preparación, estarás listo para postularte a cualquier Universidad de Ciencias Aplicadas (Hochschule) del país… ¡y pagar las mismas tasas que un estudiante local!
+          </p>
+          <p className="text-lg text-gray-600 max-w-3xl mx-auto mb-6">
+            No solo estudiarás en un sistema educativo reconocido por su excelencia y enfoque práctico: también te integrarás en un ecosistema de oportunidades, empleabilidad y futuro.
           </p>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            Después de completar nuestro programa, tendrás acceso directo a la HTW Saar o estarás totalmente preparado para postular a cientos de universidades alemanas, lanzando tu carrera internacional con confianza.
+            Prep-for-Study: tu puerta de entrada a la ingeniería alemana.
           </p>
         </div>
 
@@ -131,9 +138,9 @@ const StudyPage = () => {
             </BenefitCard>
             <BenefitCard 
               icon={<svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>} 
-              title="Acelera Tu Futuro"
+              title="Ingeniería eficiente: tres años, máximo impacto"
             >
-              Con una carrera de 3 años en Alemania, te graduarás más rápido que en la mayoría de las universidades, incluso contando el año de preparación.
+              En Alemania, tu carrera de ingeniería dura 3 años —frente a los 4 o 5 habituales en México— sin comprometer calidad, gracias a un modelo educativo centrado en la práctica y la empleabilidad.
             </BenefitCard>
             <BenefitCard 
               icon={<svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>} 
