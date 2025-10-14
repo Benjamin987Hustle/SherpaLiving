@@ -23,7 +23,7 @@ const Header = () => {
           <div className="flex-shrink-0">
             <Link to="/" className="flex items-center gap-3">
               <img
-                src="/Images/Logo1.png"
+                src="/Images/Logo1_1.png"
                 alt="Sherpa Living Logo"
                 className="h-12 sm:h-12 md:h-14 w-auto drop-shadow-md"
               />

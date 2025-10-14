@@ -23,7 +23,7 @@ const Navbar = () => {
           <div className="flex-shrink-0">
             <a href="/" className="flex items-center">
               <img 
-                src="/Images/Logo1.png" 
+                src="/Images/Logo1_1.png" 
                 alt="Sherpa Living Logo" 
                 className="h-8 w-auto" // Vous pouvez ajuster la hauteur ici
               />
