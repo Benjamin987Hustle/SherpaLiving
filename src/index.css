@@ -1,3 +1,34 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.option-card { 
+    transition: all 0.2s ease-in-out; 
+    border: 2px solid #e5e7eb; 
+}
+.option-card:hover { 
+    border-color: #93c5fd; 
+}
+.option-card.selected { 
+    border-color: #2563eb; /* sherpa-blue */
+    background-color: #eff6ff; /* blue-50 */
+    box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.1); 
+}
+.option-card.selected .radio-circle { 
+    border-color: #2563eb; 
+    background-color: #2563eb; 
+    /* Icône de coche (point blanc) en SVG */
+    background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3ccircle cx='8' cy='8' r='3'/%3e%3c/svg%3e"); 
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+/* Animation pour l'alerte de groupe */
+.fade-in { 
+    animation: fadeIn 0.3s ease-in-out; 
+}
+@keyframes fadeIn { 
+    from { opacity: 0; transform: translateY(-10px); } 
+    to { opacity: 1; transform: translateY(0); } 
+}
