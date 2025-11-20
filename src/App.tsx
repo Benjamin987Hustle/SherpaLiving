@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Home from './pages/Home';
@@ -7,7 +7,7 @@ import Living from './pages/Living';
 import Study from './pages/Study';
 import WorkWithUs from './pages/WorkWithUs';
 import About from './pages/About';
-import Payment from './pages/Payment'; // ⬅️ MAJUSCULE et NOM DU FICHIER
+import Payment from './pages/payment'; // ⬅️ MAJUSCULE et NOM DU FICHIER
 
 function App() {
   return (
