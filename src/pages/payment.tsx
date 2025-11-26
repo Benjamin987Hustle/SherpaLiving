@@ -1,30 +1,54 @@
 import React, { useState, useEffect } from 'react';
-// Si vous utilisez 'Link' de react-router-dom dans ce composant,
-// vous devrez l'importer :
-// import { Link } from 'react-router-dom';
 
-// 1. Définition des constantes de prix et de liens Stripe
-const BASE_FEE = 73; 
-const PICKUP_PRICES: { [key: number]: number } = { 0: 0, 1: 35, 2: 60, 3: 80 };
-const STRIPE_LINKS: { [key: number]: string } = {
+// 1. Définition des constantes de prix et de liens Stripe - MODIFIÉE pour les zones
+const BASE_FEE = 73;
+
+// Prices par zone
+const ZONE_PRICES: { [key: string]: { [key: number]: number } } = {
+  tec: { 0: 0, 1: 35, 2: 60, 3: 80 },
+  udem: { 0: 0, 1: 45, 2: 65, 3: 85 }
+};
+
+// Stripe links par zone
+const STRIPE_LINKS: { [key: string]: { [key: number]: string } } = {
+  tec: {
     0: "https://buy.stripe.com/7sY28tgwE45VcuJb8ycfK01",
     1: "https://buy.stripe.com/aFa28ta8gfOD8etekKcfK03",
     2: "https://buy.stripe.com/5kQdRb3JSeKzdyNekKcfK06",
     3: "https://buy.stripe.com/7sYbJ3a8g1XNfGV5OecfK07"
+  },
+  udem: {
+    0: "https://buy.stripe.com/7sY28tgwE45VcuJb8ycfK01",
+    1: "https://buy.stripe.com/9B63cx0xG6e38et3G6cfK08",
+    2: "https://buy.stripe.com/7sY14p4NW31RamBb8ycfK09",
+    3: "https://buy.stripe.com/9B68wR1BK9qf0M17WmcfK0a"
+  }
 };
 
 const Payment: React.FC = () => {
-    // 2. Gestion de l'état de l'option sélectionnée
+    // 2. Gestion de l'état avec la zone sélectionnée
+    const [selectedZone, setSelectedZone] = useState<string>('tec');
     const [selectedOption, setSelectedOption] = useState<number>(0);
-    const [pickupPrice, setPickupPrice] = useState<number>(PICKUP_PRICES[0]);
-    const [totalPrice, setTotalPrice] = useState<number>(BASE_FEE + PICKUP_PRICES[0]);
-    const [finalLink, setFinalLink] = useState<string>(STRIPE_LINKS[0]);
+    const [pickupPrice, setPickupPrice] = useState<number>(ZONE_PRICES['tec'][0]);
+    const [totalPrice, setTotalPrice] = useState<number>(BASE_FEE + ZONE_PRICES['tec'][0]);
+    const [finalLink, setFinalLink] = useState<string>(STRIPE_LINKS['tec'][0]);
     
-    // 3. Logique de sélection dans une fonction de gestion d'événement
-    const selectOption = (qty: number) => {
-        const newPickupPrice = PICKUP_PRICES[qty];
+    // 3. Fonction pour changer la zone
+    const selectZone = (zone: string) => {
+        setSelectedZone(zone);
+        setSelectedOption(0); // Réinitialiser l'option de transfert
+        const newPickupPrice = ZONE_PRICES[zone][0];
         const newTotalPrice = BASE_FEE + newPickupPrice;
-        const newFinalLink = STRIPE_LINKS[qty];
+        setPickupPrice(newPickupPrice);
+        setTotalPrice(newTotalPrice);
+        setFinalLink(STRIPE_LINKS[zone][0]);
+    };
+
+    // 4. Logique de sélection du transfert
+    const selectOption = (qty: number) => {
+        const newPickupPrice = ZONE_PRICES[selectedZone][qty];
+        const newTotalPrice = BASE_FEE + newPickupPrice;
+        const newFinalLink = STRIPE_LINKS[selectedZone][qty];
 
         setSelectedOption(qty);
         setPickupPrice(newPickupPrice);
@@ -32,30 +56,49 @@ const Payment: React.FC = () => {
         setFinalLink(newFinalLink);
     };
 
-    // 4. Définir le texte du résumé
+    // 5. Définir le texte du résumé
     const getPickupLabel = (qty: number) => {
         if (qty === 0) return "Airport Transfer (None)";
         if (qty === 1) return "Airport Transfer (1 Person)";
         return `Airport Transfer (Group of ${qty})`;
     };
-    
-    // 5. Utiliser useEffect pour initialiser les valeurs (équivalent à window.onload)
-    // Nous appelons selectOption(0) uniquement au premier rendu (le tableau vide [])
-    // Note: C'est déjà fait avec le useState initialisé à 0, mais laissons-le par clarté.
-    // useEffect(() => {
-    //     selectOption(0);
-    // }, []);
 
-    // Conversion du HTML:
     return (
         <div className="max-w-6xl mx-auto px-4 py-8">
             
             <header className="mb-8 text-center md:text-left">
                 <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900">
-                    Secure Your Accommodation <span className="text-sherpa-blue">& Get Ready</span>
+                    Secure Your Accommodation <span className="text-sherpa-blue">&amp; Get Ready</span>
                 </h1>
                 <p className="mt-2 text-gray-600 text-lg">Finalize your file to guarantee your booking.</p>
             </header>
+
+            {/* NOUVEAU : Sélecteur de zone */}
+            <div className="mb-8 bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
+                <h3 className="text-lg font-bold text-gray-900 mb-4">Where is your university located?</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <button
+                        onClick={() => selectZone('tec')}
+                        className={`p-4 rounded-xl border-2 font-semibold transition-all ${
+                            selectedZone === 'tec'
+                                ? 'border-sherpa-blue bg-blue-50 text-sherpa-blue'
+                                : 'border-gray-200 bg-white text-gray-700 hover:border-sherpa-blue'
+                        }`}
+                    >
+                        🏫 TEC Zone
+                    </button>
+                    <button
+                        onClick={() => selectZone('udem')}
+                        className={`p-4 rounded-xl border-2 font-semibold transition-all ${
+                            selectedZone === 'udem'
+                                ? 'border-sherpa-blue bg-blue-50 text-sherpa-blue'
+                                : 'border-gray-200 bg-white text-gray-700 hover:border-sherpa-blue'
+                        }`}
+                    >
+                        🏫 UDEM Zone
+                    </button>
+                </div>
+            </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
 
@@ -97,41 +140,41 @@ const Payment: React.FC = () => {
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 {/* Les cartes d'options sont converties en composants React */}
                                 {[
-                                    { qty: 0, title: "No thanks", subtitle: "I'll manage alone", price: 0, badge: null },
-                                    { qty: 1, title: "Solo", subtitle: "1 person", price: 35, badge: null },
-                                    { qty: 2, title: "Duo", subtitle: "2 people", price: 60, badge: "-10€" },
-                                    { qty: 3, title: "Trio", subtitle: "3 people", price: 80, badge: "Best Deal" }
-                                ].map(({ qty, title, subtitle, price, badge }) => (
-                                    <div 
-                                        key={qty}
-                                        className={`option-card rounded-xl p-4 cursor-pointer bg-white relative 
-                                            ${selectedOption === qty ? 'selected' : ''}`}
-                                        onClick={() => selectOption(qty)}
-                                    >
-                                        <div className="flex justify-between items-start">
-                                            <div className="flex items-center gap-3">
-                                                {/* Le cercle radio est stylé via la classe 'selected' dans le CSS global ou importé */}
-                                                <div id={`radio-${qty}`} className="radio-circle w-5 h-5 rounded-full border border-gray-300 bg-white"></div>
-                                                <div>
-                                                    <span className="block font-bold text-gray-800">
-                                                        {title} 
-                                                        {badge && (
-                                                            <span className={`text-xs px-1 rounded ml-1 
-                                                                ${qty === 2 ? 'text-green-600 bg-green-100' : 'text-green-600 bg-green-100'}`}
-                                                            >
-                                                                {badge}
-                                                            </span>
-                                                        )}
-                                                    </span>
-                                                    <span className="text-xs text-gray-500">{subtitle}</span>
+                                    { qty: 0, title: "No thanks", subtitle: "I'll manage alone", badge: null },
+                                    { qty: 1, title: "Solo", subtitle: "1 person", badge: null },
+                                    { qty: 2, title: "Duo", subtitle: "2 people", badge: "-10€" },
+                                    { qty: 3, title: "Trio", subtitle: "3 people", badge: "Best Deal" }
+                                ].map(({ qty, title, subtitle, badge }) => {
+                                    const price = ZONE_PRICES[selectedZone][qty];
+                                    return (
+                                        <div 
+                                            key={qty}
+                                            className={`option-card rounded-xl p-4 cursor-pointer bg-white relative 
+                                                ${selectedOption === qty ? 'selected' : ''}`}
+                                            onClick={() => selectOption(qty)}
+                                        >
+                                            <div className="flex justify-between items-start">
+                                                <div className="flex items-center gap-3">
+                                                    <div id={`radio-${qty}`} className="radio-circle w-5 h-5 rounded-full border border-gray-300 bg-white"></div>
+                                                    <div>
+                                                        <span className="block font-bold text-gray-800">
+                                                            {title} 
+                                                            {badge && (
+                                                                <span className={`text-xs px-1 rounded ml-1 text-green-600 bg-green-100`}>
+                                                                    {badge}
+                                                                </span>
+                                                            )}
+                                                        </span>
+                                                        <span className="text-xs text-gray-500">{subtitle}</span>
+                                                    </div>
                                                 </div>
+                                                <span className={`font-bold ${qty === 0 ? 'text-gray-400' : 'text-sherpa-blue'}`}>
+                                                    {qty === 0 ? `+${price}€` : `+${price}€`}
+                                                </span>
                                             </div>
-                                            <span className={`font-bold ${qty === 0 ? 'text-gray-400' : 'text-sherpa-blue'}`}>
-                                                {qty === 0 ? `+${price}€` : `+${price}€`}
-                                            </span>
                                         </div>
-                                    </div>
-                                ))}
+                                    );
+                                })}
                             </div>
 
                             {/* Alerte pour les groupes */}
@@ -163,6 +206,10 @@ const Payment: React.FC = () => {
                         
                         <div className="space-y-3 text-sm mb-6">
                             <div className="flex justify-between text-gray-600">
+                                <span>Zone</span>
+                                <span className="font-medium uppercase">{selectedZone}</span>
+                            </div>
+                            <div className="flex justify-between text-gray-600">
                                 <span>Sherpa Fee (1 Person)</span>
                                 <span className="font-medium">73€</span>
                             </div>
@@ -177,7 +224,7 @@ const Payment: React.FC = () => {
                             <span id="summary-total" className="text-2xl font-extrabold text-sherpa-blue">{totalPrice}€</span>
                         </div>
 
-                        <a id="main-cta" href={finalLink} className="block w-full bg-sherpa-blue hover:bg-sherpa-dark text-white text-center font-bold py-4 rounded-xl shadow-lg transition transform hover:-translate-y-1">
+                        <a id="main-cta" href={finalLink} className="block w-full bg-blue-600 hover:bg-blue-700 text-white text-center font-bold py-4 rounded-xl shadow-lg transition transform hover:-translate-y-1">
                             SECURE MY ACCOMMODATION ➔
                         </a>
                         <p className="text-center text-xs text-gray-400 mt-4">Secure payment via Stripe</p>
@@ -190,9 +237,9 @@ const Payment: React.FC = () => {
                 <div className="flex items-center justify-between max-w-6xl mx-auto">
                     <div>
                         <span className="text-xs text-gray-500 block">Total to pay</span>
-                        <span id="mobile-total" className="text-xl font-extrabold text-sherpa-blue">{totalPrice}€</span>
+                        <span id="mobile-total" className="text-xl font-extrabold text-blue-600">{totalPrice}€</span>
                     </div>
-                    <a id="mobile-cta" href={finalLink} className="bg-sherpa-blue text-white px-6 py-3 rounded-xl font-bold shadow-lg">Pay Now</a>
+                    <a id="mobile-cta" href={finalLink} className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-bold shadow-lg">Pay Now</a>
                 </div>
             </div>
         </div>

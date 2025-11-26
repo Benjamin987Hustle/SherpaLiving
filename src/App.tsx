@@ -8,6 +8,7 @@ import Study from './pages/Study';
 import WorkWithUs from './pages/WorkWithUs';
 import About from './pages/About';
 import Payment from './pages/payment'; // ⬅️ MAJUSCULE et NOM DU FICHIER
+import LemanSummerCamps from './pages/Leman_summer_camps';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
             <Route path="/work-with-us" element={<WorkWithUs />} />
             <Route path="/about" element={<About />} />
             <Route path="/payment" element={<Payment />} /> {/* ⬅️ LA NOUVELLE ROUTE ! */}
+            <Route path="/leman-summer-camps" element={<LemanSummerCamps />} />
           </Routes>
         </main>
         <Footer />
