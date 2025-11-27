@@ -5,8 +5,8 @@ const BASE_FEE = 73;
 
 // Prices par zone
 const ZONE_PRICES: { [key: string]: { [key: number]: number } } = {
-  tec: { 0: 0, 1: 35, 2: 60, 3: 80 },
-  udem: { 0: 0, 1: 45, 2: 65, 3: 85 }
+  tec: { 0: 0, 1: 35, 2: 45, 3: 55 },
+  udem: { 0: 0, 1: 45, 2: 55, 3: 65 }
 };
 
 // Stripe links par zone
