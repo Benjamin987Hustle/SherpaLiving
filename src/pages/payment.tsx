@@ -5,8 +5,8 @@ const BASE_FEE = 73;
 
 // Prices par zone
 const ZONE_PRICES: { [key: string]: { [key: number]: number } } = {
-  tec: { 0: 0, 1: 35, 2: 45, 3: 55 },
-  udem: { 0: 0, 1: 45, 2: 55, 3: 65 }
+  tec: { 0: 0, 1: 25, 2: 35, 3: 45 },
+  udem: { 0: 0, 1: 35, 2: 45, 3: 55 }
 };
 
 // Stripe links par zone
@@ -142,7 +142,7 @@ const Payment: React.FC = () => {
                                 {[
                                     { qty: 0, title: "No thanks", subtitle: "I'll manage alone", badge: null },
                                     { qty: 1, title: "Solo", subtitle: "1 person", badge: null },
-                                    { qty: 2, title: "Duo", subtitle: "2 people", badge: "-10€" },
+                                    { qty: 2, title: "Duo", subtitle: "2 people", badge: null },
                                     { qty: 3, title: "Trio", subtitle: "3 people", badge: "Best Deal" }
                                 ].map(({ qty, title, subtitle, badge }) => {
                                     const price = ZONE_PRICES[selectedZone][qty];
@@ -242,6 +242,66 @@ const Payment: React.FC = () => {
                     <a id="mobile-cta" href={finalLink} className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-bold shadow-lg">Pay Now</a>
                 </div>
             </div>
+
+            {/* --- Terms and Conditions (small) --- */}
+            <section className="mt-6 mb-12 max-w-6xl mx-auto px-4">
+              <details className="bg-white border border-gray-100 rounded-lg p-4 text-sm text-gray-700">
+                <summary className="font-semibold cursor-pointer">Terms and Conditions of Service – Airport Pickup (Sherpa Living)</summary>
+                <div className="mt-3 space-y-3">
+                  <p>These terms govern the "Airport Pickup" service provided by Sherpa Living. By booking this service, the client agrees to the following conditions.</p>
+
+                  <div>
+                    <strong>1. Service Description</strong>
+                    <p className="mt-1">Sherpa Living agrees to provide private or shared transport service from the airport to the client's residence or any other agreed-upon location.</p>
+                  </div>
+
+                  <div>
+                    <strong>2. Booking and Availability</strong>
+                    <p className="mt-1"><strong>Availability Guarantee:</strong> To guarantee vehicle availability, the service must be requested at least 48 hours in advance. Requests made with less than 48 hours' notice are subject to driver availability and cannot be guaranteed.</p>
+                    <p><strong>Procedure:</strong> Following the booking request, a link to a Google Form will be sent to the client via email.</p>
+                    <p><strong>Required Information:</strong> This form is used to collect essential details (flight number, arrival time, number of bags, destination address).</p>
+                    <p><strong>Client Commitment:</strong> The client agrees to fill out this form as soon as they have all their travel details. The successful execution of the service depends on the accuracy of this data.</p>
+                  </div>
+
+                  <div>
+                    <strong>3. Rates and Payment</strong>
+                    <p className="mt-1">The rate is fixed and determined in advance based on the destination. Full payment is made securely via Stripe. The booking is confirmed once payment is received.</p>
+                  </div>
+
+                  <div>
+                    <strong>4. Flight Delays and Waiting Time</strong>
+                    <p className="mt-1">Flight Tracking: We track flight status in real-time to adjust the pickup time.</p>
+                    <p>No Late Fees: In the event of a flight delay or an extended wait at customs and immigration, no additional costs will be charged. The driver will wait for the client's arrival at no extra charge.</p>
+                  </div>
+
+                  <div>
+                    <strong>5. Cancellation and Refund</strong>
+                    <p className="mt-1"><strong>Cancellation by the Client:</strong></p>
+                    <ul className="list-disc pl-5 mt-1">
+                      <li>More than 48 hours before scheduled arrival: Full refund (100%).</li>
+                      <li>Less than 48 hours before scheduled arrival: No refund will be issued.</li>
+                    </ul>
+                    <p className="mt-1"><strong>Service Failure (Sherpa Living):</strong> If the driver does not show up or if a technical issue attributable to Sherpa Living prevents the service from being carried out, Sherpa Living agrees to fully refund the trip to the client.</p>
+                  </div>
+
+                  <div>
+                    <strong>6. Luggage</strong>
+                    <p className="mt-1">Quantity: The client must respect the number of bags indicated in the Google Form so that we can provide a suitable vehicle.</p>
+                    <p>Oversized Luggage: Any bulky items (instruments, trunks, bicycles) must be declared via the form.</p>
+                  </div>
+
+                  <div>
+                    <strong>7. Meeting Point</strong>
+                    <p className="mt-1">The driver will wait for the client at International Arrivals holding a sign. If the client has trouble finding the driver, they are invited to use the airport's free Wi‑Fi to contact the provided emergency number (WhatsApp: [Number]).</p>
+                  </div>
+
+                  <div>
+                    <strong>8. Liability</strong>
+                    <p className="mt-1">Sherpa Living strives to ensure transport but cannot be held liable for consequences related to force majeure events (complete road closures, extreme storms) that physically prevent access to the airport or traffic circulation.</p>
+                  </div>
+                </div>
+              </details>
+            </section>
         </div>
     );
 };
