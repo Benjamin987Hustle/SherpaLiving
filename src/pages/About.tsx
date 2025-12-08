@@ -38,9 +38,9 @@ const founders = [
   },
   {
     name: 'Lennart Schwiersch',
-    role: 'Team Member',
+    role: 'Partnerships Coordinator Germany',
     imageUrl: '/Images/lennart.png', // Placeholder, will fix if filename differs
-    bio: 'Dedicated to helping international students have the best experience possible.'
+    bio: 'A few years ago, I came to Monterrey for a semester abroad and had the time of my life. That\'s why I would like to make such kind of opportunities accessible to everyone.\n\nI am now utilizing these personal experiences and my connections in my home country of Germany to help as many young adults as possible fulfill their dream of going abroad with Sherpa Living.'
   }
 ];
 
