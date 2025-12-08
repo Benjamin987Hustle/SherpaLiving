@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Les Elfes International - Camp Aventure Suisse</title>
+    <!-- Chargement de Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Inclusion de la police Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap"
+        rel="stylesheet">
+
+    <!-- Configuration des polices et des couleurs -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'elfes-green': '#1E8449', // Vert forêt des Alpes
+                        'elfes-light': '#F6F8FB', // Blanc cassé / Neige
+                        'elfes-blue': '#2E86C1', // Bleu ciel / Lac
+                        'elfes-dark': '#154360', // Bleu nuit / Contraste
+                        'elfes-accent': '#FFD700', // Accent Or (Premium Suisse)
+                        'b-text': '#1F2937',
+                        'surface': '#FFFFFF',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'soft': '0 4px 20px -2px rgba(0, 0, 0, 0.05)',
+                        'card': '0 10px 30px -5px rgba(0, 0, 0, 0.08)',
+                        '3xl': '0 35px 60px -15px rgba(0, 0, 0, 0.2)',
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.8s ease-out',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: #F6F8FB;
+        }
+
+        /* Hero Overlay & Background */
+        .hero-section {
+            position: relative;
+            height: 100vh;
+            min-height: 600px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .hero-bg-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* Gradient adapté aux couleurs Les Elfes (Vert/Bleu sombre) */
+            background: linear-gradient(rgba(21, 67, 96, 0.3), rgba(30, 132, 73, 0.5));
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Standard Card Hover */
+        .hover-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .hover-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px -5px rgba(30, 132, 73, 0.15);
+            /* Ombre verte subtile */
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #1E8449;
+            /* Elfes Green */
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #154360;
+            /* Elfes Dark */
+        }
+    </style>
+</head>
+
+<body class="font-sans antialiased text-b-text leading-relaxed">
+
+    <!-- Navbar Modern (Glassmorphism) -->
+    <header class="fixed w-full top-0 z-50 bg-white/95 backdrop-blur-sm shadow-sm transition-all duration-300">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <!-- LOGO -->
+                <img src="Images_Les_Elfes/logo_les_elfe.jpg" alt="Les Elfes International"
+                    class="w-12 h-12 rounded-full shadow-sm border border-gray-100">
+                <span class="text-xl font-bold tracking-tight text-elfes-dark hidden sm:block">LES ELFES
+                    INTERNATIONAL</span>
+            </div>
+
+            <div class="flex items-center gap-6">
+                <!-- Desktop Nav -->
+                <nav class="hidden md:flex gap-6 text-sm font-medium text-gray-600">
+                    <a href="#programme" class="hover:text-elfes-green transition">Programme</a>
+                    <a href="#details" class="hover:text-elfes-green transition">Détails</a>
+                    <a href="#tarifs" class="hover:text-elfes-green transition">Tarifs</a>
+                    <a href="#contact" class="hover:text-elfes-green transition">Contact</a>
+                </nav>
+
+                <!-- Language & CTA -->
+                <div class="flex items-center gap-4">
+                    <select id="language-switcher" onchange="setLanguage(this.value)"
+                        class="bg-gray-50 border border-gray-200 text-gray-700 text-sm rounded-lg focus:ring-elfes-green focus:border-elfes-green block p-2 cursor-pointer outline-none">
+                        <option value="fr">FR</option>
+                        <option value="en">EN</option>
+                        <option value="es">ES</option>
+                    </select>
+                    <a href="#inscription" data-i18n="nav_cta"
+                        class="hidden sm:inline-block px-6 py-2.5 bg-elfes-green text-white text-sm font-semibold rounded-full shadow-md hover:bg-green-700 transition transform hover:-translate-y-0.5">
+                        S'inscrire
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section (Immersive Full Screen with Carousel Background) -->
+    <section class="hero-section">
+        <!-- Background Carousel -->
+        <div class="hero-bg-container">
+            <div id="carousel" class="relative w-full h-full">
+                <!-- Use 'object-cover' to ensure full coverage -->
+                <img src="Images_Les_Elfes/elfes_musée.png" alt="Musée"
+                    class="carousel-img w-full h-full object-cover absolute opacity-100 transition-opacity duration-1000">
+                <img src="Images_Les_Elfes/les_elfes_cheval.png" alt="Cheval"
+                    class="carousel-img w-full h-full object-cover absolute opacity-0 transition-opacity duration-1000">
+                <img src="Images_Les_Elfes/les_elfes_paysages.png" alt="Paysage"
+                    class="carousel-img w-full h-full object-cover absolute opacity-0 transition-opacity duration-1000">
+                <img src="Images_Les_Elfes/les_elfes_summer_camp.png" alt="Camp"
+                    class="carousel-img w-full h-full object-cover absolute opacity-0 transition-opacity duration-1000">
+            </div>
+        </div>
+
+        <!-- Overlay Gradient -->
+        <div class="hero-overlay"></div>
+
+        <!-- Content -->
+        <div class="hero-content container mx-auto px-4 text-center">
+            <div class="max-w-5xl mx-auto space-y-8 animate-fade-in-up">
+                <span data-i18n="header_tagline"
+                    class="inline-block py-1 px-4 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-sm font-semibold tracking-wider uppercase text-elfes-accent mb-2">
+                    Camp d'Aventure dans les Alpes Suisses
+                </span>
+
+                <h1 data-i18n="header_title"
+                    class="text-5xl md:text-7xl font-black tracking-tight leading-tight drop-shadow-xl">
+                    Les Elfes <br /> <span class="text-white">L'Aventure en Plein Air</span>
+                </h1>
+
+                <p class="text-xl md:text-2xl font-light text-white/90 max-w-2xl mx-auto leading-relaxed">
+                    <span data-i18n="header_age_prefix">Développement personnel et sécurité en montagne pour les</span>
+                    <span class="font-bold text-elfes-green bg-white px-2 py-0.5 rounded shadow-sm">6 - 17 ans</span>.
+                </p>
+
+                <div class="pt-8 flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="#programme" data-i18n="carousel_cta"
+                        class="px-8 py-4 bg-white text-elfes-green font-bold rounded-full shadow-lg hover:bg-gray-100 transition transform hover:-translate-y-1">
+                        Je découvre les tarifs
+                    </a>
+                    <a href="#inscription" data-i18n="nav_cta"
+                        class="px-8 py-4 bg-elfes-green text-white font-bold rounded-full shadow-lg hover:bg-green-700 transition transform hover:-translate-y-1">
+                        Réserver ma place
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce z-10">
+            <svg class="w-6 h-6 text-white/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3">
+                </path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Value Proposition (Intro Text) -->
+    <section id="programme" class="py-24 bg-white">
+        <div class="container mx-auto px-6 max-w-6xl">
+            <div class="text-center max-w-4xl mx-auto mb-16">
+                <h2 data-i18n="desc_title" class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">Plus qu'un Camp, un
+                    Développement Personnel</h2>
+                <div class="text-lg text-gray-600 leading-relaxed space-y-6">
+                    <p data-i18n="desc_p1">
+                        Nichés dans le village alpin de Verbier, Les Elfes offrent un cadre exceptionnel pour
+                        l'aventure, le développement du leadership et l'apprentissage des langues pour les jeunes de 65+
+                        pays.
+                    </p>
+                    <p data-i18n="desc_p2">
+                        Le programme combine plus de 40 activités de plein air excitantes (escalade, VTT, kayak)
+                        avec des cours de langues de haute qualité.
+                    </p>
+                </div>
+            </div>
+
+            <!-- 3 Highlights Grid -->
+            <div class="grid md:grid-cols-3 gap-10">
+                <!-- Feature 1 -->
+                <div class="p-8 rounded-2xl bg-elfes-light border border-green-50 hover-card">
+                    <div
+                        class="w-14 h-14 bg-green-100 rounded-xl flex items-center justify-center mb-6 text-elfes-green">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
+                            </path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-gray-900">International</h3>
+                    <p data-i18n="desc_p4" class="text-gray-600">Avec des jeunes de plus de 65 pays, c'est l'opportunité
+                        parfaite pour que votre enfant gagne en confiance et se fasse des amis pour la vie.</p>
+                </div>
+                <!-- Feature 2 -->
+                <div class="p-8 rounded-2xl bg-elfes-light border border-green-50 hover-card">
+                    <div class="w-14 h-14 bg-blue-100 rounded-xl flex items-center justify-center mb-6 text-elfes-blue">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-gray-900">Programmes Adaptés</h3>
+                    <p data-i18n="structure_l1" class="text-gray-600">3 Programmes (Discovery, Explorer, Pioneer)
+                        assurant que chaque tranche d'âge bénéficie d'une structure adaptée.</p>
+                </div>
+                <!-- Feature 3 -->
+                <div class="p-8 rounded-2xl bg-elfes-light border border-green-50 hover-card">
+                    <div class="w-14 h-14 bg-gray-200 rounded-xl flex items-center justify-center mb-6 text-elfes-dark">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z">
+                            </path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-gray-900">Sécurité Maximale</h3>
+                    <p data-i18n="structure_l4" class="text-gray-600">Ratio de 5 étudiants pour 1 moniteur pendant les
+                        activités, équipe médicale sur place 24/7.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Detailed Program & Pricing Section -->
+    <section id="details" class="py-24 bg-gray-50">
+        <div class="container mx-auto px-6 max-w-6xl">
+            <h3 data-i18n="details_title" class="text-3xl md:text-4xl font-bold text-center mb-16 text-gray-900">Détails
+                et Tarifs</h3>
+
+            <div class="grid md:grid-cols-2 gap-12 items-start">
+
+                <!-- Programme Structure Card -->
+                <div class="bg-white p-8 rounded-2xl shadow-card hover-card">
+                    <h4 data-i18n="structure_title"
+                        class="text-2xl font-bold mb-6 text-elfes-green flex items-center gap-2">
+                        <span class="p-2 bg-green-50 rounded-lg"><svg class="w-6 h-6" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01">
+                                </path>
+                            </svg></span>
+                        Au Programme
+                    </h4>
+                    <ul class="space-y-6">
+                        <li class="flex gap-4">
+                            <span
+                                class="flex-shrink-0 w-8 h-8 bg-blue-100 text-elfes-blue rounded-full flex items-center justify-center font-bold text-sm">ABC</span>
+                            <div>
+                                <h5 class="font-bold text-gray-900">Langues</h5>
+                                <p data-i18n="structure_l2" class="text-sm text-gray-600 mt-1">8 périodes/semaine
+                                    incluses (Anglais, Français, Espagnol, Allemand ou Mandarin).</p>
+                            </div>
+                        </li>
+                        <li class="flex gap-4">
+                            <span
+                                class="flex-shrink-0 w-8 h-8 bg-green-100 text-elfes-green rounded-full flex items-center justify-center font-bold text-sm"><svg
+                                    class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                                </svg></span>
+                            <div>
+                                <h5 class="font-bold text-gray-900">Activités Aventure</h5>
+                                <p data-i18n="structure_l3" class="text-sm text-gray-600 mt-1">Plus de 40 choix incluant
+                                    sports nautiques, escalade, VTT, excursions culturelles.</p>
+                            </div>
+                        </li>
+                        <li class="flex gap-4">
+                            <span
+                                class="flex-shrink-0 w-8 h-8 bg-yellow-100 text-yellow-600 rounded-full flex items-center justify-center font-bold text-sm">★</span>
+                            <div>
+                                <h5 class="font-bold text-gray-900">Excellence</h5>
+                                <p class="text-sm text-gray-600 mt-1">Programmes exclusifs et encadrement premium.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Pricing Card -->
+                <div class="bg-white p-8 rounded-2xl shadow-card hover-card" id="tarifs">
+                    <h4 data-i18n="pricing_title"
+                        class="text-2xl font-bold mb-6 text-elfes-dark flex items-center gap-2">
+                        <span class="p-2 bg-blue-50 rounded-lg"><svg class="w-6 h-6" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
+                                </path>
+                            </svg></span>
+                        Dates et Tarifs 2024
+                    </h4>
+                    <div class="overflow-hidden rounded-xl border border-gray-100">
+                        <table class="w-full text-sm text-left">
+                            <thead class="bg-gray-50 text-gray-600 uppercase text-xs">
+                                <tr>
+                                    <th class="px-4 py-3" data-i18n="table_dates">Dates</th>
+                                    <th class="px-4 py-3 text-right" data-i18n="table_boarding">Tarif (2 Sem.)</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-100">
+                                <tr>
+                                    <td class="px-4 py-4 font-medium text-gray-900">23 juin - 6 juillet</td>
+                                    <td class="px-4 py-4 text-right font-bold text-elfes-green">CHF 5,900</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-4 font-medium text-gray-900">7 juillet - 20 juillet</td>
+                                    <td class="px-4 py-4 text-right font-bold text-elfes-green">CHF 5,900</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-4 font-medium text-gray-900">21 juillet - 3 août</td>
+                                    <td class="px-4 py-4 text-right font-bold text-elfes-green">CHF 5,900</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-4 font-medium text-gray-900">4 août - 17 août</td>
+                                    <td class="px-4 py-4 text-right font-bold text-elfes-green">CHF 5,900</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p data-i18n="pricing_footer" class="mt-4 text-xs text-gray-500 italic text-center">
+                        Tarif basé sur une session de 2 semaines. Des sessions de 1 ou 3 semaines sont également
+                        disponibles.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonial Section -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto max-w-3xl text-center px-6">
+            <div
+                class="w-16 h-16 bg-elfes-green/10 rounded-full flex items-center justify-center mx-auto mb-8 text-elfes-green">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                </svg>
+            </div>
+            <blockquote data-i18n="quote_text"
+                class="text-2xl md:text-3xl italic font-serif leading-relaxed text-gray-800 mb-6">
+                "C'est ma troisième fois ici, et chaque année, c'est de mieux en mieux. Les activités sont toujours
+                amusantes... Le meilleur camp qui soit !"
+            </blockquote>
+            <cite data-i18n="quote_source" class="block text-lg font-bold text-elfes-green uppercase tracking-wider">-
+                Anonyme, Camp d'Été Les Elfes</cite>
+        </div>
+    </section>
+
+    <!-- Footer / Contact (Dark Style) -->
+    <section id="contact" class="py-24 bg-gray-900 text-white">
+        <div class="container mx-auto px-6 text-center max-w-4xl">
+            <h2 data-i18n="cta_title" class="text-4xl md:text-5xl font-black mb-6 tracking-tight">Réservez l'Aventure de
+                Votre Enfant</h2>
+            <p class="text-xl text-gray-400 mb-10 font-light">Les places dans les Alpes sont limitées. Contactez-nous
+                dès aujourd'hui.</p>
+
+            <a href="mailto:benjamin.egretaud@sherpaliving.mx" data-i18n="cta_button"
+                class="inline-block px-10 py-4 text-lg font-bold bg-elfes-green text-white rounded-full hover:bg-green-700 transition transform hover:scale-105 shadow-lg mb-12">
+                Contacter pour réserver
+            </a>
+
+            <div
+                class="flex flex-col md:flex-row justify-center gap-12 border-t border-gray-800 pt-12 text-sm text-gray-400">
+                <div>
+                    <h5 class="text-white font-bold mb-2 uppercase tracking-wider">Email</h5>
+                    <a href="mailto:benjamin.egretaud@sherpaliving.mx"
+                        class="hover:text-white transition">benjamin.egretaud@sherpaliving.mx</a>
+                </div>
+                <div>
+                    <h5 class="text-white font-bold mb-2 uppercase tracking-wider">Lieu</h5>
+                    <p>Verbier, Suisse</p>
+                </div>
+            </div>
+
+            <div class="mt-12 text-xs text-gray-600">
+                <span data-i18n="footer_text_1">&copy; 2024 Les Elfes International (Template)</span> | <span
+                    data-i18n="footer_text_2">Partenaire Sherpa Living.</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- LOGIQUE JAVASCRIPT -->
+    <script>
+        // --- LOGIQUE DE TRADUCTION (Multi-langue) ---
+        const translations = {
+            fr: {
+                nav_cta: "Contacter pour réserver",
+                header_tagline: "Camp d'Aventure dans les Alpes Suisses",
+                header_title: "Les Elfes <br/> <span class=\"text-white\">L'Aventure en Plein Air</span>",
+                header_age_prefix: "Développement personnel et sécurité en montagne pour les",
+                carousel_cta: "Je découvre les tarifs",
+                desc_title: "Plus qu'un Camp, un Développement Personnel",
+                desc_p1: "Nichés dans le village alpin de Verbier, Les Elfes offrent un cadre exceptionnel pour l'aventure, le développement du leadership et l'apprentissage des langues pour les jeunes de 65+ pays.",
+                desc_p2: "Le programme combine plus de 40 activités de plein air excitantes (escalade, VTT, kayak) avec des cours de langues de haute qualité.",
+                desc_p4: "Avec des jeunes de plus de 65 pays, c'est l'opportunité parfaite pour que votre enfant gagne en confiance et se fasse des amis pour la vie.",
+                details_title: "Détails et Tarifs",
+                structure_title: "Au Programme",
+                structure_l1: "3 Programmes (Discovery, Explorer, Pioneer) assurant que chaque tranche d'âge bénéficie d'une structure adaptée.",
+                structure_l2: "8 périodes/semaine incluses (Anglais, Français, Espagnol, Allemand ou Mandarin).",
+                structure_l3: "Plus de 40 choix incluant sports nautiques, escalade, VTT, excursions culturelles.",
+                structure_l4: "Ratio de 5 étudiants pour 1 moniteur pendant les activités, équipe médicale sur place 24/7.",
+                pricing_title: "Dates et Tarifs 2024",
+                table_dates: "Dates",
+                table_boarding: "Tarif (2 Sem.)",
+                pricing_footer: "Tarif basé sur une session de 2 semaines. Des sessions de 1 ou 3 semaines sont également disponibles.",
+                quote_text: "\"C'est ma troisième fois ici, et chaque année, c'est de mieux en mieux. Les activités sont toujours amusantes... Le meilleur camp qui soit !\"",
+                quote_source: "- Anonyme, Camp d'Été Les Elfes",
+                cta_title: "Réservez l'Aventure de Votre Enfant",
+                cta_button: "Contacter pour Réserver",
+                contact_title: "Informations de Contact :",
+                footer_text_1: "© 2024 Les Elfes International.",
+                footer_text_2: "Partenaire Sherpa Living.",
+            },
+            en: {
+                nav_cta: "Contact to Book",
+                header_tagline: "Adventure Camp in the Swiss Alps",
+                header_title: "Les Elfes <br/> <span class=\"text-white\">The Great Outdoors Adventure</span>",
+                header_age_prefix: "Personal development and mountain safety for ages",
+                carousel_cta: "See Pricing",
+                desc_title: "More Than a Camp, Personal Development",
+                desc_p1: "Nestled in the alpine village of Verbier, Les Elfes offers an exceptional setting for adventure, leadership development, and language learning for youth from 65+ countries.",
+                desc_p2: "The program combines over 40 exciting outdoor activities (climbing, mountain biking, kayaking) with high-quality language classes.",
+                desc_p4: "With youth from over 65 countries, it's the perfect opportunity for your child to gain confidence and make friends for life.",
+                details_title: "Details and Pricing",
+                structure_title: "The Program",
+                structure_l1: "3 Programs (Discovery, Explorer, Pioneer) ensuring each age group benefits from a tailored structure.",
+                structure_l2: "8 periods/week included (English, French, Spanish, German, or Mandarin).",
+                structure_l3: "Over 40 choices including water sports, climbing, mountain biking, cultural excursions.",
+                structure_l4: "5:1 student-to-counselor ratio during activities, 24/7 on-site medical team.",
+                pricing_title: "2024 Dates and Prices",
+                table_dates: "Dates",
+                table_boarding: "Price (2 Wk.)",
+                pricing_footer: "Price based on a 2-week session. 1 or 3-week sessions are also available.",
+                quote_text: "\"It's my third time here, and every year it gets better and better. The activities are always fun... The best camp there is!\"",
+                quote_source: "- Anonymous, Les Elfes Summer Camp",
+                cta_title: "Book Your Child's Adventure",
+                cta_button: "Contact to Book",
+                contact_title: "Contact Information:",
+                footer_text_1: "© 2024 Les Elfes International.",
+                footer_text_2: "Sherpa Living Partner.",
+            },
+            es: {
+                nav_cta: "Contactar para Reservar",
+                header_tagline: "Campamento de Aventura en los Alpes Suizos",
+                header_title: "Les Elfes <br/> <span class=\"text-white\">La Aventura al Aire Libre</span>",
+                header_age_prefix: "Desarrollo personal y seguridad en montaña para",
+                carousel_cta: "Ver Precios",
+                desc_title: "Más que un Campamento, Desarrollo Personal",
+                desc_p1: "Ubicado en el pueblo alpino de Verbier, Les Elfes ofrece un entorno excepcional para la aventura, el desarrollo del liderazgo y el aprendizaje de idiomas para jóvenes de más de 65 países.",
+                desc_p2: "El programa combina más de 40 emocionantes actividades al aire libre (escalada, bicicleta de montaña, kayak) con clases de idiomas de alta calidad.",
+                desc_p4: "Con jóvenes de más de 65 países, es la oportunidad perfecta para que su hijo gane confianza y haga amigos para toda la vida.",
+                details_title: "Detalles y Precios",
+                structure_title: "El Programa",
+                structure_l1: "3 Programas (Discovery, Explorer, Pioneer) asegurando que cada grupo de edad se beneficie de una estructura adaptada.",
+                structure_l2: "8 períodos/semana incluidos (Inglés, Francés, Español, Alemán o Mandarín).",
+                structure_l3: "Más de 40 opciones incluyendo deportes acuáticos, escalada, bicicleta de montaña, excursiones culturales.",
+                structure_l4: "Proporción de 5 estudiantes por 1 monitor durante actividades, equipo médico 24/7.",
+                pricing_title: "Fechas y Precios 2024",
+                table_dates: "Fechas",
+                table_boarding: "Precio (2 Sem.)",
+                pricing_footer: "Precio basado en sesión de 2 semanas. Sesiones de 1 o 3 semanas disponibles.",
+                quote_text: "\"Es mi tercera vez aquí, y cada año es mejor. Las actividades siempre son divertidas... ¡El mejor campamento que existe!\"",
+                quote_source: "- Anónimo, Campamento Les Elfes",
+                cta_title: "Reserve la Aventura de su Hijo",
+                cta_button: "Contactar para Reservar",
+                contact_title: "Información de Contacto:",
+                footer_text_1: "© 2024 Les Elfes International.",
+                footer_text_2: "Socio Sherpa Living.",
+            }
+        };
+
+        function setLanguage(lang) {
+            const elements = document.querySelectorAll('[data-i18n]');
+            if (!translations[lang]) {
+                console.error(`Langue non supportée: ${lang}`);
+                return;
+            }
+
+            elements.forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                let translation = translations[lang][key];
+
+                if (translation) {
+                    if (element.tagName === 'P' || element.tagName === 'H1' || element.tagName === 'H2' || element.tagName === 'H3' || element.tagName === 'H4' || element.tagName === 'SPAN') {
+                        element.innerHTML = translation;
+                    } else {
+                        element.textContent = translation;
+                    }
+                }
+            });
+            document.documentElement.setAttribute('lang', lang);
+        }
+
+        // --- LOGIQUE DU CARROUSEL (FOND) ---
+        let currentSlide = 0;
+        let slides;
+        let totalSlides = 0;
+        let carouselInterval;
+
+        function showSlide(n) {
+            if (!slides || slides.length === 0) return;
+
+            if (n < 0) n = totalSlides - 1;
+            if (n >= totalSlides) n = 0;
+            currentSlide = n;
+
+            slides.forEach((slide, index) => {
+                slide.style.opacity = index === n ? '1' : '0';
+            });
+        }
+
+        function nextSlide() {
+            showSlide((currentSlide + 1) % totalSlides);
+        }
+
+        function initCarousel() {
+            slides = document.querySelectorAll('.carousel-img');
+            totalSlides = slides.length;
+
+            if (totalSlides > 0) {
+                showSlide(0);
+                clearInterval(carouselInterval);
+                carouselInterval = setInterval(nextSlide, 5000);
+            }
+        }
+
+
+        // Initialisation
+        window.onload = function () {
+            initCarousel();
+
+            const storedLang = localStorage.getItem('siteLang') || 'fr';
+            const switcher = document.getElementById('language-switcher');
+            if (switcher) {
+                switcher.value = storedLang;
+            }
+            setLanguage(storedLang);
+
+            if (switcher) {
+                switcher.addEventListener('change', (e) => {
+                    localStorage.setItem('siteLang', e.target.value);
+                });
+            }
+        };
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trulli Italian School - Camp d'Été en Italie 2026</title>
+    <!-- Chargement de Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Inclusion de la police Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap"
+        rel="stylesheet">
+
+    <!-- Configuration des polices et des couleurs -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'trulli-main': '#FF9900', // Orange principal
+                        'trulli-dark': '#E68A00', // Orange un peu plus foncé
+                        'trulli-light': '#FFFBF5', // Fond très clair
+                        'trulli-text': '#1F2937', // Gris très foncé pour le texte
+                        'trulli-accent': '#008080', // Turquoise
+                        'surface': '#FFFFFF',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'soft': '0 4px 20px -2px rgba(0, 0, 0, 0.05)',
+                        'card': '0 10px 30px -5px rgba(0, 0, 0, 0.08)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: #FFFBF5;
+        }
+
+        /* Hero Pattern */
+        .hero-bg {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('Image_trulli/trulli_1.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        /* Standard Card Hover */
+        .hover-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .hover-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #FF9900;
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #CC7A00;
+        }
+    </style>
+</head>
+
+<body class="font-sans antialiased text-trulli-text leading-relaxed">
+
+    <!-- Navbar Standard (Logo Left, Nav Right) -->
+    <header class="fixed w-full top-0 z-50 bg-white/95 backdrop-blur-sm shadow-sm transition-all duration-300"
+        id="navbar">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <!-- LOGO -->
+                <img src="Image_trulli/logo_trulli.png" alt="Trulli Italian School"
+                    class="w-10 h-10 rounded-full shadow-sm">
+                <span class="text-xl font-bold tracking-tight text-gray-900">TRULLI ITALIAN SCHOOL</span>
+            </div>
+
+            <div class="flex items-center gap-6">
+                <!-- Desktop Nav -->
+                <nav class="hidden md:flex gap-6 text-sm font-medium text-gray-600">
+                    <a href="#programme" class="hover:text-trulli-main transition">Programme</a>
+                    <a href="#hebergement" class="hover:text-trulli-main transition">Hébergement</a>
+                    <a href="#tarifs" class="hover:text-trulli-main transition">Tarifs</a>
+                    <a href="#faq" class="hover:text-trulli-main transition">FAQ</a>
+                </nav>
+
+                <!-- Language & CTA -->
+                <div class="flex items-center gap-4">
+                    <select id="language-switcher" onchange="setLanguage(this.value)"
+                        class="bg-gray-50 border border-gray-200 text-gray-700 text-sm rounded-lg focus:ring-trulli-main focus:border-trulli-main block p-2 cursor-pointer outline-none">
+                        <option value="fr">FR</option>
+                        <option value="en">EN</option>
+                        <option value="es">ES</option>
+                    </select>
+                    <a href="#inscription" data-i18n="nav_cta"
+                        class="hidden sm:inline-block px-6 py-2.5 bg-trulli-main text-white text-sm font-semibold rounded-full shadow-md hover:bg-trulli-dark transition transform hover:-translate-y-0.5">
+                        Réserver
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section Standard (Full Width Background) -->
+    <section class="hero-bg h-screen flex items-center justify-center text-center text-white px-4 relative">
+        <div class="max-w-4xl mx-auto space-y-6 animate-fade-in-up">
+            <span data-i18n="header_tagline"
+                class="inline-block py-1 px-3 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-sm font-medium tracking-wider uppercase mb-2">
+                Immersion Linguistique & Culturelle
+            </span>
+            <h1 data-i18n="header_title"
+                class="text-5xl md:text-7xl font-black tracking-tight leading-tight drop-shadow-lg">
+                Votre Été 2026 <br /> <span class="text-trulli-main">en Puglia !</span>
+            </h1>
+            <p class="text-xl md:text-2xl font-light text-white/90 max-w-2xl mx-auto leading-relaxed">
+                <span data-i18n="header_age_prefix">Apprendre l'italien au cœur d'Alberobello (UNESCO) pour les</span>
+                <span class="font-bold text-white bg-trulli-accent/80 px-2 rounded">14-17 ans</span>.
+            </p>
+            <div class="pt-8 flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="#programme" data-i18n="carousel_cta"
+                    class="px-8 py-4 bg-white text-trulli-text font-bold rounded-full shadow-lg hover:bg-gray-100 transition transform hover:-translate-y-1">
+                    Découvrir le Programme
+                </a>
+                <a href="#inscription" data-i18n="nav_cta"
+                    class="px-8 py-4 bg-trulli-main text-white font-bold rounded-full shadow-lg hover:bg-trulli-dark transition transform hover:-translate-y-1">
+                    Réserver ma place
+                </a>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <svg class="w-6 h-6 text-white/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3">
+                </path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Value Proposition (Clean 3-column layout) -->
+    <section class="py-24 bg-white">
+        <div class="container mx-auto px-6 max-w-6xl">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 data-i18n="desc_title" class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">Plus qu'un cours,
+                    une Expérience.</h2>
+                <p data-i18n="desc_p1" class="text-lg text-gray-600 leading-relaxed">
+                    Nous croyons que la manière la plus efficace d'apprendre l'italien est par l'engagement émotionnel
+                    authentique avec les gens et les lieux.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-10">
+                <!-- Feature 1 -->
+                <div class="p-8 rounded-2xl bg-trulli-light border border-orange-100 hover-card">
+                    <div
+                        class="w-14 h-14 bg-orange-100 rounded-xl flex items-center justify-center mb-6 text-trulli-main">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z">
+                            </path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-gray-900">Immersion Totale</h3>
+                    <p data-i18n="desc_p2" class="text-gray-600">Nouvelles amitiés, activités passionnantes et ambiance
+                        chaleureuse pour une progression rapide.</p>
+                </div>
+                <!-- Feature 2 -->
+                <div class="p-8 rounded-2xl bg-trulli-light border border-orange-100 hover-card">
+                    <div
+                        class="w-14 h-14 bg-teal-100 rounded-xl flex items-center justify-center mb-6 text-trulli-accent">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
+                            </path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-gray-900">Culture & Fun</h3>
+                    <p class="text-gray-600">Vivez la "Bella Vita" à travers la gastronomie, les excursions et la
+                        découverte des Pouilles.</p>
+                </div>
+                <!-- Feature 3 -->
+                <div class="p-8 rounded-2xl bg-trulli-light border border-orange-100 hover-card">
+                    <div
+                        class="w-14 h-14 bg-yellow-100 rounded-xl flex items-center justify-center mb-6 text-yellow-600">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 text-gray-900">Qualité Garantie</h3>
+                    <p data-i18n="imm_text" class="text-gray-600">Petits groupes, suivi personnalisé et sécurité
+                        maximale pour une tranquillité d'esprit totale.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Programme Section (Split Layout) -->
+    <section id="programme" class="py-24 bg-gray-50">
+        <div class="container mx-auto px-6 max-w-6xl">
+            <div class="text-center mb-16">
+                <span class="text-trulli-main font-bold tracking-wider uppercase text-sm">Planning</span>
+                <h2 data-i18n="prog_title" class="text-3xl md:text-4xl font-bold text-gray-900 mt-2">Cours & Aventure
+                </h2>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-12 items-start">
+                <!-- Matins -->
+                <div class="bg-white rounded-2xl shadow-card overflow-hidden hover-card">
+                    <div class="h-48 bg-cover bg-center" style="background-image: url('Image_trulli/trulli_2.png')">
+                    </div>
+                    <div class="p-8">
+                        <h4 data-i18n="morn_title"
+                            class="text-2xl font-bold mb-4 text-gray-900 flex items-center gap-3">
+                            <span class="p-2 bg-orange-100 text-trulli-main rounded-lg"><svg class="w-6 h-6" fill="none"
+                                    stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253">
+                                    </path>
+                                </svg></span>
+                            Les Matins
+                        </h4>
+                        <ul class="space-y-4 text-gray-600">
+                            <li data-i18n="morn_l1" class="flex gap-3"><span class="text-trulli-main mt-1">✓</span>
+                                <span><strong class="text-gray-900">Format :</strong> 20 leçons/semaine (9h15 -
+                                    12h30).</span>
+                            </li>
+                            <li data-i18n="morn_l2" class="flex gap-3"><span class="text-trulli-main mt-1">✓</span>
+                                <span><strong class="text-gray-900">Petits Groupes :</strong> Max 6
+                                    étudiants/classe.</span>
+                            </li>
+                            <li data-i18n="morn_l3" class="flex gap-3"><span class="text-trulli-main mt-1">✓</span>
+                                <span><strong class="text-gray-900">Niveaux :</strong> Débutant à Avancé.</span>
+                            </li>
+                            <li data-i18n="morn_l4" class="flex gap-3"><span class="text-trulli-main mt-1">✓</span>
+                                <span><strong class="text-gray-900">Méthode :</strong> Active et ludique.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Après-midis -->
+                <div class="bg-white rounded-2xl shadow-card overflow-hidden hover-card">
+                    <div class="h-48 bg-cover bg-center" style="background-image: url('Image_trulli/trulli_3.png')">
+                    </div>
+                    <div class="p-8">
+                        <h4 data-i18n="aft_title" class="text-2xl font-bold mb-4 text-gray-900 flex items-center gap-3">
+                            <span class="p-2 bg-teal-100 text-trulli-accent rounded-lg"><svg class="w-6 h-6" fill="none"
+                                    stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
+                                    </path>
+                                </svg></span>
+                            Les Après-midis
+                        </h4>
+                        <ul class="space-y-4 text-gray-600">
+                            <li data-i18n="aft_l1" class="flex gap-3"><span class="text-trulli-accent mt-1">✦</span>
+                                <span><strong class="text-gray-900">Excursions :</strong> Polignano, Monopoli...</span>
+                            </li>
+                            <li data-i18n="aft_l2" class="flex gap-3"><span class="text-trulli-accent mt-1">✦</span>
+                                <span><strong class="text-gray-900">Plages :</strong> Criques secrètes et eau
+                                    cristalline.</span>
+                            </li>
+                            <li data-i18n="aft_l3" class="flex gap-3"><span class="text-trulli-accent mt-1">✦</span>
+                                <span><strong class="text-gray-900">Cuisine :</strong> Ateliers avec la "Nonna".</span>
+                            </li>
+                            <li data-i18n="aft_l4" class="flex gap-3"><span class="text-trulli-accent mt-1">✦</span>
+                                <span><strong class="text-gray-900">Fun :</strong> Chasse au trésor, parc
+                                    aquatique.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hébergement (Clean Section) -->
+    <section id="hebergement" class="py-24 bg-white">
+        <div class="container mx-auto px-6 max-w-6xl">
+            <div class="flex flex-col md:flex-row items-center gap-12">
+                <div class="md:w-1/2 space-y-6">
+                    <span class="text-trulli-accent font-bold tracking-wider uppercase text-sm">Le Lieu</span>
+                    <h2 data-i18n="loc_title" class="text-3xl md:text-4xl font-bold text-gray-900">Séjour au Cœur des
+                        Trulli</h2>
+                    <p data-i18n="loc_p1" class="text-lg text-gray-600 leading-relaxed">
+                        Vous séjournerez dans le cadre unique d'Alberobello, célèbre pour ses Trulli. Un endroit
+                        sûr, calme et magique.
+                    </p>
+
+                    <div class="space-y-4 pt-4">
+                        <div class="flex gap-4">
+                            <div
+                                class="flex-shrink-0 w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-trulli-dark">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4">
+                                    </path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 data-i18n="acc_sub_hot" class="font-bold text-gray-900">Hôtel Confortable</h4>
+                                <p data-i18n="acc_l1" class="text-sm text-gray-600">Chambres triples/quadruples,
+                                    non-mixtes.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div
+                                class="flex-shrink-0 w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-trulli-dark">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253">
+                                    </path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-900">Pension Complète</h4>
+                                <p data-i18n="acc_l2" class="text-sm text-gray-600">Petit-déjeuner, déjeuner et dîner
+                                    inclus.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="md:w-1/2">
+                    <img src="Image_trulli/trulli_4.png" alt="Accommodation"
+                        class="rounded-2xl shadow-2xl transform rotate-2 hover:rotate-0 transition duration-500">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing / Inclusions (Table Style) -->
+    <section id="tarifs" class="py-24 bg-trulli-light">
+        <div class="container mx-auto px-6 max-w-4xl">
+            <div class="text-center mb-12">
+                <h2 data-i18n="incl_title" class="text-3xl md:text-4xl font-bold text-gray-900">Tout est Inclus</h2>
+                <p data-i18n="incl_sub" class="text-gray-600 mt-4">Formule 2 semaines tout compris. Session : <span
+                        class="text-trulli-main font-bold">Début Juillet 2026</span>.</p>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100">
+                <div class="grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-gray-100">
+                    <!-- Included -->
+                    <div class="p-8">
+                        <h4 data-i18n="incl_h_title"
+                            class="text-xl font-bold text-trulli-main mb-6 flex items-center gap-2">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            Inclus
+                        </h4>
+                        <ul class="space-y-3 text-sm text-gray-700">
+                            <li class="flex gap-2"><span class="text-trulli-main">⭐</span> <span data-i18n="incl_l1">20
+                                    leçons d'italien/semaine</span></li>
+                            <li class="flex gap-2"><span class="text-trulli-main">⭐</span> <span
+                                    data-i18n="incl_l2">Pension complète</span></li>
+                            <li class="flex gap-2"><span class="text-trulli-main">⭐</span> <span data-i18n="incl_l3">6
+                                    excursions & 8 activités</span></li>
+                            <li class="flex gap-2"><span class="text-trulli-main">⭐</span> <span
+                                    data-i18n="incl_l5">Transport privé</span></li>
+                            <li class="flex gap-2"><span class="text-trulli-main">⭐</span> <span
+                                    data-i18n="incl_l6">Tuteur 24/7</span></li>
+                            <li class="flex gap-2"><span class="text-trulli-main">⭐</span> <span
+                                    data-i18n="incl_l7">Hébergement hôtel</span></li>
+                            <li class="flex gap-2"><span class="text-trulli-main">⭐</span> <span
+                                    data-i18n="incl_l8">Transferts aéroport (Bari/Brindisi)</span></li>
+                        </ul>
+                    </div>
+                    <!-- Excluded -->
+                    <div class="p-8 bg-gray-50">
+                        <h4 data-i18n="excl_h_title"
+                            class="text-xl font-bold text-gray-400 mb-6 flex items-center gap-2">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            Non Inclus
+                        </h4>
+                        <ul class="space-y-3 text-sm text-gray-500">
+                            <li class="flex gap-2"><span class="text-gray-400">➖</span> <span
+                                    data-i18n="excl_l1">Assurances (maladie, vol...)</span></li>
+                            <li class="flex gap-2"><span class="text-gray-400">➖</span> <span
+                                    data-i18n="excl_l2">Transferts hors horaires (+120€)</span></li>
+                            <li class="flex gap-2"><span class="text-gray-400">➖</span> <span data-i18n="excl_l3">Vols
+                                    A/R</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="p-6 bg-gray-50 border-t border-gray-100 text-center">
+                    <p data-i18n="pricing_footer" class="text-sm text-gray-500 italic">Contactez-nous pour les tarifs
+                        exacts.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ (Accordion) -->
+    <section id="faq" class="py-24 bg-white">
+        <div class="container mx-auto px-6 max-w-3xl">
+            <h2 data-i18n="faq_title" class="text-3xl font-bold text-center mb-12 text-gray-900">Questions Fréquentes
+            </h2>
+
+            <div class="space-y-4">
+                <details class="group bg-gray-50 rounded-xl p-4 cursor-pointer">
+                    <summary data-i18n="faq_q1"
+                        class="font-bold text-gray-900 flex justify-between items-center list-none">
+                        Quelles sont les modalités d'accueil et de transfert à l'arrivée ?
+                        <span class="transition group-open:rotate-180">▼</span>
+                    </summary>
+                    <p data-i18n="faq_a1" class="mt-3 text-gray-600 text-sm leading-relaxed">
+                        Un membre de notre personnel accrédité l'attendra à la sortie du vol avec une pancarte "Trulli
+                        Italian School". Les transferts sont inclus le dimanche (9h-12h / 15h-18h) depuis les aéroports
+                        de Bari ou Brindisi.
+                    </p>
+                </details>
+                <details class="group bg-gray-50 rounded-xl p-4 cursor-pointer">
+                    <summary data-i18n="faq_q2"
+                        class="font-bold text-gray-900 flex justify-between items-center list-none">
+                        Est-il possible de garantir le logement avec un autre participant ?
+                        <span class="transition group-open:rotate-180">▼</span>
+                    </summary>
+                    <p data-i18n="faq_a2" class="mt-3 text-gray-600 text-sm leading-relaxed">
+                        Oui, bien sûr ! Si votre enfant voyage avec un ami, il est possible de garantir qu'ils soient
+                        logés ensemble dans une chambre triple ou quadruple à l'hôtel, sous réserve de la même tranche
+                        d'âge.
+                    </p>
+                </details>
+                <details class="group bg-gray-50 rounded-xl p-4 cursor-pointer">
+                    <summary data-i18n="faq_q3"
+                        class="font-bold text-gray-900 flex justify-between items-center list-none">
+                        Comment est assurée la communication en cas d'urgence ?
+                        <span class="transition group-open:rotate-180">▼</span>
+                    </summary>
+                    <p data-i18n="faq_a3" class="mt-3 text-gray-600 text-sm leading-relaxed">
+                        Une ligne téléphonique d'urgence **24/7** sera fournie aux parents dès la confirmation de la
+                        réservation. Notre personnel et les professeurs sont également constamment joignables sur place.
+                    </p>
+                </details>
+                <details class="group bg-gray-50 rounded-xl p-4 cursor-pointer">
+                    <summary data-i18n="faq_q4"
+                        class="font-bold text-gray-900 flex justify-between items-center list-none">
+                        Le programme inclut-il du temps libre et une autonomie encadrée ?
+                        <span class="transition group-open:rotate-180">▼</span>
+                    </summary>
+                    <p data-i18n="faq_a4" class="mt-3 text-gray-600 text-sm leading-relaxed">
+                        Alberobello est un lieu sûr. Nous encourageons l'autonomie encadrée. Pendant les sorties et les
+                        soirées, un temps libre est accordé aux jeunes, toujours sous la supervision discrète de nos
+                        moniteurs.
+                    </p>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA & Contact (Dark Footer Style) -->
+    <section id="inscription" class="py-24 bg-gray-900 text-white">
+        <div class="container mx-auto px-6 text-center max-w-4xl">
+            <h2 data-i18n="cta_title" class="text-4xl md:text-5xl font-black mb-6 tracking-tight">Prêt pour l'aventure ?
+            </h2>
+            <p data-i18n="cta_sub" class="text-xl text-gray-400 mb-10 font-light">Les places sont limitées. Ne manquez
+                pas l'été de votre vie.</p>
+
+            <a href="mailto:benjamin.egretaud@sherpaliving.mx" data-i18n="cta_button"
+                class="inline-block px-10 py-4 text-lg font-bold bg-trulli-main text-white rounded-full hover:bg-trulli-dark transition transform hover:scale-105 shadow-lg mb-12">
+                Contacter pour réserver
+            </a>
+
+            <div
+                class="flex flex-col md:flex-row justify-center gap-12 border-t border-gray-800 pt-12 text-sm text-gray-400">
+                <div>
+                    <h5 class="text-white font-bold mb-2 uppercase tracking-wider">Email</h5>
+                    <a href="mailto:benjamin.egretaud@sherpaliving.mx"
+                        class="hover:text-trulli-main transition">benjamin.egretaud@sherpaliving.mx</a>
+                </div>
+                <div>
+                    <h5 class="text-white font-bold mb-2 uppercase tracking-wider">Adresse</h5>
+                    <p>Viale Margherita 49, Alberobello (Bari)</p>
+                </div>
+            </div>
+
+            <div class="mt-12 text-xs text-gray-600">
+                <span data-i18n="footer_text_1">&copy; 2026 Trulli Italian School.</span> <span
+                    data-i18n="footer_text_2">Partenaire Sherpa Living.</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- LOGIQUE JAVASCRIPT POUR LE CARROUSEL ET LA TRADUCTION -->
+    <script>
+        // --- LOGIQUE DE TRADUCTION (Multi-langue) ---
+        const translations = {
+            fr: {
+                nav_cta: "Contacter pour réserver",
+                header_tagline: "Immersion Linguistique & Culturelle",
+                header_title: "Votre Été 2026 en Puglia !",
+                header_age_prefix: "Apprendre l'italien au cœur d'Alberobello (UNESCO) pour les",
+                carousel_cta: "Découvrir le Programme",
+                desc_title: "Plus qu'un cours, une Expérience.",
+                desc_p1: "Nous croyons que la manière la plus efficace d'apprendre l'italien est par l'engagement émotionnel authentique avec les gens et les lieux.",
+                desc_p2: "Nouvelles amitiés, activités passionnantes et ambiance chaleureuse pour une progression rapide.",
+                prog_title: "Programme de Deux Semaines : Cours & Aventure",
+                morn_title: "Les Matins",
+                morn_l1: "<strong class='text-gray-900'>Format :</strong> 20 leçons/semaine (9h15 - 12h30).",
+                morn_l2: "<strong class='text-gray-900'>Petits Groupes :</strong> Max 6 étudiants/classe.",
+                morn_l3: "<strong class='text-gray-900'>Niveaux :</strong> Débutant à Avancé.",
+                morn_l4: "<strong class='text-gray-900'>Méthode :</strong> Active et ludique.",
+                aft_title: "Les Après-midis",
+                aft_l1: "<strong class='text-gray-900'>Excursions :</strong> Polignano, Monopoli...",
+                aft_l2: "<strong class='text-gray-900'>Plages :</strong> Criques secrètes et eau cristalline.",
+                aft_l3: "<strong class='text-gray-900'>Cuisine :</strong> Ateliers avec la \"Nonna\".",
+                aft_l4: "<strong class='text-gray-900'>Fun :</strong> Chasse au trésor, parc aquatique.",
+                imm_text: "Petits groupes, suivi personnalisé et sécurité maximale pour une tranquillité d'esprit totale.",
+                loc_title: "Séjour au Cœur des Trulli",
+                loc_p1: "Vous séjournerez dans le cadre unique d'Alberobello, célèbre pour ses Trulli. Un endroit sûr, calme et magique.",
+                acc_sub_hot: "Hôtel Confortable",
+                acc_l1: "Chambres triples/quadruples, non-mixtes.",
+                acc_l2: "Petit-déjeuner, déjeuner et dîner inclus.",
+                incl_title: "Tout est Inclus",
+                incl_sub: "Formule 2 semaines tout compris. Session : <span class='text-trulli-main font-bold'>Début Juillet 2026</span>.",
+                incl_h_title: "Inclus",
+                incl_l1: "20 leçons d'italien/semaine",
+                incl_l2: "Pension complète",
+                incl_l3: "6 excursions & 8 activités",
+                incl_l5: "Transport privé",
+                incl_l6: "Tuteur 24/7",
+                incl_l7: "Hébergement hôtel",
+                incl_l8: "Transferts aéroport (Bari/Brindisi)",
+                excl_h_title: "Non Inclus",
+                excl_l1: "Assurances (maladie, vol...)",
+                excl_l2: "Transferts hors horaires (+120€)",
+                excl_l3: "Vols A/R",
+                pricing_footer: "Contactez-nous pour les tarifs exacts.",
+                faq_title: "Questions Fréquentes",
+                // Mise à jour des questions FAQ
+                faq_q1: "Quelles sont les modalités d'accueil et de transfert à l'arrivée ?",
+                faq_a1: "Un membre de notre personnel accrédité l'attendra à la sortie du vol avec une pancarte \"Trulli Italian School\". Les transferts sont inclus le dimanche (9h-12h / 15h-18h) depuis les aéroports de Bari ou Brindisi.",
+                faq_q2: "Est-il possible de garantir le logement avec un autre participant ?",
+                faq_a2: "Oui, bien sûr ! Si votre enfant voyage avec un ami, il est possible de garantir qu'ils soient logés ensemble dans une chambre triple ou quadruple à l'hôtel, sous réserve de la même tranche d'âge.",
+                faq_q3: "Comment est assurée la communication en cas d'urgence ?",
+                faq_a3: "Une ligne téléphonique d'urgence **24/7** sera fournie aux parents dès la confirmation de la réservation. Notre personnel et les professeurs sont également constamment joignables sur place.",
+                faq_q4: "Le programme inclut-il du temps libre et une autonomie encadrée ?",
+                faq_a4: "Alberobello est un lieu sûr. Nous encourageons l'autonomie encadrée. Pendant les sorties et les soirées, un temps libre est accordé aux jeunes, toujours sous la supervision discrète de nos moniteurs.",
+                cta_title: "Prêt pour l'aventure ?",
+                cta_sub: "Les places sont limitées. Ne manquez pas l'été de votre vie.",
+                cta_button: "Contacter pour réserver",
+                footer_text_1: "© 2026 Trulli Italian School.",
+                footer_text_2: "Partenaire Sherpa Living.",
+            },
+            en: {
+                nav_cta: "Contact to Book",
+                header_tagline: "Linguistic & Cultural Immersion",
+                header_title: "Your Summer 2026 in Puglia!",
+                header_age_prefix: "Learn Italian in the heart of Alberobello (UNESCO) for",
+                carousel_cta: "Discover the Program",
+                desc_title: "More Than a Course, an Experience.",
+                desc_p1: "We believe the most effective way to learn Italian is through **authentic emotional engagement** with people and places.",
+                desc_p2: "New friendships, exciting activities, and a warm atmosphere for rapid progress.",
+                prog_title: "Two-Week Program: Lessons & Adventure",
+                morn_title: "Mornings",
+                morn_l1: "<strong class='text-gray-900'>Format:</strong> 20 lessons/week (9:15 am - 12:30 pm).",
+                morn_l2: "<strong class='text-gray-900'>Small Groups:</strong> Max 6 students/class.",
+                morn_l3: "<strong class='text-gray-900'>Levels:</strong> Beginner to Advanced.",
+                morn_l4: "<strong class='text-gray-900'>Method:</strong> Active and fun.",
+                aft_title: "Afternoons",
+                aft_l1: "<strong class='text-gray-900'>Excursions:</strong> Polignano, Monopoli...",
+                aft_l2: "<strong class='text-gray-900'>Beaches:</strong> Secret coves and crystal clear water.",
+                aft_l3: "<strong class='text-gray-900'>Cooking:</strong> Workshops with the 'Nonna'.",
+                aft_l4: "<strong class='text-gray-900'>Fun:</strong> Treasure hunt, water park.",
+                imm_text: "Small groups, personalized monitoring and maximum security for total peace of mind.",
+                loc_title: "Stay in the Heart of the Trulli",
+                loc_p1: "You will stay in the unique setting of Alberobello, famous for its Trulli. A safe, calm, and magical place.",
+                acc_sub_hot: "Comfortable Hotel",
+                acc_l1: "Triple/quadruple rooms, non-mixed.",
+                acc_l2: "Breakfast, lunch, and dinner included.",
+                incl_title: "All-Inclusive",
+                incl_sub: "2-week all-inclusive package. Session: <span class='text-trulli-main font-bold'>Early July 2026</span>.",
+                incl_h_title: "Included",
+                incl_l1: "20 Italian lessons/week",
+                incl_l2: "Full board",
+                incl_l3: "6 excursions & 8 activities",
+                incl_l5: "Private transport",
+                incl_l6: "24/7 Tutor",
+                incl_l7: "Hotel accommodation",
+                incl_l8: "Airport transfers (Bari/Brindisi)",
+                excl_h_title: "Not Included",
+                excl_l1: "Insurance (health, theft...)",
+                excl_l2: "Transfers outside schedule (+€120)",
+                excl_l3: "Round-trip flights",
+                pricing_footer: "Contact us for exact prices.",
+                faq_title: "Frequently Asked Questions",
+                faq_q1: "What are the arrival and transfer arrangements?",
+                faq_a1: "An accredited staff member will meet them at the flight exit with a 'Trulli Italian School' sign. Transfers are included on Sunday (9 am-12 pm / 3 pm-6 pm) from Bari or Brindisi airports.",
+                faq_q2: "Is it possible to guarantee accommodation with another participant?",
+                faq_a2: "Yes, of course! If your child is traveling with a friend, it is possible to guarantee they are accommodated together in a triple or quadruple hotel room, subject to the same age group.",
+                faq_q3: "How is emergency communication ensured?",
+                faq_a3: "A **24/7** emergency phone line will be provided to parents upon booking confirmation. Our staff and teachers are also constantly reachable on site.",
+                faq_q4: "Does the program include free time and supervised autonomy?",
+                faq_a4: "Alberobello is a safe location. We encourage supervised autonomy. During outings and evenings, free time is granted to youth, always under the discreet supervision of our counselors.",
+                cta_title: "Ready for the adventure?",
+                cta_sub: "Places are limited. Don't miss the summer of a lifetime.",
+                cta_button: "Contact to Book",
+                footer_text_1: "© 2026 Trulli Italian School.",
+                footer_text_2: "Sherpa Living Partner.",
+            },
+            en_backup: {
+                nav_cta: "Book My Spot",
+                header_tagline: "Linguistic & Cultural Immersion",
+                header_title: "Your Summer 2026 in Puglia!",
+                header_age_prefix: "Learn Italian in the heart of Alberobello (UNESCO) for",
+                carousel_cta: "Discover the Program",
+                desc_title: "More Than a Course, an Experience.",
+                desc_p1: "We believe the most effective way to learn Italian is through **authentic emotional engagement** with people and places.",
+                desc_p2: "New friendships, exciting activities, and a warm atmosphere for rapid progress.",
+                prog_title: "Two-Week Program: Lessons & Adventure",
+                morn_title: "Mornings",
+                morn_l1: "<strong class='text-gray-900'>Format:</strong> 20 lessons/week (9:15 am - 12:30 pm).",
+                morn_l2: "<strong class='text-gray-900'>Small Groups:</strong> Max 6 students/class.",
+                morn_l3: "<strong class='text-gray-900'>Levels:</strong> Beginner to Advanced.",
+                morn_l4: "<strong class='text-gray-900'>Method:</strong> Active and fun.",
+                aft_title: "Afternoons",
+                aft_l1: "<strong class='text-gray-900'>Excursions:</strong> Polignano, Monopoli...",
+                aft_l2: "<strong class='text-gray-900'>Beaches:</strong> Secret coves and crystal clear water.",
+                aft_l3: "<strong class='text-gray-900'>Cooking:</strong> Workshops with the 'Nonna'.",
+                aft_l4: "<strong class='text-gray-900'>Fun:</strong> Treasure hunt, water park.",
+                imm_text: "Small groups, personalized monitoring and maximum security for total peace of mind.",
+                loc_title: "Stay in the Heart of the Trulli",
+                loc_p1: "You will stay in the unique setting of Alberobello, famous for its Trulli. A safe, calm, and magical place.",
+                acc_sub_hot: "Comfortable Hotel",
+                acc_l1: "Triple/quadruple rooms, non-mixed.",
+                acc_l2: "Breakfast, lunch, and dinner included.",
+                incl_title: "All-Inclusive",
+                incl_sub: "2-week all-inclusive package. Session: <span class='text-trulli-main font-bold'>Early July 2026</span>.",
+                incl_h_title: "Included",
+                incl_l1: "20 Italian lessons/week",
+                incl_l2: "Full board",
+                incl_l3: "6 excursions & 8 activities",
+                incl_l5: "Private transport",
+                incl_l6: "24/7 Tutor",
+                incl_l7: "Hotel accommodation",
+                incl_l8: "Airport transfers (Bari/Brindisi)",
+                excl_h_title: "Not Included",
+                excl_l1: "Insurance (health, theft...)",
+                excl_l2: "Transfers outside schedule (+€120)",
+                excl_l3: "Round-trip flights",
+                pricing_footer: "Contact us for exact prices.",
+                faq_title: "Frequently Asked Questions",
+                faq_q1: "What are the arrival and transfer arrangements?",
+                faq_a1: "An accredited staff member will meet them at the flight exit with a 'Trulli Italian School' sign. Transfers are included on Sunday (9 am-12 pm / 3 pm-6 pm) from Bari or Brindisi airports.",
+                faq_q2: "Is it possible to guarantee accommodation with another participant?",
+                faq_a2: "Yes, of course! If your child is traveling with a friend, it is possible to guarantee they are accommodated together in a triple or quadruple hotel room, subject to the same age group.",
+                faq_q3: "How is emergency communication ensured?",
+                faq_a3: "A **24/7** emergency phone line will be provided to parents upon booking confirmation. Our staff and teachers are also constantly reachable on site.",
+                faq_q4: "Does the program include free time and supervised autonomy?",
+                faq_a4: "Alberobello is a safe location. We encourage supervised autonomy. During outings and evenings, free time is granted to youth, always under the discreet supervision of our counselors.",
+                cta_title: "Ready for the adventure?",
+                cta_sub: "Places are limited. Don't miss the summer of a lifetime.",
+                cta_button: "Book My Spot",
+                footer_text_1: "© 2026 Trulli Italian School.",
+                footer_text_2: "Sherpa Living Partner.",
+            },
+            es: {
+                nav_cta: "Contactar para Reservar",
+                header_tagline: "Inmersión Lingüística y Cultural",
+                header_title: "¡Tu Verano 2026 en Puglia!",
+                header_age_prefix: "Aprende italiano en el corazón de Alberobello (UNESCO) para",
+                carousel_cta: "Descubrir el Programa",
+                desc_title: "Más que un curso, una Experiencia.",
+                desc_p1: "Creemos que la forma más efectiva de aprender italiano es a través del **compromiso emocional auténtico** con las personas y los lugares.",
+                desc_p2: "Nuevas amistades, actividades emocionantes y un ambiente cálido para un rápido progreso.",
+                prog_title: "Programa de Dos Semanas: Clases y Aventura",
+                morn_title: "Mañanas",
+                morn_l1: "<strong class='text-gray-900'>Formato:</strong> 20 lecciones/semana (9:15 am - 12:30 pm).",
+                morn_l2: "<strong class='text-gray-900'>Grupos Reducidos:</strong> Máx. 6 estudiantes/clase.",
+                morn_l3: "<strong class='text-gray-900'>Niveles:</strong> Principiante a Avanzado.",
+                morn_l4: "<strong class='text-gray-900'>Método:</strong> Activo y lúdico.",
+                aft_title: "Tardes",
+                aft_l1: "<strong class='text-gray-900'>Excursiones:</strong> Polignano, Monopoli...",
+                aft_l2: "<strong class='text-gray-900'>Playas:</strong> Calas secretas y agua cristalina.",
+                aft_l3: "<strong class='text-gray-900'>Cocina:</strong> Talleres con la 'Nonna'.",
+                aft_l4: "<strong class='text-gray-900'>Diversión:</strong> Búsqueda del tesoro, parque acuático.",
+                imm_text: "Grupos reducidos, seguimiento personalizado y máxima seguridad para total tranquilidad.",
+                loc_title: "Estancia en el Corazón de los Trulli",
+                loc_p1: "Te alojarás en el entorno único de Alberobello, famoso por sus Trulli. Un lugar seguro, tranquilo y mágico.",
+                acc_sub_hot: "Hotel Confortable",
+                acc_l1: "Habitaciones triples/cuádruples, no mixtas.",
+                acc_l2: "Desayuno, almuerzo y cena incluidos.",
+                incl_title: "Todo Incluido",
+                incl_sub: "Fórmula de 2 semanas todo incluido. Sesión: <span class='text-trulli-main font-bold'>Principios de Julio 2026</span>.",
+                incl_h_title: "Incluido",
+                incl_l1: "20 lecciones de italiano/semana",
+                incl_l2: "Pensión completa",
+                incl_l3: "6 excursiones y 8 actividades",
+                incl_l5: "Transporte privado",
+                incl_l6: "Tutor 24/7",
+                incl_l7: "Alojamiento en hotel",
+                incl_l8: "Traslados al aeropuerto (Bari/Brindisi)",
+                excl_h_title: "No Incluido",
+                excl_l1: "Seguros (salud, robo...)",
+                excl_l2: "Traslados fuera de horario (+€120)",
+                excl_l3: "Vuelos de ida/vuelta",
+                pricing_footer: "Contáctenos para precios exactos.",
+                faq_title: "Preguntas Frecuentes",
+                faq_q1: "¿Cuáles son las modalidades de acogida y traslado a la llegada?",
+                faq_a1: "Un miembro de nuestro personal acreditado lo esperará a la salida del vuelo con un cartel \"Trulli Italian School\". Los traslados están incluidos el domingo (9h-12h / 15h-18h) desde los aeropuertos de Bari o Brindisi.",
+                faq_q2: "¿Es posible garantizar el alojamiento con otro participante?",
+                faq_a2: "¡Sí, por supuesto! Si su hijo viaja con un amigo, es posible garantizar que se alojen juntos en una habitación triple o cuádruple en el hotel, sujeto al mismo grupo de edad.",
+                faq_q3: "¿Cómo se asegura la comunicación en caso de emergencia?",
+                faq_a3: "Se proporcionará una línea telefónica de emergencia 24/7 a los padres al confirmar la reserva. Nuestro personal y profesores también están constantemente localizables en el sitio.",
+                faq_q4: "¿El programa incluye tiempo libre y autonomía supervisada?",
+                faq_a4: "Alberobello es un lugar seguro. Fomentamos la autonomía supervisada. Durante las salidas y las noches, se concede tiempo libre a los jóvenes, siempre bajo la supervisión discreta de nuestros monitores.",
+                cta_title: "¡Listo para la aventura?",
+                cta_sub: "Las plazas son limitadas. No se pierda el verano de su vida.",
+                cta_button: "Contactar para Reservar",
+                footer_text_1: "© 2026 Trulli Italian School.",
+                footer_text_2: "Socio Sherpa Living.",
+            },
+        };
+
+        function setLanguage(lang) {
+            const elements = document.querySelectorAll('[data-i18n]');
+            if (!translations[lang]) {
+                console.error(`Langue non supportée: ${lang}`);
+                return;
+            }
+
+            elements.forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                let translation = translations[lang][key];
+
+                if (translation) {
+                    // Utiliser innerHTML pour les balises avec du contenu formaté (ex: <strong>)
+                    if (element.tagName === 'A' || element.tagName === 'BUTTON' || element.tagName === 'IMG' || element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                        // Éviter innerHTML pour les éléments interactifs ou les images
+                        element.textContent = translation;
+                    } else {
+                        element.innerHTML = translation;
+                    }
+                }
+            });
+            // Mise à jour de l'attribut lang de la page
+            document.documentElement.setAttribute('lang', lang);
+        }
+
+        // --- LOGIQUE DU CARROUSEL ---
+        let currentSlide = 0;
+        let slides;
+        let dots;
+        let totalSlides = 0;
+        let carouselInterval;
+
+        function showSlide(n) {
+            slides = document.querySelectorAll('.carousel-img');
+            dots = document.querySelectorAll('.carousel-dot');
+            totalSlides = slides.length;
+
+            if (!slides || slides.length === 0) return;
+
+            if (n < 0) n = totalSlides - 1;
+            if (n >= totalSlides) n = 0;
+            currentSlide = n;
+
+            slides.forEach((slide, index) => {
+                slide.style.opacity = index === n ? '1' : '0';
+                slide.style.display = 'block';
+            });
+
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('bg-white', index === n);
+                dot.classList.toggle('bg-white/60', index !== n);
+            });
+        }
+
+        function nextSlide() {
+            showSlide((currentSlide + 1) % totalSlides);
+        }
+
+        function prevSlide() {
+            showSlide((currentSlide - 1 + totalSlides) % totalSlides);
+        }
+
+        function initCarousel() {
+            slides = document.querySelectorAll('.carousel-img');
+            dots = document.querySelectorAll('.carousel-dot');
+            totalSlides = slides.length;
+
+            if (totalSlides > 0) {
+                // Initialisation des boutons
+                const nextButton = document.getElementById('nextBtn');
+                const prevButton = document.getElementById('prevBtn');
+
+                if (nextButton && prevButton) {
+                    nextButton.addEventListener('click', () => nextSlide());
+                    prevButton.addEventListener('click', () => prevSlide());
+                }
+
+                // Initialisation des points
+                dots.forEach(dot => {
+                    dot.addEventListener('click', (e) => {
+                        const idx = parseInt(e.target.dataset.index);
+                        if (!isNaN(idx)) {
+                            showSlide(idx);
+                        }
+                    });
+                });
+
+                // Démarrage de l'affichage initial et de l'auto-advance
+                showSlide(0);
+                clearInterval(carouselInterval);
+                carouselInterval = setInterval(nextSlide, 5000);
+            }
+        }
+
+
+        // Initialisation de la page au chargement
+        window.onload = function () {
+            // Initialiser le carrousel
+            initCarousel();
+
+            // Tenter de définir la langue par défaut (FR, si non stockée)
+            const storedLang = localStorage.getItem('siteLang') || 'fr';
+            const switcher = document.getElementById('language-switcher');
+
+            if (switcher) {
+                switcher.value = storedLang;
+                setLanguage(storedLang);
+
+                // Écouter le changement de langue pour la persistance
+                switcher.addEventListener('change', (e) => {
+                    localStorage.setItem('siteLang', e.target.value);
+                    setLanguage(e.target.value);
+                });
+            } else {
+                setLanguage('fr'); // Au moins charger la traduction FR
+            }
+        };
+    </script>
+</body>
+
+</html>

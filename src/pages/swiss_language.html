@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEA Swiss Language Camp - Leysin 2026</title>
+    <!-- Chargement de Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Inclusion de la police Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap"
+        rel="stylesheet">
+
+    <!-- Configuration des polices et des couleurs (SEA) -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'sea-main': '#003366', // Bleu Marine Profond
+                        'sea-dark': '#001A33', // Bleu très foncé
+                        'sea-light': '#F8F9FA', // Blanc cassé
+                        'sea-accent': '#00AEEF', // Bleu Ciel Vif
+                        'sea-highlight': '#FFD700', // Or
+                        'b-text': '#1F2937',
+                        'surface': '#FFFFFF',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'soft': '0 4px 20px -2px rgba(0, 0, 0, 0.05)',
+                        'card': '0 10px 30px -5px rgba(0, 51, 102, 0.08)',
+                        '3xl': '0 35px 60px -15px rgba(0, 0, 0, 0.2)',
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.8s ease-out',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: #F8F9FA;
+        }
+
+        /* Hero Overlay & Background */
+        .hero-section {
+            position: relative;
+            height: 100vh;
+            min-height: 600px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .hero-bg-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(0, 26, 51, 0.4), rgba(0, 51, 102, 0.7));
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hover-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .hover-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px -5px rgba(0, 51, 102, 0.15);
+        }
+
+        /* List Styling pour Tarifs */
+        .included-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .included-item::before {
+            content: '⭐';
+            margin-right: 0;
+            color: #FFD700;
+            font-size: 1.1em;
+        }
+
+        .excluded-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #003366;
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #001A33;
+        }
+    </style>
+</head>
+
+<body class="font-sans antialiased text-b-text leading-relaxed">
+
+    <!-- Navbar Modern -->
+    <header class="fixed w-full top-0 z-50 bg-white/95 backdrop-blur-sm shadow-sm transition-all duration-300">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <img src="Image_SEA/logo_sea.png" alt="SEA Language"
+                    class="w-12 h-12 rounded-full shadow-sm border border-gray-100">
+                <span class="text-xl font-bold tracking-tight text-sea-main hidden sm:block">SWISS LANGUAGE CAMP</span>
+            </div>
+
+            <div class="flex items-center gap-6">
+                <nav class="hidden md:flex gap-6 text-sm font-medium text-gray-600">
+                    <a href="#programmes" class="hover:text-sea-main transition">Programmes</a>
+                    <a href="#location" class="hover:text-sea-main transition">Campus</a>
+                    <a href="#tarifs" class="hover:text-sea-main transition">Tarifs</a>
+                    <a href="#contact" class="hover:text-sea-main transition">Contact</a>
+                </nav>
+
+                <div class="flex items-center gap-4">
+                    <select id="language-switcher" onchange="setLanguage(this.value)"
+                        class="bg-gray-50 border border-gray-200 text-gray-700 text-sm rounded-lg focus:ring-sea-main focus:border-sea-main block p-2 cursor-pointer outline-none">
+                        <option value="fr">FR</option>
+                        <option value="en">EN</option>
+                        <option value="es">ES</option>
+                    </select>
+                    <!-- CTA NAV - Découvrir -->
+                    <a href="#programmes" data-i18n="nav_cta"
+                        class="hidden sm:inline-block px-6 py-2.5 bg-sea-accent text-white text-sm font-semibold rounded-full shadow-md hover:bg-sky-500 transition transform hover:-translate-y-0.5">
+                        Découvrir
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-bg-container">
+            <div id="carousel" class="relative w-full h-full">
+                <img src="Image_SEA/sea_2.png"
+                    class="carousel-img w-full h-full object-cover absolute opacity-100 transition-opacity duration-1000">
+                <img src="Image_SEA/sea_3.png"
+                    class="carousel-img w-full h-full object-cover absolute opacity-0 transition-opacity duration-1000">
+                <img src="Image_SEA/sea_5.png"
+                    class="carousel-img w-full h-full object-cover absolute opacity-0 transition-opacity duration-1000">
+                <img src="Image_SEA/sea_8.jpg"
+                    class="carousel-img w-full h-full object-cover absolute opacity-0 transition-opacity duration-1000">
+            </div>
+        </div>
+        <div class="hero-overlay"></div>
+
+        <div class="hero-content container mx-auto px-4 text-center">
+            <div class="max-w-5xl mx-auto space-y-8 animate-fade-in-up">
+                <span data-i18n="header_tagline"
+                    class="inline-block py-1 px-4 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-sm font-semibold tracking-wider uppercase text-sea-highlight mb-2">
+                    Immersion Linguistique & Aventure Alpine
+                </span>
+
+                <h1 data-i18n="header_title"
+                    class="text-4xl md:text-7xl font-black tracking-tight leading-tight drop-shadow-xl">
+                    Swiss Language Camp<br /><span class="text-sea-accent">Leysin 2026</span>
+                </h1>
+
+                <p class="text-xl md:text-2xl font-light text-white/90 max-w-2xl mx-auto leading-relaxed">
+                    <!-- Modification 6: Retrait du surlignage de l'âge -->
+                    <span data-i18n="header_age_prefix">Un été inoubliable pour les</span>
+                    <span class="font-bold text-white">10 - 16 ans</span>.
+                </p>
+
+                <div class="pt-8 flex flex-col sm:flex-row gap-4 justify-center">
+                    <!-- Modification 1A: CTA Principal -->
+                    <a href="mailto:benjamin.egretaud@sherpaliving.mx" data-i18n="cta_principal"
+                        class="px-8 py-4 bg-sea-accent text-white font-bold rounded-full shadow-lg hover:bg-sky-500 transition transform hover:-translate-y-1">
+                        Demander la Brochure
+                    </a>
+                    <!-- Modification 1B: CTA Secondaire -->
+                    <a href="#tarifs" data-i18n="cta_prices"
+                        class="px-8 py-4 bg-white text-sea-main font-bold rounded-full shadow-lg hover:bg-gray-100 transition transform hover:-translate-y-1">
+                        Voir les Tarifs
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce z-10">
+            <svg class="w-6 h-6 text-white/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3">
+                </path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Intro Section -->
+    <section class="py-24 bg-white">
+        <div class="container mx-auto px-6 max-w-5xl text-center">
+            <h2 data-i18n="desc_title" class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">Grandir, Découvrir et
+                S'Amuser dans les Alpes</h2>
+            <div class="text-lg text-gray-600 leading-relaxed space-y-6 max-w-4xl mx-auto">
+                <p data-i18n="desc_p1">
+                    Situé dans le charmant village alpin de Leysin, le Swiss Language Camp (SLC) offre un environnement
+                    sûr et stimulant pour les jeunes de 10 à 16 ans, avec des étudiants de plus de 75 nationalités.
+                </p>
+                <div class="grid md:grid-cols-2 gap-8 text-left mt-10">
+                    <div class="p-6 bg-sea-light rounded-xl border border-gray-100">
+                        <strong class="text-sea-main block text-lg mb-2" data-i18n="desc_h_morn">Matin :
+                            Immersion</strong>
+                        <p data-i18n="desc_p2" class="text-sm">Apprentissage immersif d'une langue ou du nouveau cours
+                            Digital, dispensé par des enseignants qualifiés.</p>
+                    </div>
+                    <div class="p-6 bg-sea-light rounded-xl border border-gray-100">
+                        <strong class="text-sea-accent block text-lg mb-2" data-i18n="desc_h_aft">Après-midi :
+                            Aventure</strong>
+                        <p data-i18n="desc_p3" class="text-sm">Choix parmi 7 programmes : Aquaventure, Extreme, Arts
+                            créatifs, etc.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Programs & Activities -->
+    <section id="programmes" class="py-24 bg-sea-light">
+        <div class="container mx-auto px-6 max-w-6xl">
+            <h3 data-i18n="prog_title" class="text-3xl md:text-4xl font-bold text-center mb-16 text-sea-main">Une
+                Semaine Type : Cours & Aventures</h3>
+
+            <div class="grid md:grid-cols-2 gap-10">
+                <!-- Academic Card -->
+                <div class="bg-white p-8 rounded-2xl shadow-card hover-card border-t-4 border-sea-highlight">
+                    <div class="mb-6 flex items-center gap-3">
+                        <span class="p-3 bg-yellow-50 text-sea-highlight rounded-xl">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                            </svg>
+                        </span>
+                        <h4 data-i18n="morn_title" class="text-2xl font-bold text-gray-900">Cours de Langues</h4>
+                    </div>
+                    <p data-i18n="morn_desc" class="text-gray-600 mb-6 font-medium">20 leçons/semaine (lun-ven) avec
+                        projets collaboratifs.</p>
+                    <ul class="space-y-4 text-gray-700">
+                        <li class="bg-gray-50 p-3 rounded-lg"><strong class="text-sea-main block mb-1">Langues
+                                :</strong> Anglais, Français, Allemand.</li>
+                        <li class="bg-gray-50 p-3 rounded-lg"><strong class="text-sea-accent block mb-1">Option Premium
+                                :</strong> Digital - AI & Coding (+ CHF 300).</li>
+                    </ul>
+                </div>
+
+                <!-- Adventure Card -->
+                <div class="bg-white p-8 rounded-2xl shadow-card hover-card border-t-4 border-sea-accent">
+                    <div class="mb-6 flex items-center gap-3">
+                        <span class="p-3 bg-sky-50 text-sea-accent rounded-xl">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13 10V3L4 14h7v7l9-11h-7z" />
+                            </svg>
+                        </span>
+                        <h4 data-i18n="aft_title" class="text-2xl font-bold text-gray-900">7 Programmes d'Aventure</h4>
+                    </div>
+                    <p data-i18n="aft_desc" class="text-gray-600 mb-6 font-medium">Choisissez votre thème pour la
+                        semaine.</p>
+                    <ul class="space-y-4 text-gray-700">
+                        <li class="p-3 bg-gray-50 rounded-lg">
+                            <strong class="block text-sea-main mb-1">Inclus :</strong>
+                            <span data-i18n="aft_l1">Aquaventure, Fit & Fast, Discover Switzerland.</span>
+                        </li>
+                        <li class="p-3 bg-gray-50 rounded-lg">
+                            <strong class="block text-sea-accent mb-1">Suppléments :</strong>
+                            <span data-i18n="aft_l2">Culinary, Arts (+CHF 100/200).</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Focus Extreme -->
+            <div class="mt-10 bg-sea-main rounded-2xl p-8 text-center text-white relative overflow-hidden shadow-xl">
+                <div class="absolute inset-0 bg-black/20"></div>
+                <div class="relative z-10 max-w-3xl mx-auto">
+                    <h4 data-i18n="extreme_title" class="text-2xl font-bold mb-4 text-sea-highlight">Focus : Programme
+                        Extreme</h4>
+                    <p data-i18n="extreme_desc" class="text-white/80 leading-relaxed mb-0">
+                        Pour les amateurs de sensations fortes (Min. 13 ans) : Spéléologie, balançoire géante, VTT,
+                        rafting. Encadrement pro garanti.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Location -->
+    <section id="location" class="py-24 bg-white">
+        <div class="container mx-auto px-6 max-w-6xl">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="order-2 md:order-1">
+                    <h3 data-i18n="loc_title" class="text-3xl font-bold text-sea-main mb-6">SHMS Leysin : Mont-Blanc
+                        Palace</h3>
+                    <div class="space-y-6">
+                        <div class="flex gap-4">
+                            <div
+                                class="w-12 h-12 rounded-full bg-blue-50 flex items-center justify-center flex-shrink-0 text-sea-main">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 data-i18n="loc_sub_leysin" class="text-xl font-bold text-gray-900">Campus Historique
+                                </h4>
+                                <p data-i18n="loc_p1" class="text-gray-600 mt-1">Ancien hôtel de luxe transformé en
+                                    école. Sûr, vues magnifiques, Club Maxx sur place.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div
+                                class="w-12 h-12 rounded-full bg-blue-50 flex items-center justify-center flex-shrink-0 text-sea-main">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 data-i18n="acc_sub_room" class="text-xl font-bold text-gray-900">Hébergement &
+                                    Pension</h4>
+                                <p data-i18n="acc_p1" class="text-gray-600 mt-1">Chambres doubles standard (inclus).
+                                    Salle de bain privée. Pension complète buffet.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="order-1 md:order-2">
+                    <div
+                        class="rounded-2xl overflow-hidden shadow-2xl transform -rotate-1 hover:rotate-0 transition duration-500">
+                        <img src="Image_SEA/sea_2.png" alt="Leysin Campus" class="w-full h-auto">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section id="tarifs" class="py-24 bg-gray-50">
+        <div class="container mx-auto px-6 max-w-5xl">
+            <h3 data-i18n="incl_title" class="text-3xl font-bold text-center mb-6 text-sea-main">Tarifs & Sessions 2026
+            </h3>
+            <p data-i18n="incl_sub" class="text-center text-gray-500 mb-12">Sessions de 7 semaines disponibles (28 juin
+                - 15 août).</p>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-white p-8 rounded-2xl shadow-card hover-card border border-gray-100">
+                    <h4 data-i18n="incl_h_title"
+                        class="text-xl font-bold mb-6 text-sea-main uppercase tracking-wide border-b pb-4">Inclus (Base)
+                    </h4>
+                    <div class="text-lg font-extrabold text-gray-900 mb-6">
+                        <span data-i18n="price_1_week">CHF 1700 (1 semaine)</span> / <span data-i18n="price_2_weeks">CHF
+                            3300 (2 semaines)</span>
+                    </div>
+                    <ul class="space-y-4 text-sm text-gray-700">
+                        <li class="flex items-center gap-3">
+                            <span class="text-sea-highlight">⭐</span>
+                            <span data-i18n="incl_l3" class='included-item-text'>Hébergement Standard & Pension
+                                Complète</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <span class="text-sea-highlight">⭐</span>
+                            <span data-i18n="incl_l5" class='included-item-text'>Activités : Aquaventure, Fit & Fast,
+                                Discover</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <span class="text-sea-highlight">⭐</span>
+                            <span data-i18n="incl_l6" class='included-item-text'>Cours de langues (Anglais, Français ou
+                                Allemand)</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <span class="text-sea-highlight">⭐</span>
+                            <span data-i18n="incl_l4" class='included-item-text'>Frais inscription : CHF 125</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="bg-white p-8 rounded-2xl shadow-card hover-card border border-gray-100">
+                    <h4 data-i18n="excl_h_title"
+                        class="text-xl font-bold mb-6 text-sea-accent uppercase tracking-wide border-b pb-4">Options &
+                        Suppléments</h4>
+                    <ul class="space-y-4 text-sm text-gray-700">
+                        <!-- Structure corrigée pour l'alignement des suppléments -->
+                        <li data-i18n="excl_l3" class="excluded-item"><span>Option Digital / Coding</span> <span
+                                class="font-bold text-sea-dark">+ CHF 300 / sem</span></li>
+                        <li data-i18n="excl_l4" class="excluded-item"><span>Extreme Program</span> <span
+                                class="font-bold text-sea-dark">+ CHF 400</span></li>
+                        <li data-i18n="excl_l1" class="excluded-item"><span>Transfert Genève (Trajet)</span> <span
+                                class="font-bold text-sea-dark">CHF 200</span></li>
+                        <li data-i18n="excl_l2" class="excluded-item"><span>Assurance (semaine)</span> <span
+                                class="font-bold text-sea-dark">CHF 50</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="py-24 bg-white">
+        <div class="container mx-auto px-6 max-w-3xl">
+            <h3 data-i18n="faq_title" class="text-3xl font-bold text-center mb-10 text-gray-900">Questions Fréquentes
+            </h3>
+            <div class="space-y-4">
+                <!-- FAQ 1: Supervision -->
+                <details class="group bg-gray-50 p-4 rounded-xl cursor-pointer hover-card">
+                    <summary data-i18n="faq_q1"
+                        class="font-bold text-sea-main list-none flex justify-between items-center">
+                        Quel est le niveau de supervision sur le campus ?
+                        <span class="transition group-open:rotate-180">▼</span>
+                    </summary>
+                    <p data-i18n="faq_a1" class="text-gray-600 mt-3 text-sm leading-relaxed">
+                        L'environnement est conçu pour être sûr, inclusif et amusant. Les étudiants reçoivent la
+                        supervision et le soutien de professionnels qualifiés. Tous les membres du personnel sont
+                        vérifiés.
+                    </p>
+                </details>
+                <!-- FAQ 2: Assurance -->
+                <details class="group bg-gray-50 p-4 rounded-xl cursor-pointer hover-card">
+                    <summary data-i18n="faq_q2"
+                        class="font-bold text-sea-main list-none flex justify-between items-center">
+                        La souscription à une assurance est-elle obligatoire ?
+                        <span class="transition group-open:rotate-180">▼</span>
+                    </summary>
+                    <p data-i18n="faq_a2" class="text-gray-600 mt-3 text-sm leading-relaxed">
+                        Oui. Il est obligatoire pour tous les étudiants d'avoir une assurance maladie et accident valide
+                        en Suisse. Nous proposons une assurance pour les participants non-UE (+CHF 50/semaine).
+                    </p>
+                </details>
+                <!-- FAQ 3: Repas -->
+                <details class="group bg-gray-50 p-4 rounded-xl cursor-pointer hover-card">
+                    <summary data-i18n="faq_q3"
+                        class="font-bold text-sea-main list-none flex justify-between items-center">
+                        Comment les repas sont-ils organisés ?
+                        <span class="transition group-open:rotate-180">▼</span>
+                    </summary>
+                    <p data-i18n="faq_a3" class="text-gray-600 mt-3 text-sm leading-relaxed">
+                        Les repas sont servis sous forme de buffet (petit-déjeuner, déjeuner, dîner) du lundi au
+                        vendredi. Le week-end, un brunch est servi. Nos chefs peuvent répondre à toutes les exigences et
+                        allergies alimentaires.
+                    </p>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <section id="contact" class="py-24 bg-gray-900 text-white">
+        <div class="container mx-auto px-6 text-center max-w-4xl">
+            <h2 data-i18n="cta_title" class="text-4xl md:text-5xl font-black mb-6 tracking-tight">Prêt pour l'Aventure
+                Alpine ?</h2>
+            <p data-i18n="cta_sub" class="text-xl text-gray-400 mb-10 font-light">Réservez pour une immersion
+                linguistique à Leysin.</p>
+
+            <!-- CTA Final: "Demander la Brochure" -->
+            <a href="mailto:benjamin.egretaud@sherpaliving.mx" data-i18n="cta_principal"
+                class="inline-block px-10 py-4 text-lg font-bold bg-sea-accent text-white rounded-full hover:bg-sky-500 transition transform hover:scale-105 shadow-lg mb-12">
+                Contacter pour réserver
+            </a>
+
+            <!-- Modification 2: Mise à jour du contact -->
+            <div
+                class="flex flex-col md:flex-row justify-center gap-12 border-t border-gray-800 pt-12 text-sm text-gray-400">
+                <div>
+                    <h5 class="text-white font-bold mb-2 uppercase tracking-wider">Email</h5>
+                    <a href="mailto:benjamin.egretaud@sherpaliving.mx"
+                        class="hover:text-white transition">benjamin.egretaud@sherpaliving.mx</a>
+                </div>
+                <div>
+                    <h5 class="text-white font-bold mb-2 uppercase tracking-wider">Lieu</h5>
+                    <p>Leysin, Suisse</p>
+                </div>
+            </div>
+
+            <div class="mt-12 text-xs text-gray-600">
+                <span data-i18n="footer_text_1">&copy; 2026 Swiss Education Academy (SEA).</span> | <span
+                    data-i18n="footer_text_2">Membre du Swiss Education Group.</span>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const translations = {
+            fr: {
+                nav_cta: "Découvrir",
+                header_tagline: "Immersion Linguistique & Aventure Alpine",
+                header_title: "Swiss Language Camp<br/><span class=\"text-sea-accent\">Leysin 2026</span>",
+                header_age_prefix: "Un été inoubliable pour les",
+                cta_principal: "Contacter pour réserver",
+                cta_prices: "Voir les Tarifs",
+                carousel_cta: "Découvrir les Programmes",
+                desc_title: "Grandir, Découvrir et S'Amuser dans les Alpes",
+                desc_p1: "Situé dans le charmant village alpin de Leysin, le Swiss Language Camp (SLC) offre un environnement sûr et stimulant pour les jeunes de 10 à 16 ans, avec des étudiants de plus de 75 nationalités.",
+                desc_h_morn: "Matin : Immersion",
+                desc_p2: "Apprentissage immersif d'une langue ou du nouveau cours Digital, dispensé par des enseignants qualifiés.",
+                desc_h_aft: "Après-midi : Aventure",
+                desc_p3: "Choix parmi 7 programmes : Aquaventure, Extreme, Arts créatifs, etc.",
+                prog_title: "Une Semaine Type : Cours & Aventures",
+                morn_title: "Cours de Langues",
+                morn_desc: "20 leçons/sem (lun-vie) avec projets collaboratifs.",
+                morn_h_inc: "Langues :",
+                morn_l1: "Anglais, Français, ou Allemand.",
+                morn_h_prem: "Option Premium :",
+                aft_title: "7 Programmes d'Aventure",
+                aft_desc: "Choisissez votre thème pour la semaine.",
+                aft_h_inc: "Inclus :",
+                aft_l1: "Aquaventure, Fit & Fast, Discover Switzerland.",
+                aft_h_prem: "Suppléments :",
+                aft_l2: "Culinary, Arts (+CHF 100/200).",
+                aft_h_xtreme: "Adrénaline :",
+                extreme_title: "Focus : Programme Extreme",
+                extreme_desc: "Pour les amateurs de sensations fortes (Min. 13 ans) : Spéléologie, balançoire géante, VTT, rafting. Encadrement pro garanti.",
+                loc_title: "SHMS Leysin : Mont-Blanc Palace",
+                loc_sub_leysin: "Campus Historique",
+                loc_p1: "Ancien hôtel de luxe transformé en école. Sûr, vues magnifiques, Club Maxx sur place.",
+                acc_sub_room: "Hébergement & Pension",
+                acc_p1: "Chambres doubles standard (inclus). Salle de bain privée. Pension complète buffet.",
+                incl_title: "Tarifs & Sessions 2026",
+                incl_sub: "Sessions de 7 semaines disponibles (28 juin - 15 août).",
+                incl_h_title: "Inclus (Base)",
+                price_1_week: "CHF 1700 (1 semaine)",
+                price_2_weeks: "CHF 3300 (2 semaines)",
+                incl_l3: "Hébergement Standard & Pension Complète",
+                incl_l5: "Activités : Aquaventure, Fit & Fast, Discover",
+                incl_l6: "Cours de langues (Anglais, Français ou Allemand)",
+                incl_l4: "Frais inscription : CHF 125",
+                excl_h_title: "Options & Suppléments",
+                excl_l1: "Transfert Genève (Trajet)",
+                excl_l2: "Assurance (semaine)",
+                excl_l3: "Option Digital / Coding",
+                excl_l4: "Extreme Program",
+                faq_title: "Questions Fréquentes",
+                // FAQ améliorées
+                faq_q1: "Quel est le niveau de supervision sur le campus ?",
+                faq_a1: "L'environnement est conçu pour être sûr, inclusif et amusant. Les étudiants reçoivent la supervision et le soutien de professionnels qualifiés. Tous les membres du personnel sont vérifiés.",
+                faq_q2: "La souscription à une assurance est-il obligatoire ?",
+                faq_a2: "Oui. Il est obligatoire pour tous les étudiants d'avoir une assurance maladie et accident valide en Suisse. Nous proposons une assurance pour les participants non-UE (+CHF 50/semaine).",
+                faq_q3: "Comment les repas sont-ils organisés ?",
+                faq_a3: "Les repas sont servis sous forme de buffet (petit-déjeuner, déjeuner, dîner) du lundi au vendredi. Le week-end, un brunch est servi. Nos chefs peuvent répondre à toutes les exigences et allergies alimentaires.",
+                cta_title: "Prêt pour l'Aventure Alpine ?",
+                cta_sub: "Réservez pour une immersion linguistique à Leysin.",
+                cta_button: "Demander la Brochure",
+                contact_title: "Contactez-nous pour les tarifs et la brochure complète :",
+                footer_text_1: "© 2026 Swiss Education Academy (SEA).",
+                footer_text_2: "Membre du Swiss Education Group.",
+            },
+            en: {
+                nav_cta: "Discover",
+                header_tagline: "Language Immersion & Alpine Adventure",
+                header_title: "Swiss Language Camp<br/><span class=\"text-sea-accent\">Leysin 2026</span>",
+                header_age_prefix: "An unforgettable summer for",
+                cta_principal: "Contact to Book",
+                cta_prices: "View Prices",
+                carousel_cta: "Discover Programs",
+                desc_title: "Grow, Discover, and Have Fun in the Alps",
+                desc_p1: "Located in the charming alpine village of Leysin, Swiss Language Camp (SLC) offers a safe, stimulating environment for 10-16 year olds from 75+ nations.",
+                desc_h_morn: "Morning: Immersion",
+                desc_p2: "Immersive language learning or new Digital course, taught by qualified teachers.",
+                desc_h_aft: "Afternoon: Adventure",
+                desc_p3: "Choose from 7 programs: Aquaventure, Extreme, Creative Arts, etc.",
+                prog_title: "Typical Week: Courses & Adventures",
+                morn_title: "Language Courses",
+                morn_desc: "20 lessons/week (Mon-Fri) with collaboration projects.",
+                morn_h_inc: "Languages:",
+                morn_l1: "English, French, or German.",
+                morn_h_prem: "Premium Option:",
+                aft_title: "7 Adventure Programs",
+                aft_desc: "Choose your theme for the week.",
+                aft_h_inc: "Included:",
+                aft_l1: "Aquaventure, Fit & Fast, Discover Switzerland.",
+                aft_h_prem: "Supplements:",
+                aft_l2: "Culinary, Arts (+CHF 100/200).",
+                aft_h_xtreme: "Adrenaline:",
+                extreme_title: "Focus: Extreme Program",
+                extreme_desc: "For thrill seekers (Min. 13y): Caving, giant swing, MTB, rafting. Pro supervision guaranteed.",
+                loc_title: "SHMS Leysin: Mont-Blanc Palace",
+                loc_sub_leysin: "Historic Campus",
+                loc_p1: "Former luxury hotel turned school. Safe, magnificent views, Club Maxx onsite.",
+                acc_sub_room: "Accommodation & Board",
+                acc_p1: "Standard double rooms (included). Private bath. Full board buffet.",
+                incl_title: "2026 Prices & Sessions",
+                incl_sub: "7-week sessions available (June 28 - Aug 15).",
+                incl_h_title: "Included (Base)",
+                price_1_week: "CHF 1700 (1 Week)",
+                price_2_weeks: "CHF 3300 (2 Weeks)",
+                incl_l3: "Standard Accommodation & Full Board",
+                incl_l5: "Activities: Aquaventure, Fit & Fast, Discover",
+                incl_l6: "Language courses (English, French, or German)",
+                incl_l4: "Enrollment Fee: CHF 125",
+                excl_h_title: "Options & Supplements",
+                excl_l1: "Geneva Transfer (One way)",
+                excl_l2: "Insurance (week)",
+                excl_l3: "Digital / Coding Option",
+                excl_l4: "Extreme Program",
+                faq_title: "Frequently Asked Questions",
+                faq_q1: "What is the level of supervision on campus?",
+                faq_a1: "The environment is designed to be safe, inclusive, and fun. Students receive supervision and support from qualified professionals. All staff members are vetted.",
+                faq_q2: "Is subscribing to insurance mandatory?",
+                faq_a2: "Yes. It is mandatory for all students to have valid health and accident insurance in Switzerland. We offer insurance for non-EU participants (+CHF 50/week).",
+                faq_q3: "How are meals organized?",
+                faq_a3: "Meals are served buffet-style (breakfast, lunch, dinner) from Monday to Friday. Brunch is served on weekends. Our chefs can cater to all dietary requirements and allergies.",
+                cta_title: "Ready for Alpine Adventure?",
+                cta_sub: "Book your language immersion in Leysin.",
+                cta_button: "Request Brochure",
+                contact_title: "Contact us for rates and the full brochure:",
+                footer_text_1: "© 2026 Swiss Education Academy (SEA).",
+                footer_text_2: "Member of Swiss Education Group.",
+            },
+            es: {
+                nav_cta: "Descubrir",
+                header_tagline: "Inmersión Lingüística y Aventura Alpina",
+                header_title: "Swiss Language Camp<br/><span class=\"text-sea-accent\">Leysin 2026</span>",
+                header_age_prefix: "Verano inolvidable para",
+                cta_principal: "Contactar para Reservar",
+                cta_prices: "Ver Precios",
+                carousel_cta: "Descubrir Programas",
+                desc_title: "Crecer, Descubrir y Divertirse en los Alpes",
+                desc_p1: "Ubicado en el encantador pueblo de Leysin, Swiss Language Camp (SLC) ofrece un entorno seguro para jóvenes de 10-16 años de +75 naciones.",
+                desc_h_morn: "Mañana: Inmersión",
+                desc_p2: "Aprendizaje inmersivo de idiomas o nuevo curso Digital con profes cualificados.",
+                desc_h_aft: "Tarde: Aventura",
+                desc_p3: "Elige entre 7 programas: Aquaventure, Extreme, Artes creativas, etc.",
+                prog_title: "Semana Típica: Cursos y Aventuras",
+                morn_title: "Cursos de Idiomas",
+                morn_desc: "20 lecciones/sem (lun-vie) con proyectos colaborativos.",
+                morn_h_inc: "Incluido:",
+                morn_l1: "Inglés, Francés, o Alemán.",
+                morn_h_prem: "Opción Premium:",
+                aft_title: "7 Programas de Aventura",
+                aft_desc: "Elige tu tema para la semana.",
+                aft_h_inc: "Incluido:",
+                aft_l1: "Aquaventure, Fit & Fast, Discover Switzerland.",
+                aft_h_prem: "Suplementos:",
+                aft_l2: "Culinario, Artes (+CHF 100/200).",
+                aft_h_xtreme: "Adrenalina:",
+                extreme_title: "Foco: Programa Extreme",
+                extreme_desc: "Para amantes de emociones (Mín. 13 años): Espeleología, columpio gigante, MTB, rafting. Encadrement pro garantizado.",
+                loc_title: "SHMS Leysin: Mont-Blanc Palace",
+                loc_sub_leysin: "Campus Histórico",
+                loc_p1: "Antiguo hotel de lujo. Seguro, vistas magníficas, Club Maxx.",
+                acc_sub_room: "Alojamiento y Pensión",
+                acc_p1: "Habitaciones dobles estándar (incluido). Baño privado. Pensión completa buffet.",
+                incl_title: "Precios y Sesiones 2026",
+                incl_sub: "Sesiones de 7 semanas (28 jun - 15 ago).",
+                incl_h_title: "Incluido (Base)",
+                price_1_week: "CHF 1700 (1 semana)",
+                price_2_weeks: "CHF 3300 (2 semanas)",
+                incl_l3: "Alojamiento Estándar & PC",
+                incl_l5: "Actividades: Aquaventure, Fit & Fast, Discover",
+                incl_l6: "Cursos de idiomas (Inglés, Francés o Alemán)",
+                incl_l4: "Inscripción: CHF 125",
+                excl_h_title: "Opciones y Suplementos",
+                excl_l1: "Traslado Ginebra (Trayecto)",
+                excl_l2: "Seguro (semana)",
+                excl_l3: "Opción Digital / Coding",
+                excl_l4: "Programa Extreme",
+                faq_title: "Preguntas Frecuentes",
+                faq_q1: "¿Cuál es el nivel de supervisión en el campus?",
+                faq_a1: "El entorno está diseñado para ser seguro, inclusivo y divertido. Los estudiantes reciben supervisión y apoyo de profesionales cualificados. Todo el personal es examinado.",
+                faq_q2: "¿El seguro es obligatorio?",
+                faq_a2: "Sí. Es obligatorio que todos los estudiantes tengan un seguro de salud y accidentes válido en Suiza. Ofrecemos seguro para participantes no pertenecientes a la UE (+CHF 50/semana).",
+                faq_q3: "¿Cómo se organizan las comidas?",
+                faq_a3: "Las comidas se sirven estilo buffet (desayuno, almuerzo, cena) de lunes a viernes. El brunch se sirve los fines de semana. Nuestros chefs pueden satisfacer todos los requisitos dietéticos y alergias.",
+                cta_title: "¿Listo para la Aventura?",
+                cta_sub: "Reserve para una inmersión lingüística en Leysin.",
+                cta_button: "Solicitar Folleto",
+                contact_title: "Contáctenos para tarifas y el folleto completo:",
+                footer_text_1: "© 2026 Swiss Education Academy (SEA).",
+                footer_text_2: "Miembro del Swiss Education Group.",
+            },
+        };
+
+        function setLanguage(lang) {
+            const elements = document.querySelectorAll('[data-i18n]');
+            if (!translations[lang]) return;
+
+            elements.forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                let translation = translations[lang][key];
+
+                if (translation) {
+                    if (element.tagName === 'P' || element.tagName === 'H1' || element.tagName === 'H2' || element.tagName === 'H3' || element.tagName === 'H4' || element.tagName === 'SPAN' || element.tagName === 'SUMMARY') {
+                        element.innerHTML = translation;
+                    } else {
+                        element.textContent = translation;
+                    }
+                }
+            });
+            document.documentElement.setAttribute('lang', lang);
+        }
+
+        let currentSlide = 0;
+        let slides;
+        let totalSlides = 0;
+        let carouselInterval;
+
+        function showSlide(n) {
+            if (!slides || slides.length === 0) return;
+            if (n < 0) n = totalSlides - 1;
+            if (n >= totalSlides) n = 0;
+            currentSlide = n;
+            slides.forEach((slide, index) => {
+                slide.style.opacity = index === n ? '1' : '0';
+            });
+        }
+
+        function nextSlide() {
+            showSlide((currentSlide + 1) % totalSlides);
+        }
+
+        function initCarousel() {
+            slides = document.querySelectorAll('.carousel-img');
+            totalSlides = slides.length;
+            if (totalSlides > 0) {
+                showSlide(0);
+                clearInterval(carouselInterval);
+                carouselInterval = setInterval(nextSlide, 5000);
+            }
+        }
+
+        window.onload = function () {
+            initCarousel();
+            const storedLang = localStorage.getItem('siteLang') || 'fr';
+            const switcher = document.getElementById('language-switcher');
+            if (switcher) switcher.value = storedLang;
+            setLanguage(storedLang);
+            if (switcher) {
+                switcher.addEventListener('change', (e) => {
+                    localStorage.setItem('siteLang', e.target.value);
+                    setLanguage(e.target.value);
+                });
+            }
+        };
+    </script>
+</body>
+
+</html>

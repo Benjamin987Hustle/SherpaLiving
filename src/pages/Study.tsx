@@ -1,214 +1,233 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
-// --- Hero Component ---
-// MODIFICACIÓN: Se ha ajustado el estilo del título y subtítulo para un look más minimalista.
-const Hero = ({ title, subtitle, imageUrl }) => (
-  <section className="relative text-center overflow-hidden bg-gray-800">
-    <img
-      src={imageUrl}
-      alt="Estudiar en Alemania"
-      className="absolute inset-0 w-full h-full object-cover opacity-50"
-    />
-    <div className="relative py-32 md:py-48 max-w-4xl mx-auto px-4">
-      {/* Titre: réduction de 10% de la taille et police plus fine */}
-      <h1 className="text-3xl md:text-[2.8rem] font-semibold text-white shadow-lg">
-        {title}
-      </h1>
-      <p className="mt-6 text-xl md:text-2xl text-gray-200">
-        {subtitle}
-      </p>
-    </div>
-  </section>
+// --- Data: Programs Configuration ---
+const programs = [
+  {
+    id: 'htw',
+    title: 'Prep-for-Study (HTW Saar)',
+    category: 'University',
+    location: 'Germany',
+    image: '/Images/htw_saar.jpeg',
+    description: 'Pathway to engineering degrees in Germany. 1 year preparation for seamless university entry.',
+    link: '/htw',
+    tags: ['Engineering', 'University Prep', 'German']
+  },
+  {
+    id: 'trulli',
+    title: 'Trulli Italian School',
+    category: 'Language',
+    location: 'Italy',
+    image: '/Images/Image_trulli/trulli_1.png',
+    description: 'Immersive Italian language summer camp in the beautiful UNESCO town of Alberobello.',
+    link: '/trulli',
+    tags: ['Italian', 'Summer Camp', 'Culture']
+  },
+  {
+    id: 'swiss-language',
+    title: 'Swiss Language Club',
+    category: 'Language',
+    location: 'Switzerland',
+    image: '/Images/Image_SEA/sea_2.png',
+    description: 'Learn French or English in the Swiss Alps. Adventure, sports, and language classes combined.',
+    link: '/swiss-language',
+    tags: ['French', 'English', 'Adventure']
+  },
+  {
+    id: 'swiss-business',
+    title: 'Swiss Business & Hospitality',
+    category: 'Career',
+    location: 'Switzerland',
+    image: '/Images/Image_SEA/sea_buisness_1.jpg',
+    description: 'Introduction to Hospitality and Business Management. Develop leadership skills in a premium setting.',
+    link: '/swiss-business',
+    tags: ['Hospitality', 'Business', 'Leadership']
+  },
+  {
+    id: 'les-elfes',
+    title: 'Les Elfes International',
+    category: 'Camp',
+    location: 'Switzerland',
+    image: '/Images/Images_Les_Elfes/elfes_musée.png', // Using one of the hero images
+    description: 'World-renowned summer camps focusing on personal development, outdoor activities, and fun.',
+    link: '/les-elfes',
+    tags: ['Summer Camp', 'Outdoor', 'International']
+  },
+  {
+    id: 'leman',
+    title: 'Léman Summer Camp',
+    category: 'Camp',
+    location: 'Switzerland',
+    image: '/Images/Image_Leman/campus_leman_1.jpg',
+    description: 'Premium boarding school summer experience. Excellence in education and activities on Lake Geneva.',
+    link: '/leman-summer-camp',
+    tags: ['Boarding School', 'Summer Camp', 'Lake Geneva']
+  },
+  {
+    id: 'swiss-culinary',
+    title: 'Swiss Culinary Club',
+    category: 'Career',
+    location: 'Switzerland',
+    image: '/Images/Image_SEA/Sea_Culinary_2.png',
+    description: 'Discover the art of cooking with professional chefs. A tasty mix of culinary arts and Swiss adventures.',
+    link: '/swiss-culinary',
+    tags: ['Cooking', 'Culinary Arts', 'Chocolate']
+  }
+];
+
+// --- Components ---
+
+const FilterButton = ({ active, label, onClick }) => (
+  <button
+    onClick={onClick}
+    className={`px-6 py-2 rounded-full text-sm font-semibold transition-all duration-300 border ${active
+      ? 'bg-blue-600 text-white border-blue-600 shadow-md'
+      : 'bg-white text-gray-600 border-gray-200 hover:border-blue-400 hover:text-blue-600'
+      }`}
+  >
+    {label}
+  </button>
 );
 
-
-// --- Reusable Inner Components ---
-
-const BenefitCard = ({ icon, title, children }) => (
-  <div className="bg-white p-6 rounded-lg shadow-lg text-center transform hover:scale-105 transition-transform duration-300">
-    <div className="flex items-center justify-center h-12 w-12 rounded-full bg-blue-100 text-blue-600 mx-auto mb-4">
-      {icon}
+const ProgramCard = ({ program }) => (
+  <div className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 flex flex-col h-full transform hover:-translate-y-1">
+    <div className="relative h-48 overflow-hidden">
+      <img
+        src={program.image}
+        alt={program.title}
+        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+      />
+      <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-gray-800 shadow-sm">
+        {program.location}
+      </div>
     </div>
-    <h3 className="text-xl font-bold text-gray-800 mb-2">{title}</h3>
-    <p className="text-gray-600">{children}</p>
+    <div className="p-6 flex-1 flex flex-col">
+      <div className="mb-4">
+        <span className="text-xs font-bold tracking-wider text-blue-600 uppercase mb-2 block">
+          {program.category}
+        </span>
+        <h3 className="text-xl font-bold text-gray-900 leading-tight group-hover:text-blue-700 transition-colors">
+          {program.title}
+        </h3>
+      </div>
+      <p className="text-gray-600 text-sm mb-6 flex-1 line-clamp-3">
+        {program.description}
+      </p>
+
+      <div className="flex flex-wrap gap-2 mb-6">
+        {program.tags.map((tag, idx) => (
+          <span key={idx} className="bg-gray-50 text-gray-500 text-xs px-2 py-1 rounded-md border border-gray-100">
+            #{tag}
+          </span>
+        ))}
+      </div>
+
+      <Link
+        to={program.link}
+        className="w-full block text-center py-3 rounded-xl bg-gray-900 text-white font-semibold hover:bg-blue-600 transition-colors"
+      >
+        Discover Program
+      </Link>
+    </div>
   </div>
 );
 
-const AccordionItem = ({ title, icon, content }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  return (
-    <div className="mb-2 border border-gray-200 rounded-lg overflow-hidden shadow-sm">
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="relative w-full px-4 py-4 bg-gray-50 hover:bg-gray-100 text-gray-800 font-bold text-left transition-colors focus:outline-none"
-      >
-        <span className="flex items-center space-x-3 text-lg">
-          <span className="text-2xl">{icon}</span>
-          <span>{title}</span>
-        </span>
-        <span className="absolute top-1/2 right-4 transform -translate-y-1/2 text-2xl font-light text-blue-600">
-          {isOpen ? '−' : '+'}
-        </span>
-      </button>
-      {isOpen && (
-        <div 
-          className="bg-white px-4 py-5 text-gray-700 leading-relaxed border-t border-gray-200"
-          dangerouslySetInnerHTML={{ __html: content }}
-        />
-      )}
-    </div>
-  );
-};
+const Study = () => {
+  const [filterCategory, setFilterCategory] = useState('All');
+  const [filterLocation, setFilterLocation] = useState('All');
 
+  const categories = ['All', 'University', 'Camp', 'Language', 'Career'];
+  const locations = ['All', 'Switzerland', 'Germany', 'Italy'];
 
-// --- Main Study Page Component ---
-
-const StudyPage = () => {
-  const programDetails = [
-    {
-      title: 'Duración',
-      icon: '📅',
-      content: '2 semestres (Octubre - Julio). Un plan de estudios completo que combina teoría y práctica para darte la base sólida ',
-    },
-    {
-      title: 'Ubicación',
-      icon: '📍',
-      content: 'Ubicacion: HTW Saar, Saarbrücken, Alemania. Situada en el corazón de Europa, esta universidad te ofrece un ambiente multicultural y seguro.',
-    },
-    {
-      title: 'Cursos',
-      icon: '📚',
-      content: 'Alemán, Matemáticas, Física e Informática. Recibirás formación especializada y orientación académica para prepararte para tu carrera de ingeniería.',
-    },
-    {
-      title: 'Certificación',
-      icon: '📜',
-      content: 'El programa Prep-for-Study está acreditado por <a href="https://www.asiin.de/en/" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">ASIIN</a>, una agencia de renombre mundial que certifica más de 6500 programas de estudio en 401 instituciones a través de 68 países. Para saber más, visita el sitio web de ASIIN.',
-    },
-    {
-      title: 'Costo e Inclusión',
-      icon: '💶',
-      content: 'El programa tiene un costo de 7.800 €. Este costo comprende los dos semestres de cursos, las visitas, apoyo para encontrar alojamiento y con trámites migratorios.',
-    },
-    {
-      title: 'Requisitos de Admisión',
-      icon: '📑',
-      content: 'Certificado de preparatoria terminada y un nivel B1 de alemán. Si aún no cumples con el requisito del idioma, ofrecemos un programa de refuerzo lingüístico.',
-    },
-  ];
+  const filteredPrograms = programs.filter(program => {
+    const matchCategory = filterCategory === 'All' || program.category === filterCategory || (filterCategory === 'Camp' && program.category === 'Summer Camp'); // Handle slight mapping diffs if any, but simplified here
+    const matchLocation = filterLocation === 'All' || program.location === filterLocation;
+    return matchCategory && matchLocation;
+  });
 
   return (
-    <div className="bg-gray-50">
-      <Hero
-        title="Estudia en Alemania con Prep-for-Study"
-        subtitle="Tu Puerta de Entrada a una Carrera de Ingeniería de Clase Mundial"
-        imageUrl="/Images/htw_saar.jpeg"
-      />
+    <div className="min-h-screen bg-gray-50 pb-20">
+      {/* Hero Section */}
+      <section className="relative bg-blue-900 text-white py-24 px-4 overflow-hidden">
+        <div className="absolute inset-0 opacity-20 bg-[url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center" />
+        <div className="relative max-w-5xl mx-auto text-center space-y-6">
+          <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight">
+            Find Your Perfect Experience
+          </h1>
+          <p className="text-xl text-blue-100 max-w-2xl mx-auto">
+            Explore our curated collection of world-class educational programs, from summer camps in the Swiss Alps to university preparation in Germany.
+          </p>
+        </div>
+      </section>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      {/* Filters Section */}
+      <section className="sticky top-0 z-30 bg-white/80 backdrop-blur-md border-b border-gray-200 shadow-sm py-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
+          {/* Mobile-friendly scrollable filter container */}
+          <div className="flex flex-col md:flex-row md:justify-center gap-4 md:items-center">
 
-        {/* --- Sección de Introducción --- */}
-        <div className="text-center mb-24">
-          {/* MODIFICACIÓN: Título más pequeño y minimalista */}
-          <h2 className="text-3xl md:text-4xl font-extrabold text-gray-800 mb-6">
-            ¿Qué es Prep-for-Study?
+            <div className="flex overflow-x-auto pb-2 md:pb-0 gap-2 no-scrollbar">
+              <span className="md:hidden text-xs font-bold text-gray-400 self-center mr-2 uppercase">Type:</span>
+              {categories.map(cat => (
+                <FilterButton
+                  key={cat}
+                  label={cat}
+                  active={filterCategory === cat}
+                  onClick={() => setFilterCategory(cat)}
+                />
+              ))}
+            </div>
+
+            <div className="hidden md:block w-px h-8 bg-gray-200"></div>
+
+            <div className="flex overflow-x-auto pb-2 md:pb-0 gap-2 no-scrollbar">
+              <span className="md:hidden text-xs font-bold text-gray-400 self-center mr-2 uppercase">Loc:</span>
+              {locations.map(loc => (
+                <FilterButton
+                  key={loc}
+                  label={loc}
+                  active={filterLocation === loc}
+                  onClick={() => setFilterLocation(loc)}
+                />
+              ))}
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* Results Section */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="flex justify-between items-center mb-8">
+          <h2 className="text-2xl font-bold text-gray-800">
+            Available Programs <span className="text-gray-400 font-normal text-lg ml-2">({filteredPrograms.length})</span>
           </h2>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto mb-6">
-            ¿Sueñas con formarte en ingeniería en una de las mejores universidades del mundo?
-            Alemania, líder global en innovación e ingeniería, te abre sus puertas.
-          </p>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto mb-6">
-            Con Prep-for-Study, tu camino hacia una educación de élite en Alemania comienza hoy. En solo un año de preparación, estarás listo para postularte a cualquier Universidad de Ciencias Aplicadas (Hochschule) del país… ¡y pagar las mismas tasas que un estudiante local!
-          </p>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto mb-6">
-            No solo estudiarás en un sistema educativo reconocido por su excelencia y enfoque práctico: también te integrarás en un ecosistema de oportunidades, empleabilidad y futuro.
-          </p>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            Prep-for-Study: tu puerta de entrada a la ingeniería alemana.
-          </p>
         </div>
 
-        {/* --- Sección de Beneficios Clave --- */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mb-24">
-            <BenefitCard 
-              icon={<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="h-6 w-6"><path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182.553-.44 1.28-.659 2.003-.659 1.5 0 2.848.888 3.541 2.082" /></svg>} 
-              title="Acceso a Matrícula Local"
-            >
-              Invierte en tu preparación y accede a tarifas de matrícula alemanas, que son significativamente más bajas que las tasas internacionales.
-            </BenefitCard>
-            <BenefitCard 
-              icon={<svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>} 
-              title="Ingeniería eficiente: tres años, máximo impacto"
-            >
-              En Alemania, tu carrera de ingeniería dura 3 años —frente a los 4 o 5 habituales en México— sin comprometer calidad, gracias a un modelo educativo centrado en la práctica y la empleabilidad.
-            </BenefitCard>
-            <BenefitCard 
-              icon={<svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>} 
-              title="Gana Mientras Aprendes"
-            >
-              Accede a prácticas profesionales pagadas que te ayudarán a cubrir tus gastos, convirtiendo tu educación en un proyecto autosostenible.
-            </BenefitCard>
-        </div>
-
-        {/* --- Sección "Descubre Oportunidades Únicas" --- */}
-        <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-gray-800">Descubre Oportunidades Únicas</h2>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-24">
-          <div className="overflow-hidden rounded-lg shadow-lg bg-white">
-            <img src="/Images/staar_classroom.jpg" alt="Aula del campus de HTW Saar" className="w-full h-48 object-cover"/>
-            <div className="p-6">
-              <h3 className="text-xl font-bold mb-2">Campus de Vanguardia en HTW Saar</h3>
-              <p className="text-gray-600 mb-4">Estudia en instalaciones modernas con tecnología de punta. La HTW Saar es reconocida por su excelencia en ingeniería y su enfoque práctico.</p>
-              <a href="https://www.htwsaar.de/en" target="_blank" rel="noopener noreferrer" className="font-bold text-blue-600 hover:underline">Visita la universidad →</a>
-            </div>
-          </div>
-          <div className="overflow-hidden rounded-lg shadow-lg bg-white">
-            <img src="/Images/GermanUni1.jpeg" alt="Estudiantes trabajando en un proyecto de ingeniería" className="w-full h-48 object-cover"/>
-            <div className="p-6">
-              <h3 className="text-xl font-bold mb-2">Opciones de Doble Titulación</h3>
-              <p className="text-gray-600">Explora programas de doble titulación con instituciones asociadas en todo el mundo, obteniendo dos diplomas reconocidos globalmente.</p>
-            </div>
-          </div>
-          <div className="overflow-hidden rounded-lg shadow-lg bg-white">
-            <img src="/Images/river2.jpg" alt="Joven profesional trabajando en una laptop" className="w-full h-48 object-cover"/>
-            <div className="p-6">
-              <h3 className="text-xl font-bold mb-2">Tu Futuro Profesional Comienza Aquí</h3>
-              <p className="text-gray-600">Alemania ofrece increíbles oportunidades de carrera post-graduación. Una educación aquí es una inversión directa en tu futuro profesional.</p>
-            </div>
-          </div>
-        </div>
-
-        {/* --- Acordeón de Detalles del Programa --- */}
-        <div className="max-w-4xl mx-auto mb-24">
-            <h2 className="text-3xl font-bold mb-8 text-center text-gray-800">Detalles del Programa</h2>
-            {programDetails.map((item, index) => (
-                <AccordionItem key={index} {...item} />
+        {filteredPrograms.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {filteredPrograms.map(program => (
+              <ProgramCard key={program.id} program={program} />
             ))}
-        </div>
-
-        {/* --- Sección Final de CTA --- */}
-        <div className="text-center bg-white p-10 rounded-lg shadow-inner">
-          <h2 className="text-3xl font-bold mb-4 text-gray-800">
-            ¿Listo para comenzar tu aventura en Alemania?
-          </h2>
-          <p className="text-gray-600 max-w-2xl mx-auto mb-8">
-            Prep-for-Study es tu plataforma de lanzamiento hacia una carrera global en ingeniería más inteligente, rápida y asequible.
-          </p>
-          <a
-            href='https://creatorapp.zohopublic.ca/sherpaliving/landlords-appartemnt/form-perma/Sherpa_Study/z0pTMgBkm3XVrpu4UfQKCnq8b9jks1WTnUR06C3R35QWBf3W4kZwe3sJGp1YDK8hEmkXqpkKB7EnhJnSQJWAT74Fbxb7a6qjvj9t'
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-10 rounded-full transition-transform transform hover:scale-105 duration-300 shadow-lg"
-          >
-            Inscríbete Ahora
-          </a>
-        </div>
-
-      </div>
+          </div>
+        ) : (
+          <div className="text-center py-20 bg-white rounded-2xl border border-dashed border-gray-300">
+            <svg className="w-16 h-16 text-gray-300 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            <h3 className="text-lg font-medium text-gray-900">No programs found</h3>
+            <p className="text-gray-500">Try adjusting your filters to find what you're looking for.</p>
+            <button
+              onClick={() => { setFilterCategory('All'); setFilterLocation('All'); }}
+              className="mt-4 text-blue-600 hover:text-blue-800 font-medium"
+            >
+              Clear Filters
+            </button>
+          </div>
+        )}
+      </section>
     </div>
   );
 };
 
-export default StudyPage;
-
+export default Study;

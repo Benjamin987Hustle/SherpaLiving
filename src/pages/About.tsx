@@ -4,14 +4,13 @@ import React from 'react';
 // To keep the main code clean, we create a specific component for the founder cards.
 const FounderBio = ({ name, role, imageUrl, bio }) => (
   <div className="bg-white rounded-xl shadow-lg overflow-hidden max-w-sm mx-auto transform hover:scale-105 transition-transform duration-300">
-    <img 
-      className={`w-full h-64 object-cover ${
-        name === 'Benjamin Egretaud' 
-          ? 'object-[center_20%]' // CORRECTION: Une valeur < 50% remonte le cadrage pour voir le visage
-          : 'object-center'      // Position par défaut pour les autres
-      }`} 
-      src={imageUrl} 
-      alt={`Portrait of ${name}`} 
+    <img
+      className={`w-full h-64 object-cover ${name === 'Benjamin Egretaud'
+        ? 'object-[center_20%]' // CORRECTION: Une valeur < 50% remonte le cadrage pour voir le visage
+        : 'object-center'      // Position par défaut pour les autres
+        }`}
+      src={imageUrl}
+      alt={`Portrait of ${name}`}
     />
     <div className="p-6">
       <h3 className="text-2xl font-bold font-serif text-gray-800">{name}</h3>
@@ -36,6 +35,12 @@ const founders = [
     role: 'Co-Founder',
     imageUrl: '/Images/benjamin.jpg', // Changed to use local image
     bio: 'Having experienced coming to Monterrey as an international student, I understood first hand a service like Sherpa Living was needed. The risk of falling victim to a scam can potentially ruin your entire semester when you are on a tight budget.\n\nHaving someone you can rely on, who understands your situation makes all the difference in the world, and that is what we want to be for upcoming students. Not just a housing service but a community who can welcome you and help you have the best semester of your life.'
+  },
+  {
+    name: 'Lennart Schwiersch',
+    role: 'Team Member',
+    imageUrl: '/Images/lennart.png', // Placeholder, will fix if filename differs
+    bio: 'Dedicated to helping international students have the best experience possible.'
   }
 ];
 
@@ -92,7 +97,7 @@ const AboutPage = () => {
         <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           {/* The order is reversed to vary the layout */}
           <div className="order-last md:order-first">
-             <img
+            <img
               src="/Images/journey.png" // MISE À JOUR: Utilisation d'une image locale
               alt="Map of Mexico with pins symbolizing travel"
               className="w-full h-auto object-cover rounded-lg shadow-2xl"
@@ -113,47 +118,47 @@ const AboutPage = () => {
       {/* Values Section */}
       <section className="py-20 px-6 md:px-8 bg-white">
         <div className="max-w-6xl mx-auto">
-            <h2 className="text-4xl font-extrabold text-center mb-16 font-serif text-gray-800">
-              Our Core Values
-            </h2>
-            {/* IMPROVEMENT: Using flexbox for better alignment and spacing */}
-            <div className="flex flex-wrap justify-center gap-10">
-              
-              {/* Value 1: Safety */}
-              <div className="flex flex-col items-center text-center max-w-xs p-6">
-                 {/* IMPROVEMENT: Using SVG for sharp and consistent icons */}
-                <svg className="w-16 h-16 mb-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                <h3 className="font-bold text-2xl text-gray-800 mb-2">Safety</h3>
-                <p className="text-gray-600">
-                  We prioritize your safety by rigorously vetting all properties to ensure your complete peace of mind.
-                </p>
-              </div>
+          <h2 className="text-4xl font-extrabold text-center mb-16 font-serif text-gray-800">
+            Our Core Values
+          </h2>
+          {/* IMPROVEMENT: Using flexbox for better alignment and spacing */}
+          <div className="flex flex-wrap justify-center gap-10">
 
-              {/* Value 2: Personalized Attention */}
-              <div className="flex flex-col items-center text-center max-w-xs p-6">
-                <svg className="w-16 h-16 mb-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a2 2 0 01-2-2V7a2 2 0 012-2h4M5 8h2m4 0h2" /></svg>
-                <h3 className="font-bold text-2xl text-gray-800 mb-2">Personalized Attention</h3>
-                <p className="text-gray-600">
-                  No bots, no answering machines. Our team offers you tailored support and constant updates.
-                </p>
-              </div>
-
-              {/* Value 3: Integrity */}
-              <div className="flex flex-col items-center text-center max-w-xs p-6">
-                <svg className="w-16 h-16 mb-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
-                <h3 className="font-bold text-2xl text-gray-800 mb-2">Integrity</h3>
-                <p className="text-gray-600">
-                  We operate with honesty and transparency, ensuring you have accurate information to trust us.
-                </p>
-              </div>
-
+            {/* Value 1: Safety */}
+            <div className="flex flex-col items-center text-center max-w-xs p-6">
+              {/* IMPROVEMENT: Using SVG for sharp and consistent icons */}
+              <svg className="w-16 h-16 mb-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+              <h3 className="font-bold text-2xl text-gray-800 mb-2">Safety</h3>
+              <p className="text-gray-600">
+                We prioritize your safety by rigorously vetting all properties to ensure your complete peace of mind.
+              </p>
             </div>
+
+            {/* Value 2: Personalized Attention */}
+            <div className="flex flex-col items-center text-center max-w-xs p-6">
+              <svg className="w-16 h-16 mb-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a2 2 0 01-2-2V7a2 2 0 012-2h4M5 8h2m4 0h2" /></svg>
+              <h3 className="font-bold text-2xl text-gray-800 mb-2">Personalized Attention</h3>
+              <p className="text-gray-600">
+                No bots, no answering machines. Our team offers you tailored support and constant updates.
+              </p>
+            </div>
+
+            {/* Value 3: Integrity */}
+            <div className="flex flex-col items-center text-center max-w-xs p-6">
+              <svg className="w-16 h-16 mb-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
+              <h3 className="font-bold text-2xl text-gray-800 mb-2">Integrity</h3>
+              <p className="text-gray-600">
+                We operate with honesty and transparency, ensuring you have accurate information to trust us.
+              </p>
+            </div>
+
+          </div>
         </div>
       </section>
 
       {/* Founders Section */}
       <section className="py-20 px-6 md:px-8 bg-gray-50">
-        <h2 className="text-4xl font-bold text-center mb-16 font-serif text-gray-800">Our Founders</h2>
+        <h2 className="text-4xl font-bold text-center mb-16 font-serif text-gray-800">Meet the teams</h2>
         <div className="max-w-5xl mx-auto flex flex-wrap justify-center gap-12">
           {founders.map((founder, index) => (
             <FounderBio key={index} {...founder} />

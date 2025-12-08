@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEA Culinary Excellence - Le Bouveret 2026</title>
+    <!-- Chargement de Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Inclusion de la police Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap"
+        rel="stylesheet">
+
+    <!-- Configuration des polices et des couleurs (SEA - Bleu marine et Bleu Ciel) -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'sea-main': '#003366', // Bleu Marine Profond
+                        'sea-dark': '#001A33', // Bleu très foncé
+                        'sea-light': '#F8F9FA', // Blanc cassé
+                        'sea-accent': '#00AEEF', // Bleu Ciel Vif
+                        'sea-highlight': '#FFD700', // Or
+                        'b-text': '#1F2937',
+                        'surface': '#FFFFFF',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'soft': '0 4px 20px -2px rgba(0, 0, 0, 0.05)',
+                        'card': '0 10px 30px -5px rgba(0, 51, 102, 0.08)',
+                        '3xl': '0 35px 60px -15px rgba(0, 0, 0, 0.2)',
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.8s ease-out',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: #F8F9FA;
+        }
+
+        /* Hero Overlay & Background */
+        .hero-section {
+            position: relative;
+            height: 100vh;
+            min-height: 600px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .hero-bg-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* Gradient Bleu Marine pour SEA */
+            background: linear-gradient(rgba(0, 26, 51, 0.4), rgba(0, 51, 102, 0.7));
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Standard Card Hover */
+        .hover-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .hover-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px -5px rgba(0, 51, 102, 0.15);
+            /* Ombre bleue */
+        }
+
+        /* List Styling - Utilisation de flex pour un alignement précis des tarifs */
+        .included-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .included-item::before {
+            content: '⭐';
+            margin-right: 0;
+            color: #FFD700;
+            font-size: 1.1em;
+        }
+
+        .excluded-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #003366;
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #001A33;
+        }
+    </style>
+</head>
+
+<body class="font-sans antialiased text-b-text leading-relaxed">
+
+    <!-- Navbar Modern (Glassmorphism) -->
+    <header class="fixed w-full top-0 z-50 bg-white/95 backdrop-blur-sm shadow-sm transition-all duration-300">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <!-- LOGO -->
+                <img src="Image_SEA/logo_SEA.png" alt="SEA Culinary"
+                    class="w-12 h-12 rounded-full shadow-sm border border-gray-100">
+                <span class="text-xl font-bold tracking-tight text-sea-main hidden sm:block">CULINARY EXCELLENCE</span>
+            </div>
+
+            <div class="flex items-center gap-6">
+                <!-- Desktop Nav -->
+                <nav class="hidden md:flex gap-6 text-sm font-medium text-gray-600">
+                    <a href="#programmes" class="hover:text-sea-main transition">Programmes</a>
+                    <a href="#location" class="hover:text-sea-main transition">Campus</a>
+                    <a href="#tarifs" class="hover:text-sea-main transition">Tarifs</a>
+                    <a href="#contact" class="hover:text-sea-main transition">Contact</a>
+                </nav>
+
+                <!-- Language & CTA -->
+                <div class="flex items-center gap-4">
+                    <select id="language-switcher" onchange="setLanguage(this.value)"
+                        class="bg-gray-50 border border-gray-200 text-gray-700 text-sm rounded-lg focus:ring-sea-main focus:border-sea-main block p-2 cursor-pointer outline-none">
+                        <option value="fr">FR</option>
+                        <option value="en">EN</option>
+                        <option value="es">ES</option>
+                    </select>
+                    <!-- CTA NAV - Découvrir -->
+                    <a href="#programmes" data-i18n="nav_cta"
+                        class="hidden sm:inline-block px-6 py-2.5 bg-sea-accent text-white text-sm font-semibold rounded-full shadow-md hover:bg-sky-500 transition transform hover:-translate-y-0.5">
+                        Découvrir
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <!-- Background Carousel -->
+        <div class="hero-bg-container">
+            <div id="carousel" class="relative w-full h-full">
+                <img src="Image_SEA/SEA_culinary_3.png" alt="Culinary 3"
+                    class="carousel-img w-full h-full object-cover absolute opacity-100 transition-opacity duration-1000">
+                <img src="Image_SEA/Sea_Culinary_2.png" alt="Culinary 2"
+                    class="carousel-img w-full h-full object-cover absolute opacity-0 transition-opacity duration-1000">
+                <img src="Image_SEA/sea_5.png" alt="Landscape"
+                    class="carousel-img w-full h-full object-cover absolute opacity-0 transition-opacity duration-1000">
+                <img src="Image_SEA/sea_culinary_1.png" alt="Culinary 1"
+                    class="carousel-img w-full h-full object-cover absolute opacity-0 transition-opacity duration-1000">
+            </div>
+        </div>
+
+        <!-- Overlay Gradient -->
+        <div class="hero-overlay"></div>
+
+        <!-- Content -->
+        <div class="hero-content container mx-auto px-4 text-center">
+            <div class="max-w-5xl mx-auto space-y-8 animate-fade-in-up">
+                <span data-i18n="header_tagline"
+                    class="inline-block py-1 px-4 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-sm font-semibold tracking-wider uppercase text-sea-highlight mb-2">
+                    Immersion dans les Arts Culinaires & Pâtissiers
+                </span>
+
+                <h1 data-i18n="header_title"
+                    class="text-4xl md:text-7xl font-black tracking-tight leading-tight drop-shadow-xl">
+                    SEA Culinary Excellence
+                </h1>
+
+                <p class="text-xl md:text-2xl font-light text-white/90 max-w-2xl mx-auto leading-relaxed">
+                    <!-- Modification 7: Retrait du surlignage de l'âge -->
+                    <span data-i18n="header_age_prefix">Pour aspirants Chefs de</span>
+                    <span class="font-bold text-white">16 - 20 ans</span>.
+                </p>
+
+                <div class="pt-8 flex flex-col sm:flex-row gap-4 justify-center">
+                    <!-- Modification 1A: CTA Principal (Demander la Brochure -> Je Réserve Ma Place) -->
+                    <a href="mailto:benjamin.egretaud@sherpaliving.mx" data-i18n="cta_principal"
+                        class="px-8 py-4 bg-sea-accent text-white font-bold rounded-full shadow-lg hover:bg-sky-500 transition transform hover:-translate-y-1">
+                        Je Réserve Ma Place
+                    </a>
+                    <!-- Modification 1B: CTA Secondaire -->
+                    <a href="#tarifs" data-i18n="cta_prices"
+                        class="px-8 py-4 bg-white text-sea-main font-bold rounded-full shadow-lg hover:bg-gray-100 transition transform hover:-translate-y-1">
+                        Voir les Tarifs
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce z-10">
+            <svg class="w-6 h-6 text-white/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3">
+                </path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Value Proposition -->
+    <section class="py-24 bg-white">
+        <div class="container mx-auto px-6 max-w-5xl text-center">
+            <h2 data-i18n="desc_title" class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">Une Aventure Culinaire
+                au Sein d'une Académie de Renom</h2>
+            <div class="text-lg text-gray-600 leading-relaxed space-y-6 max-w-4xl mx-auto">
+                <p data-i18n="desc_p1">
+                    Situé sur le campus de la Culinary Arts Academy (CAA) au Bouveret, offrant des cuisines de
+                    démonstration ultramodernes et un cadre magnifique au bord du Lac Léman.
+                </p>
+                <p data-i18n="desc_p2">
+                    Le programme est une immersion complète, avec des cours théoriques et pratiques intensifs, axés
+                    sur la Cuisine Mondiale, Européenne ou la Pâtisserie et le Chocolat.
+                </p>
+                <p data-i18n="desc_p3">
+                    Les cours sont donnés par les chefs instructeurs des Bachelor/Master de la CAA, garantissant une
+                    éducation culinaire de classe mondiale.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Content Section: Programs -->
+    <section id="programmes" class="py-24 bg-sea-light">
+        <div class="container mx-auto px-6 max-w-6xl">
+            <h3 data-i18n="prog_title" class="text-3xl md:text-4xl font-bold text-center mb-16 text-sea-main">Cours
+                Quotidiens & Activités</h3>
+
+            <div class="grid md:grid-cols-2 gap-10">
+                <!-- Cooking Classes Card -->
+                <div class="bg-white p-8 rounded-2xl shadow-card hover-card border-t-4 border-sea-highlight">
+                    <div class="mb-6 flex items-center gap-3">
+                        <span class="p-3 bg-yellow-50 text-sea-highlight rounded-xl">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                            </svg>
+                        </span>
+                        <h4 data-i18n="morn_title" class="text-2xl font-bold text-gray-900">Cours Pratiques</h4>
+                    </div>
+
+                    <p data-i18n="morn_desc" class="text-gray-600 mb-6 font-medium">Chaque semaine, choisissez un thème
+                        culinaire. 4 jours intensifs + 1 jour d'excursion.</p>
+                    <ul class="space-y-4 text-gray-700">
+                        <li class="bg-gray-50 p-3 rounded-lg"><strong class="text-sea-main block mb-1">Thèmes :</strong>
+                            World Cuisine, European Cuisine, Pâtisserie & Chocolat.</li>
+                        <li class="bg-gray-50 p-3 rounded-lg"><strong class="text-sea-main block mb-1">Compétences
+                                :</strong> Techniques, Hygiène, Dégustation.</li>
+                        <li class="flex items-center gap-3"><span
+                                class="w-1.5 h-1.5 bg-sea-main rounded-full"></span><span data-i18n="morn_l3">Enseigné
+                                en Anglais (B1 recommandé)</span></li>
+                    </ul>
+                </div>
+
+                <!-- Activities Card -->
+                <div class="bg-white p-8 rounded-2xl shadow-card hover-card border-t-4 border-sea-accent">
+                    <div class="mb-6 flex items-center gap-3">
+                        <span class="p-3 bg-sky-50 text-sea-accent rounded-xl">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </span>
+                        <h4 data-i18n="aft_title" class="text-2xl font-bold text-gray-900">Excursions & Fun</h4>
+                    </div>
+
+                    <p data-i18n="aft_desc" class="text-gray-600 mb-6 font-medium">Le Mercredi est dédié aux excursions.
+                        Soirées à thème sur le campus.</p>
+                    <ul class="space-y-4 text-gray-700">
+                        <li class="p-3 bg-gray-50 rounded-lg">
+                            <strong class="block text-sea-accent mb-1">Mercredi Excursion :</strong>
+                            <span data-i18n="aft_l1">Découvertes régionales, Lac Léman et Alpes.</span>
+                        </li>
+                        <li class="p-3 bg-gray-50 rounded-lg">
+                            <strong class="block text-sea-dark mb-1">Soirées :</strong>
+                            <span data-i18n="aft_l2">Casino, karaoké, sports, jeux, Olympiades.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Facilities Banner -->
+            <div class="mt-10 bg-sea-dark rounded-2xl p-8 text-center text-white relative overflow-hidden shadow-xl">
+                <div class="absolute inset-0 bg-white/5"></div>
+                <div class="relative z-10">
+                    <h4 data-i18n="facility_title" class="text-2xl font-bold mb-2 text-sea-highlight">Cuisines
+                        Professionnelles</h4>
+                    <p data-i18n="facility_desc" class="text-white/80 max-w-3xl mx-auto">
+                        Les cours ont lieu dans les toutes nouvelles cuisines de démonstration de la Culinary Arts
+                        Academy, assurant des conditions d'apprentissage exceptionnelles.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Location & Housing -->
+    <section id="location" class="py-24 bg-white">
+        <div class="container mx-auto px-6 max-w-6xl">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="order-2 md:order-1">
+                    <h3 data-i18n="loc_title" class="text-3xl font-bold text-sea-main mb-6">Le Bouveret : Campus au Bord
+                        du Lac</h3>
+                    <div class="space-y-6">
+                        <div class="flex gap-4">
+                            <div
+                                class="w-12 h-12 rounded-full bg-blue-50 flex items-center justify-center flex-shrink-0 text-sea-main">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 data-i18n="loc_sub_bouveret" class="text-xl font-bold text-gray-900">Campus Culinary
+                                    Arts Academy</h4>
+                                <p data-i18n="loc_p1" class="text-gray-600 mt-1">Situé au bord du Lac Léman,
+                                    environnement calme et inspirant.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div
+                                class="w-12 h-12 rounded-full bg-blue-50 flex items-center justify-center flex-shrink-0 text-sea-main">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 data-i18n="acc_sub_room" class="text-xl font-bold text-gray-900">Hébergement & Repas
+                                </h4>
+                                <p data-i18n="acc_p1" class="text-gray-600 mt-1">Chambres doubles standard (inclus).
+                                    Pension complète style buffet. Nettoyage hebdomadaire.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="order-1 md:order-2">
+                    <div
+                        class="rounded-2xl overflow-hidden shadow-2xl transform -rotate-1 hover:rotate-0 transition duration-500">
+                        <img src="Image_SEA/Sea_Culinary_2.png" alt="Bouveret Campus" class="w-full h-auto">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="tarifs" class="py-24 bg-gray-50">
+        <div class="container mx-auto px-6 max-w-5xl">
+            <h3 data-i18n="incl_title" class="text-3xl font-bold text-center mb-6 text-sea-main">Tarifs 2026</h3>
+            <p data-i18n="incl_sub" class="text-center text-gray-500 mb-12">Les cours sont vendus par semaine (Tuition)
+                et peuvent être combinés.</p>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Base Pricing (Revised) -->
+                <div class="bg-white p-8 rounded-2xl shadow-card hover-card border border-gray-100">
+                    <h4 data-i18n="incl_h_title"
+                        class="text-xl font-bold mb-6 text-sea-main uppercase tracking-wide border-b pb-4">Tarif (Base)
+                    </h4>
+                    <div class="text-lg font-extrabold text-gray-900 mb-6">
+                        <span data-i18n="price_1_week">CHF 2350 (1 semaine)</span> / <span data-i18n="price_2_weeks">CHF
+                            4600 (2 semaines)</span>
+                    </div>
+                    <ul class="space-y-4 text-sm text-gray-700">
+                        <!-- Utilisation de la structure flex pour les inclusions -->
+                        <li class="flex items-center gap-3">
+                            <span class="text-sea-highlight">⭐</span>
+                            <span data-i18n="incl_l3" class='included-item-text'>Hébergement Standard & Pension
+                                Complète</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <span class="text-sea-highlight">⭐</span>
+                            <span data-i18n="incl_l5" class='included-item-text'>Excursions régionales & Soirées</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <span class="text-sea-highlight">⭐</span>
+                            <span data-i18n="incl_l6" class='included-item-text'>Certificat Culinaire</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <span class="text-sea-highlight">⭐</span>
+                            <span data-i18n="incl_l7" class='included-item-text'>Frais d'inscription inclus</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Upgrades (Revised) -->
+                <div class="bg-white p-8 rounded-2xl shadow-card hover-card border border-gray-100">
+                    <h4 data-i18n="excl_h_title"
+                        class="text-xl font-bold mb-6 text-sea-accent uppercase tracking-wide border-b pb-4">Options &
+                        Suppléments</h4>
+                    <ul class="space-y-4 text-sm text-gray-700">
+                        <!-- Structure corrigée pour l'alignement des suppléments -->
+                        <li data-i18n="excl_l3" class="excluded-item"><span>Chambre Simple Standard</span> <span
+                                class="font-bold text-sea-dark">+ CHF 200 / sem</span></li>
+                        <li data-i18n="excl_l1" class="excluded-item"><span>Transfert Aéroport (Trajet)</span> <span
+                                class="font-bold text-sea-dark">CHF 180</span></li>
+                        <li data-i18n="excl_l2" class="excluded-item"><span>Assurance (obligatoire)</span> <span
+                                class="font-bold text-sea-dark">CHF 50 / sem</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section (Interactive) -->
+    <section class="py-24 bg-white">
+        <div class="container mx-auto px-6 max-w-3xl">
+            <h3 data-i18n="faq_title" class="text-3xl font-bold text-center mb-10 text-gray-900">Questions Fréquentes
+            </h3>
+            <div class="space-y-4">
+                <!-- FAQ 1: Niveau Anglais -->
+                <details class="group bg-gray-50 p-4 rounded-xl cursor-pointer hover-card">
+                    <summary data-i18n="faq_q1"
+                        class="font-bold text-sea-main list-none flex justify-between items-center">
+                        Quel niveau d'Anglais est requis pour participer ?
+                        <span class="transition group-open:rotate-180">▼</span>
+                    </summary>
+                    <p data-i18n="faq_a1" class="text-gray-600 mt-3 text-sm leading-relaxed">
+                        Bien qu'aucune preuve officielle ne soit demandée, tous les cours sont dispensés en Anglais. Un
+                        niveau B1 est recommandé pour garantir une participation active et un apprentissage optimal.
+                    </p>
+                </details>
+                <!-- FAQ 2: Repas -->
+                <details class="group bg-gray-50 p-4 rounded-xl cursor-pointer hover-card">
+                    <summary data-i18n="faq_q2"
+                        class="font-bold text-sea-main list-none flex justify-between items-center">
+                        Les participants cuisinent-ils leurs propres repas ?
+                        <span class="transition group-open:rotate-180">▼</span>
+                    </summary>
+                    <p data-i18n="faq_a2" class="text-gray-600 mt-3 text-sm leading-relaxed">
+                        Les repas principaux (petit-déjeuner, déjeuner, dîner) sont servis sous forme de buffet.
+                        Cependant, pendant les cours pratiques du matin, vous cuisinerez activement et dégusterez vos
+                        propres créations culinaires.
+                    </p>
+                </details>
+                <!-- FAQ 3: Professionnalisme -->
+                <details class="group bg-gray-50 p-4 rounded-xl cursor-pointer hover-card">
+                    <summary data-i18n="faq_q3"
+                        class="font-bold text-sea-main list-none flex justify-between items-center">
+                        Ce programme est-il une formation professionnelle certifiante ?
+                        <span class="transition group-open:rotate-180">▼</span>
+                    </summary>
+                    <p data-i18n="faq_a3" class="mt-3 text-gray-600 text-sm leading-relaxed">
+                        Ce programme est une introduction intensive et de niveau académique (délivré par les professeurs
+                        de niveau Bachelor/Master de la CAA), idéale pour les futurs étudiants. Un certificat de
+                        présence est remis à la fin.
+                    </p>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer / Contact (Dark Style) -->
+    <section id="contact" class="py-24 bg-gray-900 text-white">
+        <div class="container mx-auto px-6 text-center max-w-4xl">
+            <h2 data-i18n="cta_title" class="text-4xl md:text-5xl font-black mb-6 tracking-tight">Prêt à Lancer Votre
+                Carrière ?</h2>
+            <p data-i18n="cta_sub" class="text-xl text-gray-400 mb-10 font-light">Réservez votre immersion culinaire sur
+                le campus de la Culinary Arts Academy.</p>
+
+            <!-- CTA Final: "Demander la Brochure" -->
+            <a href="mailto:benjamin.egretaud@sherpaliving.mx" data-i18n="cta_principal"
+                class="inline-block px-10 py-4 text-lg font-bold bg-sea-accent text-white rounded-full hover:bg-sky-500 transition transform hover:scale-105 shadow-lg mb-12">
+                Contacter pour réserver
+            </a>
+
+            <!-- Modification 3: Mise à jour du contact -->
+            <div
+                class="flex flex-col md:flex-row justify-center gap-12 border-t border-gray-800 pt-12 text-sm text-gray-400">
+                <div>
+                    <h5 class="text-white font-bold mb-2 uppercase tracking-wider">Email</h5>
+                    <a href="mailto:benjamin.egretaud@sherpaliving.mx"
+                        class="hover:text-white transition">benjamin.egretaud@sherpaliving.mx</a>
+                </div>
+                <div>
+                    <h5 class="text-white font-bold mb-2 uppercase tracking-wider">Lieu</h5>
+                    <p>Le Bouveret, Suisse</p>
+                </div>
+            </div>
+
+            <div class="mt-12 text-xs text-gray-600">
+                <span data-i18n="footer_text_1">&copy; 2026 Swiss Education Academy (SEA).</span> | <span
+                    data-i18n="footer_text_2">Membre du Swiss Education Group.</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- LOGIQUE JAVASCRIPT -->
+    <script>
+        // --- LOGIQUE DE TRADUCTION ---
+        const translations = {
+            fr: {
+                nav_cta: "Découvrir",
+                header_tagline: "Immersion dans les Arts Culinaires & Pâtissiers",
+                header_title: "SEA Culinary Excellence",
+                header_age_prefix: "Pour aspirants Chefs de",
+                cta_principal: "Contacter pour réserver",
+                cta_prices: "Voir les Tarifs",
+                carousel_cta: "Découvrir les Cours",
+                desc_title: "Une Aventure Culinaire au Sein d'une Académie de Renom",
+                desc_p1: "Situé sur le campus de la Culinary Arts Academy (CAA) au Bouveret, offrant des cuisines de démonstration ultramodernas et un cadre magnifique au bord du Lac Léman.",
+                desc_p2: "Le programme est une immersion complète, avec des cours théoriques et pratiques intensifs, axés sur la Cuisine Mondiale, Européenne ou la Pâtisserie et le Chocolat.",
+                desc_p3: "Les cours sont donnés par les chefs instructeurs des Bachelor/Master de la CAA, garantissant une éducation culinaire de classe mondiale.",
+                morn_title: "Cours Pratiques",
+                morn_desc: "Chaque semaine, choisissez un thème culinaire. 4 jours intensifs + 1 jour d'excursion.",
+                morn_l3: "Enseigné en Anglais (B1 recommandé)",
+                aft_title: "Excursions & Fun",
+                aft_desc: "Le Mercredi est dédié aux excursions. Soirées à thème sur le campus.",
+                aft_l1: "Découvertes régionales, Lac Léman et Alpes.",
+                aft_l2: "Casino, karaoké, sports, jeux, Olympiades.",
+                facility_title: "Cuisines Professionnelles",
+                facility_desc: "Les cours ont lieu dans les toutes nouvelles cuisines de démonstration de la Culinary Arts Academy.",
+                loc_title: "Le Bouveret : Campus au Bord du Lac",
+                loc_sub_bouveret: "Campus Culinary Arts Academy",
+                loc_p1: "Situé au bord du Lac Léman, environnement calme et inspirant.",
+                acc_sub_room: "Hébergement & Repas",
+                acc_p1: "Chambres doubles standard (inclus). Pension complète style buffet. Nettoyage hebdomadaire.",
+                incl_title: "Tarifs 2026",
+                incl_sub: "Les cours sont vendus par semaine (Tuition) et peuvent être combinés.",
+                incl_h_title: "Tarif (Base)",
+                price_1_week: "CHF 2350 (1 semaine)",
+                price_2_weeks: "CHF 4600 (2 semaines)",
+                incl_l3: "Hébergement Standard & Pension Complète",
+                incl_l5: "Excursions régionales & Soirées",
+                incl_l6: "Certificat Culinaire",
+                incl_l7: "Frais d'inscription inclus",
+                excl_h_title: "Options & Suppléments",
+                excl_l1: "Transfert Aéroport (Trajet)",
+                excl_l2: "Assurance (obligatoire)",
+                excl_l3: "Chambre Simple Standard",
+                faq_title: "Questions Fréquentes",
+                // FAQ améliorées
+                faq_q1: "Quel niveau d'Anglais est requis pour participer ?",
+                faq_a1: "Bien qu'aucune preuve officielle ne soit demandée, tous les cours sont dispensés en Anglais. Un niveau B1 est recommandé pour garantir une participation active et un apprentissage optimal.",
+                faq_q2: "Les participants cuisinent-ils leurs propres repas ?",
+                faq_a2: "Les repas principaux (petit-déjeuner, déjeuner, dîner) sont servis sous forme de buffet. Cependant, pendant les cours pratiques du matin, vous cuisinerez activement et dégusterez vos propres créations culinaires.",
+                faq_q3: "Ce programme est-il une formation professionnelle certifiante ?",
+                faq_a3: "Ce programme est une introduction intensive et de niveau académique (délivré par les professeurs de niveau Bachelor/Master de la CAA), idéale pour les futurs étudiants. Un certificat de présence est remis à la fin.",
+                cta_title: "Prêt à Lancer Votre Carrière ?",
+                cta_sub: "Réservez votre immersion culinaire sur le campus de la Culinary Arts Academy.",
+                cta_button: "Demander la Brochure",
+                contact_title: "Contactez-nous pour les tarifs et la brochure complète :",
+                footer_text_1: "© 2026 Swiss Education Academy (SEA).",
+                footer_text_2: "Membre du Swiss Education Group.",
+            },
+            en: {
+                nav_cta: "Discover",
+                header_tagline: "Immersion in Culinary & Pastry Arts",
+                header_title: "SEA Culinary Excellence",
+                header_age_prefix: "For aspiring Chefs aged",
+                cta_principal: "Contact to Book",
+                cta_prices: "View Prices",
+                carousel_cta: "Discover Courses",
+                desc_title: "A Culinary Adventure at a Renowned Academy",
+                desc_p1: "Located at Culinary Arts Academy (CAA) in Le Bouveret, offering ultra-modern demonstration kitchens by Lake Geneva.",
+                desc_p2: "Complete immersion with intensive practical/theory classes in World Cuisine, European Cuisine, or Pastry and Chocolate.",
+                desc_p3: "Taught by CAA Bachelor/Master Chef Instructors, ensuring world-class culinary education.",
+                morn_title: "Practical Courses",
+                morn_desc: "Choose a culinary theme weekly. 4 intensive days + 1 excursion day.",
+                morn_l3: "Taught in English (B1 recommended)",
+                aft_title: "Excursions & Fun",
+                aft_desc: "Wednesday is for excursions. Themed evenings on campus.",
+                aft_l1: "Regional discoveries, Lake Geneva, Alps.",
+                aft_l2: "Casino, karaoke, sports, games, Olympics.",
+                facility_title: "Professional Kitchens",
+                facility_desc: "Classes held in brand new demonstration kitchens at Culinary Arts Academy.",
+                loc_title: "Le Bouveret: Lakeside Campus",
+                loc_sub_bouveret: "Culinary Arts Academy Campus",
+                loc_p1: "Located on Lake Geneva, quiet and inspiring environment.",
+                acc_sub_room: "Accommodation & Meals",
+                acc_p1: "Standard double rooms (included). Full board buffet. Weekly cleaning.",
+                incl_title: "2026 Prices",
+                incl_sub: "Courses sold per week (Tuition) and can be combined.",
+                incl_h_title: "Included (Base)",
+                price_1_week: "CHF 2350 (1 Week)",
+                price_2_weeks: "CHF 4600 (2 Weeks)",
+                incl_l3: "Standard Accommodation & Full Board",
+                incl_l5: "Excursions & Evenings",
+                incl_l6: "Culinary Certificate",
+                incl_l7: "One-time Enrollment Fee (CHF 125)",
+                excl_h_title: "Options & Supplements",
+                excl_l1: "Airport Transfer (One way)",
+                excl_l2: "Insurance (mandatory)",
+                excl_l3: "Standard Single Room",
+                faq_title: "Frequently Asked Questions",
+                faq_q1: "What level of English is required to participate?",
+                faq_a1: "While no official proof is required, all classes are taught in English. A B1 level is recommended to ensure active participation and optimal learning.",
+                faq_q2: "Do participants cook their own meals?",
+                faq_a2: "Main meals (breakfast, lunch, dinner) are served buffet style. However, during morning practical classes, you will actively cook and taste your own culinary creations.",
+                faq_q3: "Is this program a professional certification?",
+                faq_a3: "This program is an intensive, academic-level introduction (delivered by CAA Bachelor/Master level professors), ideal for future students. A certificate of attendance is awarded at the end.",
+                cta_title: "Ready to Launch Your Career?",
+                cta_sub: "Book your culinary immersion at the Culinary Arts Academy campus.",
+                cta_button: "Request Brochure",
+                contact_title: "Contact us for rates and the full brochure:",
+                footer_text_1: "© 2026 Swiss Education Academy (SEA).",
+                footer_text_2: "Member of Swiss Education Group.",
+            },
+            es: {
+                nav_cta: "Descubrir",
+                header_tagline: "Inmersión en Artes Culinarias",
+                header_title: "SEA Culinary Excellence",
+                header_age_prefix: "Para aspirantes a Chef de",
+                cta_principal: "Contactar para Reservar",
+                cta_prices: "Ver Precios",
+                carousel_cta: "Descubrir Cursos",
+                desc_title: "Aventura Culinaria en Academia de Renombre",
+                desc_p1: "Ubicado en el campus de Culinary Arts Academy (CAA) en Le Bouveret, con cocinas de demostración ultramodernas junto al Lago Lemán.",
+                desc_p2: "Inmersión completa con clases intensivas prácticas/teóricas en Cocina Mundial, Europea o Pastelería y Chocolate.",
+                desc_p3: "Impartido por Chefs Instructores de CAA, garantizando educación culinaria de clase mundial.",
+                morn_title: "Cursos Prácticos",
+                morn_desc: "Elija un tema culinario semanalmente. 4 días intensivos + 1 día de excursión.",
+                morn_l3: "En Inglés (B1 recomendado)",
+                aft_title: "Excursiones y Diversión",
+                aft_desc: "El miércoles es para excursiones. Noches temáticas en el campus.",
+                aft_l1: "Descubrimientos regionales, Lago Lemán y Alpes.",
+                aft_l2: "Casino, karaoke, deportes, juegos, Olimpiadas.",
+                facility_title: "Cocinas Profesionales",
+                facility_desc: "Clases en las nuevas cocinas de demostración de Culinary Arts Academy.",
+                loc_title: "Le Bouveret: Campus en el Lago",
+                loc_sub_bouveret: "Campus Culinary Arts Academy",
+                loc_p1: "Ubicado en el Lago Lemán, ambiente tranquilo e inspirador.",
+                acc_sub_room: "Alojamiento y Comidas",
+                acc_p1: "Habitaciones dobles estándar (incluidas). Pensión completa tipo buffet. Limpieza semanal.",
+                incl_title: "Precios 2026",
+                incl_sub: "Los cursos se venden por semana (Matrícula) y se pueden combinar.",
+                incl_h_title: "Incluido (Base)",
+                price_1_week: "CHF 2350 (1 semana)",
+                price_2_weeks: "CHF 4600 (2 semanas)",
+                incl_l3: "Alojamiento Estándar y Pensión Completa",
+                incl_l5: "Excursions Regionales y Noches",
+                incl_l6: "Certificado Culinario",
+                incl_l7: "Tarifa de Inscripción única (CHF 125)",
+                excl_h_title: "Opciones y Suplementos",
+                excl_l1: "Traslado al Aeropuerto (Un trayecto)",
+                excl_l2: "Seguro (obligatorio)",
+                excl_l3: "Habitación Individual Estándar",
+                faq_title: "Preguntas Frecuentes",
+                faq_q1: "¿Qué nivel de Inglés se requiere para participar?",
+                faq_a1: "Aunque no se requiere prueba oficial, todas las clases se imparten en inglés. Se recomienda un nivel B1 para garantizar una participación activa y un aprendizaje óptimo.",
+                faq_q2: "¿Los participantes cocinan sus propias comidas?",
+                faq_a2: "Las comidas principales (desayuno, almuerzo, cena) se sirven estilo buffet. Sin embargo, durante las clases prácticas de la mañana, cocinará activamente y probará sus propias creaciones culinarias.",
+                faq_q3: "¿Es este programa una certificación profesional?",
+                faq_a3: "Este programa es una introducción intensiva y de nivel académico (impartido por profesores de nivel Licenciatura/Maestría de la CAA), ideal para futuros estudiantes. Se otorga un certificado de asistencia al final.",
+                cta_title: "¿Listo para Lanzar tu Carrera?",
+                cta_sub: "Reserve su inmersión culinaria en el campus de la Culinary Arts Academy.",
+                cta_button: "Solicitar Folleto",
+                contact_title: "Contáctenos para tarifas y el folleto completo:",
+                footer_text_1: "© 2026 Swiss Education Academy (SEA).",
+                footer_text_2: "Miembro del Swiss Education Group.",
+            },
+        };
+
+        function setLanguage(lang) {
+            const elements = document.querySelectorAll('[data-i18n]');
+            if (!translations[lang]) {
+                console.error(`Langue non supportée: ${lang}`);
+                return;
+            }
+
+            elements.forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                let translation = translations[lang][key];
+
+                if (translation) {
+                    // Pour les textes qui contiennent du HTML
+                    if (element.tagName === 'P' || element.tagName === 'H1' || element.tagName === 'H2' || element.tagName === 'H3' || element.tagName === 'H4' || element.tagName === 'SPAN') {
+                        element.innerHTML = translation;
+                    } else {
+                        element.textContent = translation;
+                    }
+                }
+            });
+            document.documentElement.setAttribute('lang', lang);
+        }
+
+        // --- CARROUSEL ---
+        let currentSlide = 0;
+        let slides;
+        let totalSlides = 0;
+        let carouselInterval;
+
+        function showSlide(n) {
+            slides = document.querySelectorAll('.carousel-img');
+            if (!slides || slides.length === 0) return;
+
+            totalSlides = slides.length;
+
+            if (n < 0) n = totalSlides - 1;
+            if (n >= totalSlides) n = 0;
+            currentSlide = n;
+
+            slides.forEach((slide, index) => {
+                slide.style.opacity = index === n ? '1' : '0';
+            });
+        }
+
+        function nextSlide() {
+            showSlide((currentSlide + 1) % totalSlides);
+        }
+
+        function initCarousel() {
+            slides = document.querySelectorAll('.carousel-img');
+            totalSlides = slides.length;
+
+            if (totalSlides > 0) {
+                showSlide(0);
+                clearInterval(carouselInterval);
+                carouselInterval = setInterval(nextSlide, 5000); // Change image every 5 seconds
+            }
+        }
+
+        window.onload = function () {
+            initCarousel();
+
+            const storedLang = localStorage.getItem('siteLang') || 'fr';
+            const switcher = document.getElementById('language-switcher');
+            if (switcher) {
+                switcher.value = storedLang;
+            }
+            setLanguage(storedLang);
+
+            if (switcher) {
+                switcher.addEventListener('change', (e) => {
+                    localStorage.setItem('siteLang', e.target.value);
+                });
+            }
+        };
+    </script>
+</body>
+
+</html>
