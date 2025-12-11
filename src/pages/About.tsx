@@ -5,9 +5,10 @@ import React from 'react';
 const FounderBio = ({ name, role, imageUrl, bio }) => (
   <div className="bg-white rounded-xl shadow-lg overflow-hidden max-w-sm mx-auto transform hover:scale-105 transition-transform duration-300">
     <img
-      className={`w-full h-64 object-cover ${name === 'Benjamin Egretaud'
-        ? 'object-[center_20%]' // CORRECTION: Une valeur < 50% remonte le cadrage pour voir le visage
-        : 'object-center'      // Position par défaut pour les autres
+      className={`w-full h-64 object-cover ${name === 'Benjamin Egretaud' ? 'object-[center_10%]' : // Lowered by 10%
+        name === 'Arturo Reyes' ? 'object-[center_30%]' :
+          name === 'Lennart Schwiersch' ? 'object-[center_45%]' :
+            'object-center'
         }`}
       src={imageUrl}
       alt={`Portrait of ${name}`}
@@ -33,7 +34,7 @@ const founders = [
   {
     name: 'Benjamin Egretaud',
     role: 'Co-Founder',
-    imageUrl: '/Images/benjamin.jpg', // Changed to use local image
+    imageUrl: '/Images/Benjamin_photo.jpeg', // Changed to use local image
     bio: 'Having experienced coming to Monterrey as an international student, I understood first hand a service like Sherpa Living was needed. The risk of falling victim to a scam can potentially ruin your entire semester when you are on a tight budget.\n\nHaving someone you can rely on, who understands your situation makes all the difference in the world, and that is what we want to be for upcoming students. Not just a housing service but a community who can welcome you and help you have the best semester of your life.'
   },
   {
@@ -41,6 +42,12 @@ const founders = [
     role: 'Partnerships Coordinator Germany',
     imageUrl: '/Images/lennart.png', // Placeholder, will fix if filename differs
     bio: 'A few years ago, I came to Monterrey for a semester abroad and had the time of my life. That\'s why I would like to make such kind of opportunities accessible to everyone.\n\nI am now utilizing these personal experiences and my connections in my home country of Germany to help as many young adults as possible fulfill their dream of going abroad with Sherpa Living.'
+  },
+  {
+    name: 'Arturo Reyes',
+    role: 'Partner',
+    imageUrl: '/Images/arturo.jpg',
+    bio: 'I have quite an international background after being in Canada, Norway, Australia and Spain and something that I learned in those places is that the international students need the services that Sherpa offers. That is why I’m really keen to start working with this amazing project and keep meeting amazing people and learning from other cultures.'
   }
 ];
 
