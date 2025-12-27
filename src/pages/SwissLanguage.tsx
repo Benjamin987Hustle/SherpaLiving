@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+
 import ProgramForm from '../components/ProgramForm';
+import Modal from '../components/Modal';
 
 const translations = {
     fr: {
@@ -197,6 +198,7 @@ const translations = {
 const SwissLanguage: React.FC = () => {
     const [lang, setLang] = useState<'fr' | 'en' | 'es'>('fr');
     const [currentSlide, setCurrentSlide] = useState(0);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const slides = [
         "Images/Image_SEA/sea_2.png",
@@ -252,10 +254,12 @@ const SwissLanguage: React.FC = () => {
                                 <option value="en">EN</option>
                                 <option value="es">ES</option>
                             </select>
-                            <a href="#programmes"
-                                className="hidden sm:inline-block px-6 py-2.5 bg-sea-accent text-white text-sm font-semibold rounded-full shadow-md hover:bg-sky-500 transition transform hover:-translate-y-0.5">
+                            <button
+                                onClick={() => setIsModalOpen(true)}
+                                className="hidden sm:inline-block px-6 py-2.5 bg-sea-accent text-white text-sm font-semibold rounded-full shadow-md hover:bg-sky-500 transition transform hover:-translate-y-0.5"
+                            >
                                 {t.nav_cta}
-                            </a>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -509,7 +513,7 @@ const SwissLanguage: React.FC = () => {
                 </div>
             </section>
 
-            {/* Footer / Contact (Dark Style) */}
+            {/* CTA Section */}
             <section id="contact" className="py-24 bg-gray-900 text-white">
                 <div className="container mx-auto px-6 max-w-5xl">
                     <div className="text-center mb-16">
@@ -517,15 +521,29 @@ const SwissLanguage: React.FC = () => {
                         <p className="text-xl text-gray-400 font-light">{t.cta_sub}</p>
                     </div>
 
-                    <div className="bg-white rounded-2xl shadow-2xl overflow-hidden p-1 text-gray-900">
-                        <ProgramForm programName="Swiss Language Club" lang={lang} />
-                    </div>
-
-                    <div className="mt-12 text-center text-xs text-gray-600">
-                        <span>{t.footer_text_1}</span> | <span>{t.footer_text_2}</span>
+                    <div className="text-center">
+                        <button
+                            onClick={() => setIsModalOpen(true)}
+                            className="bg-sea-main hover:bg-sea-accent text-white font-bold py-4 px-8 rounded-full text-lg transition duration-300 ease-in-out transform hover:scale-105 shadow-lg"
+                        >
+                            {t.cta_button}
+                        </button>
                     </div>
                 </div>
             </section>
+
+            {/* Footer / Contact (Dark Style) */}
+            {/* Contact Form Removed from Footer - Now in Modal */}
+            <div className="py-12 bg-gray-900 text-white text-center text-sm text-gray-400">
+                <p>{t.footer_text_1} {t.footer_text_2}</p>
+            </div>
+
+            {/* Modal */}
+            <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+                <div className="p-1">
+                    <ProgramForm programName="Swiss Language Club" lang={lang} />
+                </div>
+            </Modal>
         </div>
     );
 };

@@ -12,12 +12,19 @@ const ProgramForm: React.FC<ProgramFormProps> = ({ programName, lang }) => {
             subtitle: "Remplissez le formulaire ci-dessous pour en savoir plus sur ce programme.",
             fields: {
                 firstName: "Prénom",
-                lastName: "Nom",
+                lastName: "Nom de famille",
+                maternalLastName: "Nom de famille maternel",
+                dateOfBirth: "Date de naissance",
+                countryOfBirth: "Pays de naissance",
+                phone: "Teléfono (Whatsapp)", // Keeping consistent with image request
                 email: "Email",
-                phone: "Téléphone",
-                age: "Age de l'étudiant",
-                birthCountry: "Pays de naissance",
-                spokenLang: "Langue parlée",
+                age: "Age",
+                currentGrade: "Niveau scolaire actuel",
+                gradYear: "Année de fin d'études (Lycée)",
+                intakeYear: "Année d'entrée souhaitée",
+                languageLevel: "Niveau actuel en", // Dynamic suffix
+                source: "Comment avez-vous entendu parler de nous ?",
+                financialSupport: "Avez-vous besoin d'une aide financière ?",
                 motherTongue: "Langue maternelle",
             },
             cta: "Envoyer la Demande",
@@ -29,11 +36,18 @@ const ProgramForm: React.FC<ProgramFormProps> = ({ programName, lang }) => {
             fields: {
                 firstName: "First Name",
                 lastName: "Last Name",
+                maternalLastName: "Maternal Last Name",
+                dateOfBirth: "Date of Birth",
+                countryOfBirth: "Country of Birth",
+                phone: "Phone (Whatsapp)",
                 email: "Email",
-                phone: "Phone",
-                age: "Student's Age",
-                birthCountry: "Country of Birth",
-                spokenLang: "Spoken Language",
+                age: "Age",
+                currentGrade: "Current School Grade",
+                gradYear: "High School Graduation Year",
+                intakeYear: "Desired Intake Year",
+                languageLevel: "Current Level in",
+                source: "How did you hear about us?",
+                financialSupport: "Do you require financial support?",
                 motherTongue: "Mother Tongue",
             },
             cta: "Submit Request",
@@ -44,12 +58,19 @@ const ProgramForm: React.FC<ProgramFormProps> = ({ programName, lang }) => {
             subtitle: "Complete el formulario a continuación para obtener más información sobre este programa.",
             fields: {
                 firstName: "Nombre",
-                lastName: "Apellido",
+                lastName: "Apellido Paterno",
+                maternalLastName: "Apellido Materno",
+                dateOfBirth: "Fecha de Nacimiento",
+                countryOfBirth: "País de nacimiento",
+                phone: "Teléfono (Whatsapp)",
                 email: "Email",
-                phone: "Teléfono",
-                age: "Edad del estudiante",
-                birthCountry: "País de nacimiento",
-                spokenLang: "Idioma hablado",
+                age: "Edad",
+                currentGrade: "¿Qué grado escolar cursas acualmente?",
+                gradYear: "¿En que año planeas terminas la preparatoria?",
+                intakeYear: "¿Para que año te gustaría ingresar al curso?",
+                languageLevel: "¿Cuál es tu nivel actual en el idioma",
+                source: "¿Cómo te enteraste del programa?",
+                financialSupport: "¿Requieres algún apoyo financiero?",
                 motherTongue: "Lengua materna",
             },
             cta: "Enviar Solicitud",
@@ -60,10 +81,19 @@ const ProgramForm: React.FC<ProgramFormProps> = ({ programName, lang }) => {
     const content = t[lang];
     const [submitted, setSubmitted] = useState(false);
 
+    // Dynamic Target Language Logic
+    const getTargetLanguage = () => {
+        const lower = programName.toLowerCase();
+        if (lower.includes('german') || lower.includes('htw') || lower.includes('allemagne')) return lang === 'es' ? 'alemán' : lang === 'fr' ? 'allemand' : 'German';
+        if (lower.includes('italian') || lower.includes('trulli') || lower.includes('italie')) return lang === 'es' ? 'italiano' : lang === 'fr' ? 'italien' : 'Italian';
+        if (lower.includes('french') || lower.includes('leman') || lower.includes('suisse') || lower.includes('swiss')) return lang === 'es' ? 'francés' : lang === 'fr' ? 'français' : 'French';
+        return lang === 'es' ? 'inglés' : lang === 'fr' ? 'anglais' : 'English'; // Default
+    };
+
+    const targetLangLabel = getTargetLanguage();
+
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        // Here you would typically send data to a backend
-        // For now we simulate success
         setSubmitted(true);
         console.log(`Form submitted for ${programName}`);
     };
@@ -94,70 +124,175 @@ const ProgramForm: React.FC<ProgramFormProps> = ({ programName, lang }) => {
         );
     }
 
+    // Styles for inputs to match the image (Clean, rounded, white bg)
+    const inputClass = "w-full px-4 py-2.5 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-200 outline-none transition text-gray-700 bg-white shadow-sm";
+    const labelClass = "block text-sm font-medium text-gray-700 md:text-left mb-1 md:mb-0 pt-2"; // Pt-2 for alignment
+
     return (
-        <div className="bg-white p-8 md:p-10 rounded-2xl shadow-xl border border-gray-100">
-            <div className="text-center mb-10">
-                <h3 className="text-2xl font-bold text-gray-900 mb-3">{content.title}</h3>
-                <p className="text-gray-500">{content.subtitle}</p>
+        <div className="bg-white p-6 md:p-8 rounded-2xl shadow-none"> {/* Removed shadow/border to blend in modal better */}
+            <div className="text-center mb-8">
+                <h3 className="text-2xl font-bold text-gray-900 mb-2">{content.title}</h3>
+                <p className="text-gray-500 text-sm">{content.subtitle}</p>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid md:grid-cols-2 gap-6">
-                    <div>
-                        <label className="block text-sm font-semibold text-gray-700 mb-2">{content.fields.firstName}</label>
-                        <input type="text" required className="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition" />
-                    </div>
-                    <div>
-                        <label className="block text-sm font-semibold text-gray-700 mb-2">{content.fields.lastName}</label>
-                        <input type="text" required className="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition" />
+            <form onSubmit={handleSubmit} className="space-y-4">
+
+                {/* First Name */}
+                <div className="grid md:grid-cols-3 gap-2 md:gap-4 items-start">
+                    <label className={labelClass}>{content.fields.firstName}</label>
+                    <div className="md:col-span-2">
+                        <input type="text" required className={inputClass} />
                     </div>
                 </div>
 
-                <div className="grid md:grid-cols-2 gap-6">
-                    <div>
-                        <label className="block text-sm font-semibold text-gray-700 mb-2">{content.fields.email}</label>
-                        <input type="email" required className="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition" />
-                    </div>
-                    <div>
-                        <label className="block text-sm font-semibold text-gray-700 mb-2">{content.fields.phone}</label>
-                        <input type="tel" required className="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition" />
+                {/* Last Name (Paternal) */}
+                <div className="grid md:grid-cols-3 gap-2 md:gap-4 items-start">
+                    <label className={labelClass}>{content.fields.lastName}</label>
+                    <div className="md:col-span-2">
+                        <input type="text" required className={inputClass} />
                     </div>
                 </div>
 
-                <div className="grid md:grid-cols-2 gap-6">
-                    <div>
-                        <label className="block text-sm font-semibold text-gray-700 mb-2">{content.fields.age}</label>
-                        <input type="number" min="5" max="99" required className="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition" />
-                    </div>
-                    <div>
-                        <label className="block text-sm font-semibold text-gray-700 mb-2">{content.fields.birthCountry}</label>
-                        <input type="text" required className="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition" />
+                {/* Maternal Last Name */}
+                <div className="grid md:grid-cols-3 gap-2 md:gap-4 items-start">
+                    <label className={labelClass}>{content.fields.maternalLastName}</label>
+                    <div className="md:col-span-2">
+                        <input type="text" className={inputClass} />
                     </div>
                 </div>
 
-                <div className="grid md:grid-cols-2 gap-6">
-                    <div>
-                        <label className="block text-sm font-semibold text-gray-700 mb-2">{content.fields.spokenLang}</label>
-                        <input type="text" required className="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition" />
-                    </div>
-                    <div>
-                        <label className="block text-sm font-semibold text-gray-700 mb-2">{content.fields.motherTongue}</label>
-                        <input type="text" required className="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition" />
+                {/* Date of Birth */}
+                <div className="grid md:grid-cols-3 gap-2 md:gap-4 items-start">
+                    <label className={labelClass}>{content.fields.dateOfBirth}</label>
+                    <div className="md:col-span-2">
+                        <input type="date" required className={inputClass} placeholder="dd-MMM-yyyy" />
                     </div>
                 </div>
 
-                <button
-                    type="submit"
-                    className="w-full py-4 px-6 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold rounded-xl shadow-lg transform transition hover:-translate-y-0.5 focus:ring-4 focus:ring-blue-300"
-                >
-                    {content.cta}
-                </button>
+                {/* Country of Birth */}
+                <div className="grid md:grid-cols-3 gap-2 md:gap-4 items-start">
+                    <label className={labelClass}>{content.fields.countryOfBirth}</label>
+                    <div className="md:col-span-2">
+                        <select className={inputClass}>
+                            <option value="">- {lang === 'es' ? 'Seleccionar' : 'Select'} -</option>
+                            <option value="Mexico">Mexico</option>
+                            <option value="France">France</option>
+                            <option value="Germany">Germany</option>
+                            <option value="USA">USA</option>
+                            <option value="Canada">Canada</option>
+                            <option value="Switzerland">Switzerland</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                </div>
 
-                <p className="text-xs text-center text-gray-400 mt-4">
-                    {lang === 'fr' ? "Vos données sont sécurisées et ne seront jamais partagées." :
-                        lang === 'es' ? "Sus datos están seguros y nunca serán compartidos." :
-                            "Your data is secure and will never be shared."}
-                </p>
+                {/* Phone */}
+                <div className="grid md:grid-cols-3 gap-2 md:gap-4 items-start">
+                    <label className={labelClass}>{content.fields.phone}</label>
+                    <div className="md:col-span-2 relative">
+                        {/* Simple mockup for the flag part if needed, sticking to standard input for resilience */}
+                        <div className="flex">
+                            <span className="inline-flex items-center px-3 rounded-l-lg border border-r-0 border-gray-300 bg-gray-50 text-gray-500 text-sm">
+                                📞
+                            </span>
+                            <input type="tel" required className={`${inputClass} rounded-l-none`} placeholder="+1 555-555-5555" />
+                        </div>
+                    </div>
+                </div>
+
+                {/* Email */}
+                <div className="grid md:grid-cols-3 gap-2 md:gap-4 items-start">
+                    <label className={labelClass}>{content.fields.email}</label>
+                    <div className="md:col-span-2">
+                        <input type="email" required className={inputClass} />
+                    </div>
+                </div>
+
+                {/* Age */}
+                <div className="grid md:grid-cols-3 gap-2 md:gap-4 items-start">
+                    <label className={labelClass}>{content.fields.age}</label>
+                    <div className="md:col-span-2">
+                        <input type="number" min="5" max="99" required className={inputClass} placeholder="##" />
+                    </div>
+                </div>
+
+                {/* Current Grade */}
+                <div className="grid md:grid-cols-3 gap-2 md:gap-4 items-start">
+                    <label className={labelClass}>{content.fields.currentGrade}</label>
+                    <div className="md:col-span-2">
+                        <select className={inputClass}>
+                            <option value="">- {lang === 'es' ? 'Seleccionar' : 'Select'} -</option>
+                            <option value="9">Grade 9</option>
+                            <option value="10">Grade 10</option>
+                            <option value="11">Grade 11</option>
+                            <option value="12">Grade 12</option>
+                            <option value="graduated">Graduated</option>
+                        </select>
+                    </div>
+                </div>
+
+                {/* High School Grad Year */}
+                <div className="grid md:grid-cols-3 gap-2 md:gap-4 items-start">
+                    <label className={labelClass}>{content.fields.gradYear}</label>
+                    <div className="md:col-span-2">
+                        <input type="text" className={inputClass} placeholder="YYYY" />
+                    </div>
+                </div>
+
+                {/* Intake Year */}
+                <div className="grid md:grid-cols-3 gap-2 md:gap-4 items-start">
+                    <label className={labelClass}>{content.fields.intakeYear}</label>
+                    <div className="md:col-span-2">
+                        <input type="text" className={inputClass} placeholder="YYYY" />
+                    </div>
+                </div>
+
+                {/* Language Level */}
+                <div className="grid md:grid-cols-3 gap-2 md:gap-4 items-start">
+                    <label className={labelClass}>{content.fields.languageLevel} {targetLangLabel}?</label>
+                    <div className="md:col-span-2">
+                        <select className={inputClass}>
+                            <option value="">- {lang === 'es' ? 'Seleccionar' : 'Select'} -</option>
+                            <option value="A1">A1 (Beginner)</option>
+                            <option value="A2">A2 (Elementary)</option>
+                            <option value="B1">B1 (Intermediate)</option>
+                            <option value="B2">B2 (Upper Intermediate)</option>
+                            <option value="C1">C1 (Advanced)</option>
+                            <option value="C2">C2 (Proficient)</option>
+                            <option value="Native">Native</option>
+                        </select>
+                    </div>
+                </div>
+
+                {/* Source */}
+                <div className="grid md:grid-cols-3 gap-2 md:gap-4 items-start">
+                    <label className={labelClass}>{content.fields.source}</label>
+                    <div className="md:col-span-2">
+                        <input type="text" className={inputClass} />
+                    </div>
+                </div>
+
+                {/* Financial Support */}
+                <div className="grid md:grid-cols-3 gap-2 md:gap-4 items-start">
+                    <label className={labelClass}>{content.fields.financialSupport}</label>
+                    <div className="md:col-span-2">
+                        <input type="text" className={inputClass} placeholder={lang === 'es' ? 'Si/No' : 'Yes/No'} />
+                    </div>
+                </div>
+
+                <div className="pt-4">
+                    <button
+                        type="submit"
+                        className="w-full py-3.5 px-6 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg shadow-md transform transition hover:-translate-y-0.5"
+                    >
+                        {content.cta}
+                    </button>
+                    <p className="text-xs text-center text-gray-400 mt-4">
+                        {lang === 'fr' ? "Vos données sont sécurisées." :
+                            lang === 'es' ? "Sus datos están seguros." :
+                                "Your data is secure."}
+                    </p>
+                </div>
             </form>
         </div>
     );

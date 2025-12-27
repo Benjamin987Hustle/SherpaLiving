@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import ProgramForm from '../components/ProgramForm';
+import Modal from '../components/Modal';
 
 // --- TRANSLATIONS ---
 const translations = {
   fr: {
-    nav_cta: "S'inscrire",
+    nav_cta: "Découvrir",
     hero_title: "Étudiez en Allemagne avec Prep-for-Study",
     hero_subtitle: "Votre porte d'entrée vers une carrière d'ingénieur de classe mondiale",
     intro_title: "Qu'est-ce que Prep-for-Study ?",
@@ -45,7 +45,7 @@ const translations = {
     cta_button: "S'inscrire Maintenant"
   },
   en: {
-    nav_cta: "Apply Now",
+    nav_cta: "Discover",
     hero_title: "Study in Germany with Prep-for-Study",
     hero_subtitle: "Your Gateway to a World-Class Engineering Career",
     intro_title: "What is Prep-for-Study?",
@@ -85,7 +85,7 @@ const translations = {
     cta_button: "Register Now"
   },
   es: {
-    nav_cta: "Inscribirse",
+    nav_cta: "Descubrir",
     hero_title: "Estudia en Alemania con Prep-for-Study",
     hero_subtitle: "Tu Puerta de Entrada a una Carrera de Ingeniería de Clase Mundial",
     intro_title: "¿Qué es Prep-for-Study?",
@@ -204,6 +204,7 @@ const AccordionItem: React.FC<AccordionItemProps> = ({ title, icon, content }) =
 
 const HTW = () => {
   const [lang, setLang] = useState<'fr' | 'en' | 'es'>('fr');
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const t = translations[lang];
 
   useEffect(() => {
@@ -273,10 +274,12 @@ const HTW = () => {
               <option value="en">EN</option>
               <option value="es">ES</option>
             </select>
-            <a href="https://creatorapp.zohopublic.ca/sherpaliving/landlords-appartemnt/form-perma/Sherpa_Study/z0pTMgBkm3XVrpu4UfQKCnq8b9jks1WTnUR06C3R35QWBf3W4kZwe3sJGp1YDK8hEmkXqpkKB7EnhJnSQJWAT74Fbxb7a6qjvj9t" target="_blank" rel="noopener noreferrer"
-              className="hidden sm:inline-block px-6 py-2.5 bg-blue-600 text-white text-sm font-semibold rounded-full shadow-md hover:bg-blue-700 transition transform hover:-translate-y-0.5">
+            <button
+              onClick={() => setIsModalOpen(true)}
+              className="hidden sm:inline-block px-6 py-2.5 bg-blue-600 text-white text-sm font-semibold rounded-full shadow-md hover:bg-blue-700 transition transform hover:-translate-y-0.5"
+            >
               {t.nav_cta}
-            </a>
+            </button>
           </div>
         </div>
       </header>
@@ -359,15 +362,14 @@ const HTW = () => {
           ))}
         </div>
 
-        <div className="bg-white p-1 rounded-lg shadow-inner max-w-5xl mx-auto">
-          <div className="text-center mb-10 pt-10 px-6">
-            <h2 className="text-3xl font-bold mb-4 text-gray-800">{t.cta_title}</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">{t.cta_desc}</p>
+        {/* Contact Form Removed from Footer - Now in Modal */}
+
+        {/* Modal */}
+        <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+          <div className="p-1">
+            <ProgramForm programName="HTW Saar" lang={lang} />
           </div>
-
-          <ProgramForm programName="HTW Saar Prep-for-Study" lang={lang} />
-        </div>
-
+        </Modal>
       </div>
     </div>
   );

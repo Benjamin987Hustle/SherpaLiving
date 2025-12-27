@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+
 import ProgramForm from '../components/ProgramForm';
+import Modal from '../components/Modal';
 
 // --- TRANSLATIONS (from trulli.html) ---
 const translations = {
     fr: {
-        nav_cta: "Contacter pour réserver",
+        nav_cta: "Découvrir",
         header_tagline: "Immersion Linguistique & Culturelle",
         header_title: "Votre Été 2026 en Puglia !",
         header_age_prefix: "Apprendre l'italien au cœur d'Alberobello (UNESCO) pour les",
@@ -64,7 +65,7 @@ const translations = {
         contact_address: "Viale Margherita 49, Alberobello (Bari)"
     },
     en: {
-        nav_cta: "Contact to Book",
+        nav_cta: "Discover",
         header_tagline: "Linguistic & Cultural Immersion",
         header_title: "Your Summer 2026 in Puglia!",
         header_age_prefix: "Learn Italian in the heart of Alberobello (UNESCO) for",
@@ -122,7 +123,7 @@ const translations = {
         contact_address: "Viale Margherita 49, Alberobello (Bari)"
     },
     es: {
-        nav_cta: "Contactar para Reservar",
+        nav_cta: "Descubrir",
         header_tagline: "Inmersión Lingüística y Cultural",
         header_title: "¡Tu Verano 2026 en Puglia!",
         header_age_prefix: "Aprende italiano en el corazón de Alberobello (UNESCO) para",
@@ -183,6 +184,7 @@ const translations = {
 
 const Trulli: React.FC = () => {
     const [lang, setLang] = useState<'fr' | 'en' | 'es'>('fr');
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     // Using a single background image from CSS in original, but could be a carousel.
     // The original code had a hero-bg class with a specific image.
@@ -233,10 +235,12 @@ const Trulli: React.FC = () => {
                                 <option value="en">EN</option>
                                 <option value="es">ES</option>
                             </select>
-                            <a href="#inscription"
-                                className="hidden sm:inline-block px-6 py-2.5 bg-trulli-main text-white text-sm font-semibold rounded-full shadow-md hover:bg-trulli-dark transition transform hover:-translate-y-0.5">
+                            <button
+                                onClick={() => setIsModalOpen(true)}
+                                className="hidden sm:inline-block px-6 py-2.5 bg-trulli-main text-white text-sm font-semibold rounded-full shadow-md hover:bg-trulli-dark transition transform hover:-translate-y-0.5"
+                            >
                                 {t.nav_cta}
-                            </a>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -515,22 +519,17 @@ const Trulli: React.FC = () => {
             </section>
 
             {/* Contact */}
-            <section id="inscription" className="py-24 bg-gray-900 text-white">
-                <div className="container mx-auto px-6 max-w-5xl">
-                    <div className="text-center mb-16">
-                        <h2 className="text-4xl md:text-5xl font-black mb-6 tracking-tight">{t.cta_title}</h2>
-                        <p className="text-xl text-gray-400 font-light">{t.cta_sub}</p>
-                    </div>
+            {/* Contact Form Removed from Footer - Now in Modal */}
+            <div className="py-12 bg-gray-900 text-white text-center text-xs text-gray-600">
+                <span>{t.footer_text_1}</span> <span>{t.footer_text_2}</span>
+            </div>
 
-                    <div className="bg-white rounded-2xl shadow-2xl overflow-hidden p-1 text-gray-900">
-                        <ProgramForm programName="Trulli Italian School" lang={lang} />
-                    </div>
-
-                    <div className="mt-12 text-center text-xs text-gray-600">
-                        <span>{t.footer_text_1}</span> <span>{t.footer_text_2}</span>
-                    </div>
+            {/* Modal */}
+            <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+                <div className="p-1">
+                    <ProgramForm programName="Trulli Italian School" lang={lang} />
                 </div>
-            </section>
+            </Modal>
         </div>
     );
 };

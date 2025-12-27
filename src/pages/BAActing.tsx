@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import ProgramForm from '../components/ProgramForm';
+import Modal from '../components/Modal';
 
 const BAActing: React.FC = () => {
     // Default to French as requested by user's language, but allow toggle
     const [lang, setLang] = useState<'fr' | 'en' | 'es'>('fr');
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const content = {
         fr: {
@@ -242,12 +243,12 @@ const BAActing: React.FC = () => {
                         >
                             {lang}
                         </button>
-                        <a
-                            href="#tarifs"
+                        <button
+                            onClick={() => setIsModalOpen(true)}
                             className="px-6 py-2.5 bg-purple-900 text-white text-sm font-bold rounded-full hover:bg-purple-800 transition"
                         >
                             {t.hero.cta_secondary}
-                        </a>
+                        </button>
                     </div>
                 </div>
             </nav>
@@ -403,26 +404,17 @@ const BAActing: React.FC = () => {
                 </div>
             </section>
 
-            {/* Contact Form */}
-            <section id="contact-form" className="py-24 bg-white">
-                <div className="container mx-auto px-6 max-w-4xl">
-                    <ProgramForm programName="BA Acting (RCS)" lang={lang} />
-                </div>
-            </section>
-
             {/* Footer */}
-            <footer className="bg-gray-900 text-gray-400 py-12 border-t border-gray-800">
-                <div className="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
-                    <div className="text-sm">
-                        &copy; 2025 Royal Conservatoire of Scotland.
-                    </div>
-                    <div className="flex gap-6 text-sm font-medium">
-                        <Link to="/" className="hover:text-white transition">Home</Link>
-                        <a href="#" className="hover:text-white transition">Privacy</a>
-                        <a href="#" className="hover:text-white transition">Cookies</a>
-                    </div>
+            <div className="py-12 bg-gray-900 text-white text-center text-sm text-gray-400">
+                <p>&copy; 2025 Royal Conservatoire of Scotland.</p>
+            </div>
+
+            {/* Modal */}
+            <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+                <div className="p-1">
+                    <ProgramForm programName="BA Acting" lang={lang} />
                 </div>
-            </footer>
+            </Modal>
         </div>
     );
 };

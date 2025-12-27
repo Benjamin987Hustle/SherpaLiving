@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import ProgramForm from '../components/ProgramForm';
+import Modal from '../components/Modal';
 
 // --- TRANSLATIONS ---
 const translations = {
     fr: {
-        nav_cta: "Contacter pour réserver",
+        nav_cta: "Découvrir",
         header_tagline: "Camp d'Été International à Genève",
         header_title: "Collège du Léman",
         header_title_sub: "Un Été Suisse Inoubliable",
@@ -35,7 +37,7 @@ const translations = {
         location_value: "Route de Sauverny 74, Versoix, Genève"
     },
     en: {
-        nav_cta: "Contact to Book",
+        nav_cta: "Discover",
         header_tagline: "International Summer Camp in Geneva",
         header_title: "Collège du Léman",
         header_title_sub: "An Unforgettable Swiss Summer",
@@ -67,7 +69,7 @@ const translations = {
         location_value: "Route de Sauverny 74, Versoix, Geneva"
     },
     es: {
-        nav_cta: "Contactar para Reservar",
+        nav_cta: "Descubrir",
         header_tagline: "Campamento de Verano Internacional en Ginebra",
         header_title: "Collège du Léman",
         header_title_sub: "Un Verano Suizo Inolvidable",
@@ -103,6 +105,7 @@ const translations = {
 const LemanSummerCamp: React.FC = () => {
     const [lang, setLang] = useState<'fr' | 'en' | 'es'>('fr');
     const [currentSlide, setCurrentSlide] = useState(0);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const slides = [
         "Images/Image_Leman/campus_leman_1.jpg",
@@ -161,10 +164,12 @@ const LemanSummerCamp: React.FC = () => {
                                 <option value="en">EN</option>
                                 <option value="es">ES</option>
                             </select>
-                            <a href="#contact"
-                                className="hidden sm:inline-block px-6 py-2.5 bg-cdl-red text-white text-sm font-semibold rounded-full shadow-md hover:bg-red-700 transition transform hover:-translate-y-0.5">
+                            <button
+                                onClick={() => setIsModalOpen(true)}
+                                className="hidden sm:inline-block px-6 py-2.5 bg-cdl-red text-white text-sm font-semibold rounded-full shadow-md hover:bg-red-700 transition transform hover:-translate-y-0.5"
+                            >
                                 {t.nav_cta}
-                            </a>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -374,23 +379,17 @@ const LemanSummerCamp: React.FC = () => {
             </section>
 
             {/* Footer / Contact (Dark Style) with Form */}
-            <section id="contact" className="py-24 bg-gray-900 text-white relative">
-                <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
-                <div className="container mx-auto px-6 max-w-5xl relative z-10">
-                    <div className="text-center mb-16">
-                        <h2 className="text-4xl md:text-5xl font-black mb-6 tracking-tight">{t.cta_title}</h2>
-                        <p className="text-xl text-gray-400 font-light">{t.cta_sub}</p>
-                    </div>
+            {/* Contact Form Removed from Footer - Now in Modal */}
+            <div className="py-12 bg-gray-900 text-white text-center text-sm text-gray-500">
+                <p>{t.footer_text_1} {t.footer_text_2}</p>
+            </div>
 
-                    <div className="bg-white rounded-2xl shadow-2xl overflow-hidden p-1">
-                        <ProgramForm programName="Leman Summer Camp" lang={lang} />
-                    </div>
-
-                    <div className="mt-16 text-center text-sm text-gray-500">
-                        <p>{t.footer_text_1} {t.footer_text_2}</p>
-                    </div>
+            {/* Modal */}
+            <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+                <div className="p-1">
+                    <ProgramForm programName="Leman Summer Camp" lang={lang} />
                 </div>
-            </section>
+            </Modal>
         </div>
     );
 };

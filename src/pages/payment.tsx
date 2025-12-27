@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 // 1. Définition des constantes de prix et de liens Stripe - MODIFIÉE pour les zones
 const BASE_FEE = 73;
@@ -80,8 +80,8 @@ const Payment: React.FC = () => {
                     <button
                         onClick={() => selectZone('tec')}
                         className={`p-4 rounded-xl border-2 font-semibold transition-all ${selectedZone === 'tec'
-                                ? 'border-sherpa-blue bg-blue-50 text-sherpa-blue'
-                                : 'border-gray-200 bg-white text-gray-700 hover:border-sherpa-blue'
+                            ? 'border-sherpa-blue bg-blue-50 text-sherpa-blue'
+                            : 'border-gray-200 bg-white text-gray-700 hover:border-sherpa-blue'
                             }`}
                     >
                         🏫 TEC Zone
@@ -89,8 +89,8 @@ const Payment: React.FC = () => {
                     <button
                         onClick={() => selectZone('udem')}
                         className={`p-4 rounded-xl border-2 font-semibold transition-all ${selectedZone === 'udem'
-                                ? 'border-sherpa-blue bg-blue-50 text-sherpa-blue'
-                                : 'border-gray-200 bg-white text-gray-700 hover:border-sherpa-blue'
+                            ? 'border-sherpa-blue bg-blue-50 text-sherpa-blue'
+                            : 'border-gray-200 bg-white text-gray-700 hover:border-sherpa-blue'
                             }`}
                     >
                         🏫 UDEM Zone

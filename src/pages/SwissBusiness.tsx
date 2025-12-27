@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+
 import ProgramForm from '../components/ProgramForm';
+import Modal from '../components/Modal';
 
 const translations = {
     fr: {
@@ -185,6 +186,7 @@ const translations = {
 const SwissBusiness: React.FC = () => {
     const [lang, setLang] = useState<'fr' | 'en' | 'es'>('fr');
     const [currentSlide, setCurrentSlide] = useState(0);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const slides = [
         "Images/Image_SEA/sea_buisness_1.jpg",
@@ -240,10 +242,12 @@ const SwissBusiness: React.FC = () => {
                                 <option value="en">EN</option>
                                 <option value="es">ES</option>
                             </select>
-                            <a href="#programmes"
-                                className="hidden sm:inline-block px-6 py-2.5 bg-sea-accent text-white text-sm font-semibold rounded-full shadow-md hover:bg-sky-500 transition transform hover:-translate-y-0.5">
+                            <button
+                                onClick={() => setIsModalOpen(true)}
+                                className="hidden sm:inline-block px-6 py-2.5 bg-sea-accent text-white text-sm font-semibold rounded-full shadow-md hover:bg-sky-500 transition transform hover:-translate-y-0.5"
+                            >
                                 {t.nav_cta}
-                            </a>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -510,17 +514,27 @@ const SwissBusiness: React.FC = () => {
                     <div className="text-center mb-16">
                         <h2 className="text-4xl md:text-5xl font-black mb-6 tracking-tight">{t.cta_title}</h2>
                         <p className="text-xl text-gray-400 font-light">{t.cta_sub}</p>
-                    </div>
-
-                    <div className="bg-white rounded-2xl shadow-2xl overflow-hidden p-1 text-gray-900">
-                        <ProgramForm programName="Swiss Business & Hospitality" lang={lang} />
-                    </div>
-
-                    <div className="mt-12 text-center text-xs text-gray-600">
-                        <span>{t.footer_text_1}</span> | <span>{t.footer_text_2}</span>
+                        <button
+                            onClick={() => setIsModalOpen(true)}
+                            className="mt-8 px-8 py-4 bg-sea-main text-white font-bold rounded-full shadow-lg hover:bg-sea-highlight transition duration-300 transform hover:scale-105"
+                        >
+                            {t.cta_button}
+                        </button>
                     </div>
                 </div>
             </section>
+
+            {/* Contact Form Removed from Footer - Now in Modal */}
+            <div className="py-12 bg-gray-900 text-white text-center text-sm text-gray-400">
+                <p>{t.footer_text_1} {t.footer_text_2}</p>
+            </div>
+
+            {/* Modal */}
+            <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+                <div className="p-1">
+                    <ProgramForm programName="Swiss Business and Hospitality Academy" lang={lang} />
+                </div>
+            </Modal>
         </div>
     );
 };
