@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import ProgramForm from '../components/ProgramForm';
 
 const translations = {
     fr: {
@@ -237,12 +239,7 @@ const SwissLanguage: React.FC = () => {
                     </div>
 
                     <div className="flex items-center gap-6">
-                        <nav className="hidden md:flex gap-6 text-sm font-medium text-gray-600">
-                            <a href="#programmes" className="hover:text-sea-main transition">Programmes</a>
-                            <a href="#location" className="hover:text-sea-main transition">Campus</a>
-                            <a href="#tarifs" className="hover:text-sea-main transition">Tarifs</a>
-                            <a href="#contact" className="hover:text-sea-main transition">Contact</a>
-                        </nav>
+
 
                         <div className="flex items-center gap-4">
                             <select
@@ -393,8 +390,8 @@ const SwissLanguage: React.FC = () => {
                 </div>
             </section>
 
-            {/* Location & Housing */}
-            <section id="location" className="py-24 bg-white">
+            {/* LOCATION (Campus) */}
+            <section id="campus" className="py-24 bg-white relative overflow-hidden">
                 <div className="container mx-auto px-6 max-w-6xl">
                     <div className="grid md:grid-cols-2 gap-12 items-center">
                         <div className="order-2 md:order-1">
@@ -514,28 +511,17 @@ const SwissLanguage: React.FC = () => {
 
             {/* Footer / Contact (Dark Style) */}
             <section id="contact" className="py-24 bg-gray-900 text-white">
-                <div className="container mx-auto px-6 text-center max-w-4xl">
-                    <h2 className="text-4xl md:text-5xl font-black mb-6 tracking-tight">{t.cta_title}</h2>
-                    <p className="text-xl text-gray-400 mb-10 font-light">{t.cta_sub}</p>
-
-                    <a href="mailto:benjamin.egretaud@sherpaliving.mx"
-                        className="inline-block px-10 py-4 text-lg font-bold bg-sea-accent text-white rounded-full hover:bg-sky-500 transition transform hover:scale-105 shadow-lg mb-12">
-                        {t.cta_principal}
-                    </a>
-
-                    <div className="flex flex-col md:flex-row justify-center gap-12 border-t border-gray-800 pt-12 text-sm text-gray-400">
-                        <div>
-                            <h5 className="text-white font-bold mb-2 uppercase tracking-wider">Email</h5>
-                            <a href="mailto:benjamin.egretaud@sherpaliving.mx"
-                                className="hover:text-white transition">benjamin.egretaud@sherpaliving.mx</a>
-                        </div>
-                        <div>
-                            <h5 className="text-white font-bold mb-2 uppercase tracking-wider">Lieu</h5>
-                            <p>Leysin, Suisse</p>
-                        </div>
+                <div className="container mx-auto px-6 max-w-5xl">
+                    <div className="text-center mb-16">
+                        <h2 className="text-4xl md:text-5xl font-black mb-6 tracking-tight">{t.cta_title}</h2>
+                        <p className="text-xl text-gray-400 font-light">{t.cta_sub}</p>
                     </div>
 
-                    <div className="mt-12 text-xs text-gray-600">
+                    <div className="bg-white rounded-2xl shadow-2xl overflow-hidden p-1 text-gray-900">
+                        <ProgramForm programName="Swiss Language Club" lang={lang} />
+                    </div>
+
+                    <div className="mt-12 text-center text-xs text-gray-600">
                         <span>{t.footer_text_1}</span> | <span>{t.footer_text_2}</span>
                     </div>
                 </div>

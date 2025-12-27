@@ -147,12 +147,7 @@ const LemanSummerCamp: React.FC = () => {
 
                     <div className="flex items-center gap-6">
                         {/* Desktop Nav */}
-                        <nav className="hidden md:flex gap-6 text-sm font-medium text-gray-600">
-                            <a href="#programme" className="hover:text-cdl-blue transition">Programme</a>
-                            <a href="#details" className="hover:text-cdl-blue transition">Détails</a>
-                            <a href="#tarifs" className="hover:text-cdl-blue transition">Tarifs</a>
-                            <a href="#contact" className="hover:text-cdl-blue transition">Contact</a>
-                        </nav>
+
 
                         {/* Language & CTA */}
                         <div className="flex items-center gap-4">
@@ -230,8 +225,8 @@ const LemanSummerCamp: React.FC = () => {
                 </div>
             </section>
 
-            {/* Value Proposition */}
-            <section id="programme" className="py-24 bg-white">
+            {/* Value Proposition - Mapped to Campus as it describes environment */}
+            <section id="campus" className="py-24 bg-white">
                 <div className="container mx-auto px-6 max-w-6xl">
                     <div className="text-center max-w-3xl mx-auto mb-16">
                         <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">{t.desc_title}</h2>
@@ -284,8 +279,8 @@ const LemanSummerCamp: React.FC = () => {
                 </div>
             </section>
 
-            {/* Detailed Program Section */}
-            <section id="details" className="py-24 bg-gray-50">
+            {/* Detailed Program Section - Mapped to Programmes */}
+            <section id="programmes" className="py-24 bg-gray-50">
                 <div className="container mx-auto px-6 max-w-6xl">
                     <h3 className="text-3xl md:text-4xl font-bold text-center mb-16 text-gray-900">
                         {t.details_title}
@@ -378,37 +373,21 @@ const LemanSummerCamp: React.FC = () => {
                 </div>
             </section>
 
-            {/* Footer / Contact (Dark Style) */}
-            <section id="contact" className="py-24 bg-gray-900 text-white">
-                <div className="container mx-auto px-6 text-center max-w-4xl">
-                    <h2 className="text-4xl md:text-5xl font-black mb-6 tracking-tight">{t.cta_title}</h2>
-                    <p className="text-xl text-gray-400 mb-10 font-light">{t.cta_sub}</p>
-
-                    <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-                        <a href="mailto:benjamin.egretaud@sherpaliving.mx"
-                            className="inline-block px-10 py-4 text-lg font-bold bg-cdl-red text-white rounded-full hover:bg-red-700 transition transform hover:scale-105 shadow-lg">
-                            {t.cta_contact}
-                        </a>
-                        <a href="#tarifs"
-                            className="inline-block px-10 py-4 text-lg font-bold border-2 border-white text-white rounded-full hover:bg-white hover:text-cdl-blue transition transform hover:scale-105 shadow-lg">
-                            {t.cta_prices}
-                        </a>
+            {/* Footer / Contact (Dark Style) with Form */}
+            <section id="contact" className="py-24 bg-gray-900 text-white relative">
+                <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
+                <div className="container mx-auto px-6 max-w-5xl relative z-10">
+                    <div className="text-center mb-16">
+                        <h2 className="text-4xl md:text-5xl font-black mb-6 tracking-tight">{t.cta_title}</h2>
+                        <p className="text-xl text-gray-400 font-light">{t.cta_sub}</p>
                     </div>
 
-                    <div className="flex flex-col md:flex-row justify-center gap-12 border-t border-gray-800 pt-12 text-sm text-gray-400">
-                        <div>
-                            <h5 className="text-white font-bold mb-2 uppercase tracking-wider">{t.email_label}</h5>
-                            <a href="mailto:benjamin.egretaud@sherpaliving.mx"
-                                className="hover:text-white transition">benjamin.egretaud@sherpaliving.mx</a>
-                        </div>
-                        <div>
-                            <h5 className="text-white font-bold mb-2 uppercase tracking-wider">{t.location_label}</h5>
-                            <p>{t.location_value}</p>
-                        </div>
+                    <div className="bg-white rounded-2xl shadow-2xl overflow-hidden p-1">
+                        <ProgramForm programName="Leman Summer Camp" lang={lang} />
                     </div>
 
-                    <div className="mt-12 text-xs text-gray-600">
-                        <span>{t.footer_text_1}</span> <span>{t.footer_text_2}</span>
+                    <div className="mt-16 text-center text-sm text-gray-500">
+                        <p>{t.footer_text_1} {t.footer_text_2}</p>
                     </div>
                 </div>
             </section>

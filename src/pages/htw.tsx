@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import ProgramForm from '../components/ProgramForm';
 
 // --- TRANSLATIONS ---
 const translations = {
@@ -126,7 +128,13 @@ const translations = {
 
 // --- Helper Components ---
 
-const Hero = ({ title, subtitle, imageUrl }) => (
+interface HeroProps {
+  title: string;
+  subtitle: string;
+  imageUrl: string;
+}
+
+const Hero: React.FC<HeroProps> = ({ title, subtitle, imageUrl }) => (
   <section className="relative text-center overflow-hidden bg-gray-800">
     <img
       src={imageUrl}
@@ -144,7 +152,13 @@ const Hero = ({ title, subtitle, imageUrl }) => (
   </section>
 );
 
-const BenefitCard = ({ icon, title, children }) => (
+interface BenefitCardProps {
+  icon: React.ReactNode;
+  title: string;
+  children: React.ReactNode;
+}
+
+const BenefitCard: React.FC<BenefitCardProps> = ({ icon, title, children }) => (
   <div className="bg-white p-6 rounded-lg shadow-lg text-center transform hover:scale-105 transition-transform duration-300">
     <div className="flex items-center justify-center h-12 w-12 rounded-full bg-blue-100 text-blue-600 mx-auto mb-4">
       {icon}
@@ -154,7 +168,13 @@ const BenefitCard = ({ icon, title, children }) => (
   </div>
 );
 
-const AccordionItem = ({ title, icon, content }) => {
+interface AccordionItemProps {
+  title: string;
+  icon: React.ReactNode;
+  content: string;
+}
+
+const AccordionItem: React.FC<AccordionItemProps> = ({ title, icon, content }) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <div className="mb-2 border border-gray-200 rounded-lg overflow-hidden shadow-sm">
@@ -273,7 +293,7 @@ const HTW = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
 
         {/* --- Sections --- */}
-        <div className="text-center mb-24">
+        <div id="programmes" className="text-center mb-24 pt-10">
           <h2 className="text-3xl md:text-4xl font-extrabold text-gray-800 mb-6">
             {t.intro_title}
           </h2>
@@ -304,7 +324,7 @@ const HTW = () => {
           </BenefitCard>
         </div>
 
-        <div className="text-center mb-16">
+        <div id="campus" className="text-center mb-16 pt-10">
           <h2 className="text-3xl font-bold text-gray-800">{t.opp_title}</h2>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-24">
@@ -332,24 +352,20 @@ const HTW = () => {
           </div>
         </div>
 
-        <div className="max-w-4xl mx-auto mb-24">
+        <div id="tarifs" className="max-w-4xl mx-auto mb-24 pt-10">
           <h2 className="text-3xl font-bold mb-8 text-center text-gray-800">{t.details_title}</h2>
           {programDetails.map((item, index) => (
             <AccordionItem key={index} {...item} />
           ))}
         </div>
 
-        <div className="text-center bg-white p-10 rounded-lg shadow-inner">
-          <h2 className="text-3xl font-bold mb-4 text-gray-800">{t.cta_title}</h2>
-          <p className="text-gray-600 max-w-2xl mx-auto mb-8">{t.cta_desc}</p>
-          <a
-            href='https://creatorapp.zohopublic.ca/sherpaliving/landlords-appartemnt/form-perma/Sherpa_Study/z0pTMgBkm3XVrpu4UfQKCnq8b9jks1WTnUR06C3R35QWBf3W4kZwe3sJGp1YDK8hEmkXqpkKB7EnhJnSQJWAT74Fbxb7a6qjvj9t'
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-10 rounded-full transition-transform transform hover:scale-105 duration-300 shadow-lg"
-          >
-            {t.cta_button}
-          </a>
+        <div className="bg-white p-1 rounded-lg shadow-inner max-w-5xl mx-auto">
+          <div className="text-center mb-10 pt-10 px-6">
+            <h2 className="text-3xl font-bold mb-4 text-gray-800">{t.cta_title}</h2>
+            <p className="text-gray-600 max-w-2xl mx-auto">{t.cta_desc}</p>
+          </div>
+
+          <ProgramForm programName="HTW Saar Prep-for-Study" lang={lang} />
         </div>
 
       </div>

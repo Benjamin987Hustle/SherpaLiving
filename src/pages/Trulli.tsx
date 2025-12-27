@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import ProgramForm from '../components/ProgramForm';
 
 // --- TRANSLATIONS (from trulli.html) ---
 const translations = {
@@ -218,12 +220,7 @@ const Trulli: React.FC = () => {
                     </div>
 
                     <div className="flex items-center gap-6">
-                        <nav className="hidden md:flex gap-6 text-sm font-medium text-gray-600">
-                            <a href="#programme" className="hover:text-trulli-main transition">Programme</a>
-                            <a href="#hebergement" className="hover:text-trulli-main transition">Hébergement</a>
-                            <a href="#tarifs" className="hover:text-trulli-main transition">Tarifs</a>
-                            <a href="#faq" className="hover:text-trulli-main transition">FAQ</a>
-                        </nav>
+
 
                         <div className="flex items-center gap-4">
                             <select
@@ -325,7 +322,7 @@ const Trulli: React.FC = () => {
             </section>
 
             {/* Programme Section */}
-            <section id="programme" className="py-24 bg-gray-50">
+            <section id="programmes" className="py-24 bg-gray-50">
                 <div className="container mx-auto px-6 max-w-6xl">
                     <div className="text-center mb-16">
                         <span className="text-trulli-main font-bold tracking-wider uppercase text-sm">Planning</span>
@@ -382,8 +379,8 @@ const Trulli: React.FC = () => {
                 </div>
             </section>
 
-            {/* Hébergement */}
-            <section id="hebergement" className="py-24 bg-white">
+            {/* Hébergement / Campus */}
+            <section id="campus" className="py-24 bg-white">
                 <div className="container mx-auto px-6 max-w-6xl">
                     <div className="flex flex-col md:flex-row items-center gap-12">
                         <div className="md:w-1/2 space-y-6">
@@ -519,28 +516,17 @@ const Trulli: React.FC = () => {
 
             {/* Contact */}
             <section id="inscription" className="py-24 bg-gray-900 text-white">
-                <div className="container mx-auto px-6 text-center max-w-4xl">
-                    <h2 className="text-4xl md:text-5xl font-black mb-6 tracking-tight">{t.cta_title}</h2>
-                    <p className="text-xl text-gray-400 mb-10 font-light">{t.cta_sub}</p>
-
-                    <a href={`mailto:${t.contact_email}`}
-                        className="inline-block px-10 py-4 text-lg font-bold bg-trulli-main text-white rounded-full hover:bg-trulli-dark transition transform hover:scale-105 shadow-lg mb-12">
-                        {t.cta_button}
-                    </a>
-
-                    <div className="flex flex-col md:flex-row justify-center gap-12 border-t border-gray-800 pt-12 text-sm text-gray-400">
-                        <div>
-                            <h5 className="text-white font-bold mb-2 uppercase tracking-wider">Email</h5>
-                            <a href={`mailto:${t.contact_email}`}
-                                className="hover:text-trulli-main transition">{t.contact_email}</a>
-                        </div>
-                        <div>
-                            <h5 className="text-white font-bold mb-2 uppercase tracking-wider">Adresse</h5>
-                            <p>{t.contact_address}</p>
-                        </div>
+                <div className="container mx-auto px-6 max-w-5xl">
+                    <div className="text-center mb-16">
+                        <h2 className="text-4xl md:text-5xl font-black mb-6 tracking-tight">{t.cta_title}</h2>
+                        <p className="text-xl text-gray-400 font-light">{t.cta_sub}</p>
                     </div>
 
-                    <div className="mt-12 text-xs text-gray-600">
+                    <div className="bg-white rounded-2xl shadow-2xl overflow-hidden p-1 text-gray-900">
+                        <ProgramForm programName="Trulli Italian School" lang={lang} />
+                    </div>
+
+                    <div className="mt-12 text-center text-xs text-gray-600">
                         <span>{t.footer_text_1}</span> <span>{t.footer_text_2}</span>
                     </div>
                 </div>

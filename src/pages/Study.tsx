@@ -72,6 +72,16 @@ const programs = [
     description: 'Discover the art of cooking with professional chefs. A tasty mix of culinary arts and Swiss adventures.',
     link: '/swiss-culinary',
     tags: ['Cooking', 'Culinary Arts', 'Chocolate']
+  },
+  {
+    id: 'ba-acting',
+    title: 'BA Acting (RCS)',
+    category: 'University',
+    location: 'UK',
+    image: '/Images/rcs_1.png',
+    description: 'Intensive acting training at the Royal Conservatoire of Scotland. Prepare for a career in theatre, screen, and radio.',
+    link: '/ba-acting',
+    tags: ['Acting', 'Drama', 'Conservatoire']
   }
 ];
 
@@ -137,7 +147,7 @@ const Study = () => {
   const [filterLocation, setFilterLocation] = useState('All');
 
   const categories = ['All', 'University', 'Camp', 'Language', 'Career'];
-  const locations = ['All', 'Switzerland', 'Germany', 'Italy'];
+  const locations = ['All', 'Switzerland', 'Germany', 'Italy', 'UK'];
 
   const filteredPrograms = programs.filter(program => {
     const matchCategory = filterCategory === 'All' || program.category === filterCategory || (filterCategory === 'Camp' && program.category === 'Summer Camp'); // Handle slight mapping diffs if any, but simplified here

@@ -14,6 +14,7 @@ import SwissBusiness from './pages/SwissBusiness';
 import SwissLanguage from './pages/SwissLanguage';
 import Trulli from './pages/Trulli';
 import HTW from './pages/htw';
+import BAActing from './pages/BAActing';
 
 
 function App() {
@@ -38,6 +39,7 @@ function App() {
         <Route path="/swiss-language" element={<SwissLanguage />} />
         <Route path="/trulli" element={<Trulli />} />
         <Route path="/htw" element={<HTW />} />
+        <Route path="/ba-acting" element={<BAActing />} />
       </Routes>
     </Router>
   );
