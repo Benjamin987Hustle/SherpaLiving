@@ -5,8 +5,8 @@ import React from 'react';
 const FounderBio = ({ name, role, imageUrl, bio }) => (
   <div className="bg-white rounded-xl shadow-lg overflow-hidden max-w-sm mx-auto transform hover:scale-105 transition-transform duration-300">
     <img
-      className={`w-full h-64 object-cover ${name === 'Benjamin Egretaud' ? 'object-[center_10%]' : // Lowered by 10%
-        name === 'Arturo Reyes' ? 'object-[center_30%]' :
+      className={`w-full h-64 object-cover ${name === 'Benjamin Egretaud' ? 'object-[center_50%]' : // Recenter to 50%
+        name === 'Mauricio Carrillo' ? 'object-[center_15%]' : // Recenter to 15%
           name === 'Lennart Schwiersch' ? 'object-[center_45%]' :
             'object-center'
         }`}
@@ -28,13 +28,13 @@ const founders = [
   {
     name: 'Mauricio Carrillo',
     role: 'Co-Founder',
-    imageUrl: '/Images/Mauricio.png', // Changed to use local image
+    imageUrl: '/Images/mauricio_v22.png', // Changed to use local image
     bio: 'After studying in Ireland, France, Australia and Germany, I understood: I\'m a traveler. Meeting people, going on adventures, and learning from different cultures have become my passion.\n\nFor the last 5 years, I\'ve helped thousands of international students from all around the world find a home in Mexico. Kindness goes a long way.'
   },
   {
     name: 'Benjamin Egretaud',
     role: 'Co-Founder',
-    imageUrl: '/Images/Benjamin_photo.jpeg', // Changed to use local image
+    imageUrl: '/Images/benjamin_v2.png', // Changed to use local image
     bio: 'Having experienced coming to Monterrey as an international student, I understood first hand a service like Sherpa Living was needed. The risk of falling victim to a scam can potentially ruin your entire semester when you are on a tight budget.\n\nHaving someone you can rely on, who understands your situation makes all the difference in the world, and that is what we want to be for upcoming students. Not just a housing service but a community who can welcome you and help you have the best semester of your life.'
   },
   {
@@ -42,19 +42,13 @@ const founders = [
     role: 'Partnerships Coordinator Germany',
     imageUrl: '/Images/lennart.png', // Placeholder, will fix if filename differs
     bio: 'A few years ago, I came to Monterrey for a semester abroad and had the time of my life. That\'s why I would like to make such kind of opportunities accessible to everyone.\n\nI am now utilizing these personal experiences and my connections in my home country of Germany to help as many young adults as possible fulfill their dream of going abroad with Sherpa Living.'
-  },
-  {
-    name: 'Arturo Reyes',
-    role: 'Partner',
-    imageUrl: '/Images/arturo.jpg',
-    bio: 'I have quite an international background after being in Canada, Norway, Australia and Spain and something that I learned in those places is that the international students need the services that Sherpa offers. That is why I’m really keen to start working with this amazing project and keep meeting amazing people and learning from other cultures.'
   }
 ];
 
 // --- Main About Page Component ---
 const AboutPage = () => {
   return (
-    <>
+    <div className="bg-[#FAFAFA] font-sans">
       {/* Hero Section */}
       <section className="relative text-center overflow-hidden">
         {/* IMPROVEMENT: The image is now in an <img> tag for better SEO and accessibility */}
@@ -172,7 +166,8 @@ const AboutPage = () => {
           ))}
         </div>
       </section>
-    </>
+    </div>
+
   );
 };
 
