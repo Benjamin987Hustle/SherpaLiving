@@ -7,8 +7,9 @@ const FounderBio = ({ name, role, imageUrl, bio }) => (
     <img
       className={`w-full h-64 object-cover ${name === 'Benjamin Egretaud' ? 'object-[center_50%]' : // Recenter to 50%
         name === 'Mauricio Carrillo' ? 'object-[center_15%]' : // Recenter to 15%
-          name === 'Lennart Schwiersch' ? 'object-[center_45%]' :
-            'object-center'
+          name === 'Arturo Reyes' ? 'object-[center_30%]' :
+            name === 'Lennart Schwiersch' ? 'object-[center_45%]' :
+              'object-center'
         }`}
       src={imageUrl}
       alt={`Portrait of ${name}`}
@@ -42,6 +43,12 @@ const founders = [
     role: 'Partnerships Coordinator Germany',
     imageUrl: '/Images/lennart.png', // Placeholder, will fix if filename differs
     bio: 'A few years ago, I came to Monterrey for a semester abroad and had the time of my life. That\'s why I would like to make such kind of opportunities accessible to everyone.\n\nI am now utilizing these personal experiences and my connections in my home country of Germany to help as many young adults as possible fulfill their dream of going abroad with Sherpa Living.'
+  },
+  {
+    name: 'Arturo Reyes',
+    role: 'Partner',
+    imageUrl: '/Images/arturo.jpg',
+    bio: 'I have quite an international background after being in Canada, Norway, Australia and Spain and something that I learned in those places is that the international students need the services that Sherpa offers. That is why I’m really keen to start working with this amazing project and keep meeting amazing people and learning from other cultures.'
   }
 ];
 

@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 // --- Data: Programs Configuration ---
+// --- Data: Programs Configuration ---
 const programs = [
   {
     id: 'htw',
     title: 'Prep-for-Study (HTW Saar)',
-    category: 'University',
+    category: 'Preparatory Course',
     location: 'Germany',
     image: '/Images/htw_saar.jpeg',
     description: 'Pathway to engineering degrees in Germany. 1 year preparation for seamless university entry.',
@@ -16,7 +17,7 @@ const programs = [
   {
     id: 'trulli',
     title: 'Trulli Italian School',
-    category: 'Language',
+    category: 'Language Camp',
     location: 'Italy',
     image: '/Images/Image_trulli/trulli_1.png',
     description: 'Immersive Italian language summer camp in the beautiful UNESCO town of Alberobello.',
@@ -26,7 +27,7 @@ const programs = [
   {
     id: 'swiss-language',
     title: 'Swiss Language Club',
-    category: 'Language',
+    category: 'Language Camp',
     location: 'Switzerland',
     image: '/Images/Image_SEA/sea_2.png',
     description: 'Learn French or English in the Swiss Alps. Adventure, sports, and language classes combined.',
@@ -36,7 +37,7 @@ const programs = [
   {
     id: 'swiss-business',
     title: 'Swiss Business & Hospitality',
-    category: 'Career',
+    category: 'Academic Camp',
     location: 'Switzerland',
     image: '/Images/Image_SEA/sea_buisness_1.jpg',
     description: 'Introduction to Hospitality and Business Management. Develop leadership skills in a premium setting.',
@@ -46,7 +47,7 @@ const programs = [
   {
     id: 'les-elfes',
     title: 'Les Elfes International',
-    category: 'Camp',
+    category: 'Summer Camp',
     location: 'Switzerland',
     image: '/Images/Images_Les_Elfes/elfes_musée.png', // Using one of the hero images
     description: 'World-renowned summer camps focusing on personal development, outdoor activities, and fun.',
@@ -56,7 +57,7 @@ const programs = [
   {
     id: 'leman',
     title: 'Léman Summer Camp',
-    category: 'Camp',
+    category: 'Summer Camp',
     location: 'Switzerland',
     image: '/Images/Image_Leman/campus_leman_1.jpg',
     description: 'Premium boarding school summer experience. Excellence in education and activities on Lake Geneva.',
@@ -66,7 +67,7 @@ const programs = [
   {
     id: 'swiss-culinary',
     title: 'Swiss Culinary Club',
-    category: 'Career',
+    category: 'Academic Camp',
     location: 'Switzerland',
     image: '/Images/Image_SEA/Sea_Culinary_2.png',
     description: 'Discover the art of cooking with professional chefs. A tasty mix of culinary arts and Swiss adventures.',
@@ -75,7 +76,7 @@ const programs = [
   },
   {
     id: 'ba-acting',
-    title: 'BA Acting (RCS)',
+    title: 'Royal Conservatoire of Scotland acting Class',
     category: 'University',
     location: 'UK',
     image: '/Images/rcs_1.png',
@@ -146,11 +147,11 @@ const Study = () => {
   const [filterCategory, setFilterCategory] = useState('All');
   const [filterLocation, setFilterLocation] = useState('All');
 
-  const categories = ['All', 'University', 'Camp', 'Language', 'Career'];
+  const categories = ['All', 'Summer Camp', 'Language Camp', 'Academic Camp', 'Preparatory Course', 'University'];
   const locations = ['All', 'Switzerland', 'Germany', 'Italy', 'UK'];
 
   const filteredPrograms = programs.filter(program => {
-    const matchCategory = filterCategory === 'All' || program.category === filterCategory || (filterCategory === 'Camp' && program.category === 'Summer Camp'); // Handle slight mapping diffs if any, but simplified here
+    const matchCategory = filterCategory === 'All' || program.category === filterCategory;
     const matchLocation = filterLocation === 'All' || program.location === filterLocation;
     return matchCategory && matchLocation;
   });

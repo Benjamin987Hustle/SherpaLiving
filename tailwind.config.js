@@ -32,6 +32,7 @@ export default {
       },
       fontFamily: {
         sans: ['Inter', 'sans-serif'],
+        serif: ['Inter', 'sans-serif'], // Forces Inter even when font-serif is used
       },
     },
   },
