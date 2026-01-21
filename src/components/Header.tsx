@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
-import { BookOpen, Building2, Users, Info } from 'lucide-react';
+import { BookOpen, Building2, Users, Info, Calendar } from 'lucide-react';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -11,6 +11,7 @@ const Header = () => {
   const navLinks = [
     { to: '/living', text: 'Living', icon: <Building2 className="h-5 w-5" /> },
     { to: '/study', text: 'Study', icon: <BookOpen className="h-5 w-5" /> },
+    { to: '/webinars', text: 'Webinars', icon: <Calendar className="h-5 w-5" /> },
     { to: '/work-with-us', text: 'Work With Us', icon: <Users className="h-5 w-5" /> },
     { to: '/about', text: 'About', icon: <Info className="h-5 w-5" /> },
   ];
@@ -38,8 +39,7 @@ const Header = () => {
                 key={link.to}
                 to={link.to}
                 className={({ isActive }) =>
-                  `flex items-center space-x-1 transition-colors ${
-                    isActive ? 'text-blue-600' : 'text-gray-600 hover:text-blue-600'
+                  `flex items-center space-x-1 transition-colors ${isActive ? 'text-blue-600' : 'text-gray-600 hover:text-blue-600'
                   }`
                 }
               >
@@ -77,8 +77,7 @@ const Header = () => {
               key={link.to}
               to={link.to}
               className={({ isActive }) =>
-                `flex items-center space-x-2 px-3 py-2 rounded-md text-base font-medium ${
-                  isActive ? 'bg-blue-50 text-blue-700' : 'text-gray-700 hover:bg-gray-100'
+                `flex items-center space-x-2 px-3 py-2 rounded-md text-base font-medium ${isActive ? 'bg-blue-50 text-blue-700' : 'text-gray-700 hover:bg-gray-100'
                 }`
               }
               onClick={() => setIsMenuOpen(false)}

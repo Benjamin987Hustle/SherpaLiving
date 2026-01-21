@@ -15,6 +15,7 @@ import SwissLanguage from './pages/SwissLanguage';
 import Trulli from './pages/Trulli';
 import HTW from './pages/htw';
 import BAActing from './pages/BAActing';
+import Webinars from './pages/Webinars';
 
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
           <Route path="/living" element={<Living />} />
           <Route path="/study" element={<Study />} />
           <Route path="/work-with-us" element={<WorkWithUs />} />
+          <Route path="/webinars" element={<Webinars />} />
           <Route path="/about" element={<About />} />
           <Route path="/payment" element={<Payment />} />
         </Route>

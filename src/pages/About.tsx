@@ -15,7 +15,7 @@ const FounderBio = ({ name, role, imageUrl, bio }) => (
       alt={`Portrait of ${name}`}
     />
     <div className="p-6">
-      <h3 className="text-2xl font-bold font-serif text-gray-800">{name}</h3>
+      <h3 className="text-2xl font-bold text-gray-800">{name}</h3>
       <p className="text-blue-600 font-semibold">{role}</p>
       {/* The 'whitespace-pre-wrap' class respects line breaks (\n) in your text */}
       <p className="mt-4 text-gray-600 whitespace-pre-wrap">{bio}</p>
@@ -68,7 +68,7 @@ const AboutPage = () => {
         <div className="absolute inset-0 bg-black opacity-50"></div>
 
         <div className="relative py-32 md:py-48 max-w-4xl mx-auto px-4">
-          <h1 className="text-5xl md:text-7xl font-extrabold font-serif text-white">
+          <h1 className="text-5xl md:text-7xl font-extrabold text-white">
             Your Home Away From Home
           </h1>
           <p className="mt-6 text-xl md:text-2xl text-gray-200">
@@ -81,7 +81,7 @@ const AboutPage = () => {
       <section className="py-20 px-6 md:px-8 bg-white">
         <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div className="text-gray-700">
-            <h2 className="text-4xl font-bold text-blue-800 mb-6 font-serif">Our Mission</h2>
+            <h2 className="text-4xl font-bold text-blue-800 mb-6">Our Mission</h2>
             <p className="mb-4 text-lg">
               After five years of helping thousands of students, our understanding of the unique challenges (language barriers, scam risks) has given us the experience to offer an integral service, tailored to your needs.
             </p>
@@ -112,7 +112,7 @@ const AboutPage = () => {
             />
           </div>
           <div className="text-gray-700 order-first md:order-last">
-            <h2 className="text-4xl font-bold text-blue-800 mb-6 font-serif">Our Journey</h2>
+            <h2 className="text-4xl font-bold text-blue-800 mb-6">Our Journey</h2>
             <p className="mb-4 text-lg">
               As travelers, we know that every departure is difficult, but the heart grows with every memory. Studying abroad is a transformative experience, but it comes with its share of challenges.
             </p>
@@ -126,7 +126,7 @@ const AboutPage = () => {
       {/* Values Section */}
       <section className="py-20 px-6 md:px-8 bg-white">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl font-extrabold text-center mb-16 font-serif text-gray-800">
+          <h2 className="text-4xl font-extrabold text-center mb-16 text-gray-800">
             Our Core Values
           </h2>
           {/* IMPROVEMENT: Using flexbox for better alignment and spacing */}
@@ -166,7 +166,7 @@ const AboutPage = () => {
 
       {/* Founders Section */}
       <section className="py-20 px-6 md:px-8 bg-gray-50">
-        <h2 className="text-4xl font-bold text-center mb-16 font-serif text-gray-800">Meet the teams</h2>
+        <h2 className="text-4xl font-bold text-center mb-16 text-gray-800">Meet the teams</h2>
         <div className="max-w-5xl mx-auto flex flex-wrap justify-center gap-12">
           {founders.map((founder, index) => (
             <FounderBio key={index} {...founder} />
