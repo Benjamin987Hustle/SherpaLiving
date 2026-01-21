@@ -130,8 +130,8 @@ const Webinars = () => {
             {/* Hero Section */}
             <div className="bg-blue-900 text-white py-20 px-4">
                 <div className="max-w-7xl mx-auto text-center">
-                    <h1 className="text-4xl md:text-5xl font-bold mb-6">Webinar Series 2026</h1>
-                    <p className="text-xl text-blue-100 max-w-2xl mx-auto">
+                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">Webinar Series 2026</h1>
+                    <p className="text-xl md:text-2xl text-blue-100 max-w-2xl mx-auto">
                         Acompáñanos en nuestra serie de webinars para planificar tu futuro en Europa.
                     </p>
                 </div>
