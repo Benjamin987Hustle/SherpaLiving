@@ -95,7 +95,7 @@ const Living = () => {
         imageUrl="https://images.unsplash.com/photo-1560185007-c5ca9d2c014d?auto=format&fit=crop&q=80"
       >
         <a
-          href="https://creatorapp.zohopublic.ca/sherpaliving/landlords-appartemnt/form-perma/Student_Request/pu2kVvQyaX16sFx9V07fUkPYKFF7rEUEUvO1x2tTxZDswbE38aP09AD7XVB3TE50AXatB4mf3pOeW0dUqP8NMy5nuQtrZzh7bUnq" // URL to navigate to
+          href="https://docs.google.com/forms/d/e/1FAIpQLSd7_VbhFjeiYRaFvkjtJ8On1YrCJn7vjZMQAfYQLn4PqnWpGw/viewform?usp=sharing&ouid=105176621558840408146"
           target="_blank" // Opens in a new tab
           rel="noopener noreferrer" // Security best practice for external links
           className="bg-blue-500 text-white font-bold py-2 px-6 rounded-lg shadow-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-50"
